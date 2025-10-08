@@ -12,19 +12,40 @@
     <main class="container py-4">
       <h1 data-i18n="calendar.title">Parish Calendar</h1>
       <p data-i18n="calendar.intro">Upcoming liturgies and events.</p>
-      <div class="mb-3">
+   <div class="mb-3">
   <div class="ratio ratio-16x9">
+    <!-- Swedish (default visible) -->
     <iframe
-      id="gcal"
-      data-base-src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm"
-      src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm"
-      style="border:0"
+      class="gcal-frame"
+      data-lang="sv"
+      src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=sv"
+      style="border:0; display:block;"
       frameborder="0"
       scrolling="no"
-      loading="lazy">
-    </iframe>
+      loading="lazy"></iframe>
+
+    <!-- English -->
+    <iframe
+      class="gcal-frame"
+      data-lang="en"
+      src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=en"
+      style="border:0; display:none;"
+      frameborder="0"
+      scrolling="no"
+      loading="lazy"></iframe>
+
+    <!-- Serbian -->
+    <iframe
+      class="gcal-frame"
+      data-lang="sr"
+      src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=sr"
+      style="border:0; display:none;"
+      frameborder="0"
+      scrolling="no"
+      loading="lazy"></iframe>
   </div>
 </div>
+
 
     </main>
 
@@ -32,71 +53,29 @@
 
    <script src="/assets/js/i18n.js"></script>
     <script src="/assets/js/include.js"></script>
-<script>
+
+    <script>
 (function () {
-  // Prefer saved language; then ?lang; then <html lang>; default sv
-  function currentLang() {
-    var ls = localStorage.getItem('lang');
-    if (ls) return ls;
-    var q = new URLSearchParams(location.search).get('lang');
-    if (q) return q;
-    return document.documentElement.lang || 'sv';
+  function getLang() {
+    return localStorage.getItem('lang') || document.documentElement.lang || 'sv';
   }
-
-  // Map to Google Calendar's 'hl' param
-  function gcLang(l) {
-    if (l === 'sr') return 'sr';
-    if (l === 'sv') return 'sv';
-    return 'en';
+  function showCalendar(lang) {
+    document.querySelectorAll('.gcal-frame').forEach(f => {
+      f.style.display = (f.getAttribute('data-lang') === lang) ? 'block' : 'none';
+    });
   }
-
-  function rebuildCalendar() {
-    var wrap = document.getElementById('gcal-wrap');
-    if (!wrap) return;
-
-    var base = wrap.getAttribute('data-base-src');
-    if (!base) return;
-
-    try {
-      var url = new URL(base);
-      url.searchParams.set('hl', gcLang(currentLang()));
-      url.searchParams.set('v', Date.now().toString()); // force reload
-
-      var ratio = wrap.querySelector('.ratio');
-      if (!ratio) return;
-
-      // Fully replace the iframe so it reloads with new language
-      ratio.innerHTML = '';
-      var iframe = document.createElement('iframe');
-      iframe.style.border = '0';
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('scrolling', 'no');
-      iframe.setAttribute('loading', 'lazy');
-      iframe.src = url.toString();
-      ratio.appendChild(iframe);
-    } catch (e) {
-      console.error('Calendar rebuild failed:', e);
-    }
-  }
-
-  // Rebuild once when the page is ready
+  // Initial show
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', rebuildCalendar);
+    document.addEventListener('DOMContentLoaded', () => showCalendar(getLang()));
   } else {
-    rebuildCalendar();
+    showCalendar(getLang());
   }
-
-  // Rebuild whenever the site language actually changes:
-  // 1) Listen to <html lang> attribute updates (i18n sets this)
-  var mo = new MutationObserver(rebuildCalendar);
-  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-
-  // 2) Also hook the i18n setter if present
+  // Switch on flag clicks via i18n
   if (window.__setLang) {
     const orig = window.__setLang;
-    window.__setLang = async function (lang) {
+    window.__setLang = async function(lang) {
       await orig(lang);
-      rebuildCalendar();
+      showCalendar(lang);
     };
   }
 })();
