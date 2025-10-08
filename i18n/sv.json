@@ -12,7 +12,10 @@
   "about.title": "Om församlingen",
   "about.intro": "Kort historia och uppdrag.",
   "services.title": "Gudstjänster och tider",
-  "services.intro": "Gudomlig liturgi, vesper, bikt."
+  "services.intro": "Gudomlig liturgi, vesper, bikt.",
+  "calendar.title": "Församlingskalender",
+  "calendar.intro": "Kommande liturgier och evenemang."
+
 
 }
 
