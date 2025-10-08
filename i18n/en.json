@@ -12,7 +12,10 @@
   "about.title": "About the Parish",
   "about.intro": "Brief history and mission.",
   "services.title": "Services & Schedule",
-  "services.intro": "Divine Liturgy times, Vespers, confession."
+  "services.intro": "Divine Liturgy times, Vespers, confession.",
+  "calendar.title": "Parish Calendar",
+  "calendar.intro": "Upcoming liturgies and events."
+
 
 }
 
