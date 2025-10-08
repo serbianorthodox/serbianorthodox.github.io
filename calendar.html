@@ -32,50 +32,59 @@
 
     <script src="/assets/js/i18n.js"></script>
     <script src="/assets/js/include.js"></script>
-    <script>
+    
+  <script>
 (function () {
-  function mapLang(lang) {
-    if (lang === 'sr') return 'sr';
-    if (lang === 'sv') return 'sv';
-    return 'en';
-  }
+  function mapLang(l) { return l === 'sr' ? 'sr' : (l === 'sv' ? 'sv' : 'en'); }
 
   function rebuildCalendar() {
+    var wrap = document.getElementById('gcal-wrap');
+    if (!wrap) return;
+
+    var base = wrap.getAttribute('data-base-src');
     var lang = document.documentElement.lang || localStorage.getItem('lang') || 'sv';
-    var iframe = document.getElementById('gcal');
-    if (!iframe) return;
-    var base = iframe.getAttribute('data-base-src') || iframe.src;
 
     try {
       var url = new URL(base);
       url.searchParams.set('hl', mapLang(lang));
-      // Force refresh so Google actually reloads the frame
-      url.searchParams.set('v', String(Date.now()));
+      url.searchParams.set('v', String(Date.now())); // cache bust
+
+      var ratio = wrap.querySelector('.ratio');
+      if (!ratio) return;
+
+      // Replace the iframe so it reloads with the new language
+      ratio.innerHTML = '';
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('style', 'border:0');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('scrolling', 'no');
+      iframe.setAttribute('loading', 'lazy');
       iframe.src = url.toString();
+      ratio.appendChild(iframe);
     } catch (e) {
       console.error('Calendar rebuild failed:', e);
     }
   }
 
-  // Run now
-  rebuildCalendar();
+  // Build once on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', rebuildCalendar);
+  } else {
+    rebuildCalendar();
+  }
 
-  // Also run whenever language changes
+  // Rebuild whenever site language changes
   if (window.__setLang) {
-    const originalSetLang = window.__setLang;
+    const orig = window.__setLang;
     window.__setLang = async function (lang) {
-      await originalSetLang(lang);
+      await orig(lang);
       rebuildCalendar();
     };
-  } else {
-    // Fallback: if __setLang isn't present for some reason
-    document.addEventListener('click', function (e) {
-      const btn = e.target.closest('[data-lang]');
-      if (btn) setTimeout(rebuildCalendar, 50);
-    });
   }
 })();
 </script>
+
+  
 
 
   </body>
