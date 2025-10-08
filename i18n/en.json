@@ -7,5 +7,9 @@
   "nav.contact": "Contact",
   "hero.title": "Welcome",
   "hero.lead": "Parish website in progress.",
-  "footer.copyright": "Serbian Orthodox Church in Sweden"
+  "footer.copyright": "Serbian Orthodox Church in Sweden",
+
+  "about.title": "About the Parish",
+  "about.intro": "Brief history and mission."
 }
+
