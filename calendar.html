@@ -34,38 +34,49 @@
     <script src="/assets/js/include.js"></script>
     <script>
 (function () {
-  function mapLangForGoogle(lang) {
+  function mapLang(lang) {
     if (lang === 'sr') return 'sr';
     if (lang === 'sv') return 'sv';
     return 'en';
   }
 
-  function updateCalendarLang() {
+  function rebuildCalendar() {
     var lang = document.documentElement.lang || localStorage.getItem('lang') || 'sv';
-    var iframe = document.querySelector('iframe[src*="calendar.google.com/calendar/embed"]');
+    var iframe = document.getElementById('gcal');
     if (!iframe) return;
+    var base = iframe.getAttribute('data-base-src') || iframe.src;
+
     try {
-      var url = new URL(iframe.src);
-      url.searchParams.set('hl', mapLangForGoogle(lang));
+      var url = new URL(base);
+      url.searchParams.set('hl', mapLang(lang));
+      // Force refresh so Google actually reloads the frame
+      url.searchParams.set('v', String(Date.now()));
       iframe.src = url.toString();
     } catch (e) {
-      console.error('Could not update calendar language', e);
+      console.error('Calendar rebuild failed:', e);
     }
   }
 
-  // run now
-  updateCalendarLang();
+  // Run now
+  rebuildCalendar();
 
-  // also run after language changes
+  // Also run whenever language changes
   if (window.__setLang) {
     const originalSetLang = window.__setLang;
     window.__setLang = async function (lang) {
       await originalSetLang(lang);
-      updateCalendarLang();
+      rebuildCalendar();
     };
+  } else {
+    // Fallback: if __setLang isn't present for some reason
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('[data-lang]');
+      if (btn) setTimeout(rebuildCalendar, 50);
+    });
   }
 })();
 </script>
+
 
   </body>
 </html>
