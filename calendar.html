@@ -30,5 +30,40 @@
 
     <script src="/assets/js/i18n.js"></script>
     <script src="/assets/js/include.js"></script>
+    <script>
+(function () {
+  function mapLangForGoogle(lang) {
+    if (lang === 'sr') return 'sr';
+    if (lang === 'sv') return 'sv';
+    return 'en';
+  }
+
+  function updateCalendarLang() {
+    var lang = document.documentElement.lang || localStorage.getItem('lang') || 'sv';
+    var iframe = document.querySelector('iframe[src*="calendar.google.com/calendar/embed"]');
+    if (!iframe) return;
+    try {
+      var url = new URL(iframe.src);
+      url.searchParams.set('hl', mapLangForGoogle(lang));
+      iframe.src = url.toString();
+    } catch (e) {
+      console.error('Could not update calendar language', e);
+    }
+  }
+
+  // run now
+  updateCalendarLang();
+
+  // also run after language changes
+  if (window.__setLang) {
+    const originalSetLang = window.__setLang;
+    window.__setLang = async function (lang) {
+      await originalSetLang(lang);
+      updateCalendarLang();
+    };
+  }
+})();
+</script>
+
   </body>
 </html>
