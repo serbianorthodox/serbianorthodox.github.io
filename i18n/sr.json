@@ -4,8 +4,8 @@
   "nav.about": "О нама",
   "nav.services": "Богослужења",
   "nav.calendar": "Календар",
+  "nav.news": "Вести",
   "nav.contact": "Контакт",
-"nav.news": "Вести",
 
   "hero.title": "Добро дошли",
   "hero.lead": "Парохијски сајт је у припреми.",
@@ -19,6 +19,11 @@
   "calendar.intro": "Предстојеће литургије и догађаји.",
   "calendar.subscribe.ics": "Претплата преко iCal (.ics)",
   "calendar.subscribe.help": "Apple Calendar: копирајте iCal линк. На iPhone/iPad: Settings → Calendar → Accounts → Add Subscribed Calendar.",
+
+  "news.title": "Вести и обавештења",
+  "news.intro": "Најновије вести из парохије.",
+  "news.sample.title": "Пример обавештења",
+  "news.sample.body": "Замените овај текст најновијом вешћу.",
 
   "contact.title": "Контакт",
   "contact.intro": "Ступите у контакт са парохијом.",
