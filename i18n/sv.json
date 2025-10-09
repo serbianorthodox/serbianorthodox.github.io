@@ -4,8 +4,8 @@
   "nav.about": "Om oss",
   "nav.services": "Gudstjänster",
   "nav.calendar": "Kalender",
+  "nav.news": "Nyheter",
   "nav.contact": "Kontakt",
-"nav.news": "Nyheter",
 
   "hero.title": "Välkommen",
   "hero.lead": "Församlingssidan håller på att byggas.",
@@ -19,6 +19,11 @@
   "calendar.intro": "Kommande liturgier och evenemang.",
   "calendar.subscribe.ics": "Prenumerera via iCal (.ics)",
   "calendar.subscribe.help": "Apple Kalender: kopiera iCal-länken. På iPhone/iPad: Inställningar → Kalender → Konton → Lägg till prenumererad kalender.",
+
+  "news.title": "Nyheter och meddelanden",
+  "news.intro": "Senaste uppdateringar från församlingen.",
+  "news.sample.title": "Exempelmeddelande",
+  "news.sample.body": "Byt ut denna text mot er senaste nyhet.",
 
   "contact.title": "Kontakt",
   "contact.intro": "Kontakta församlingen.",
