@@ -28,10 +28,22 @@
 
   "donations.title": "Донације",
   "donations.intro": "Подржите парохију једнократном или месечном донацијом.",
-  "donations.bank.title": "Банкарски трансфер",
-  "donations.bank.body": "Подаци о рачуну биће додати овде.",
-  "donations.mobile.title": "Мобилно плаћање",
-  "donations.mobile.body": "Swish / мобилни подаци биће додати овде.",
+
+  "donations.swish.title": "Swish (једнократно)",
+  "donations.swish.number.label": "Swish број:",
+  "donations.swish.number.value": "123 446 7320",
+  "donations.swish.note": "У пољу поруке упишите своје име.",
+
+  "donations.autogiro.title": "Месечна донација (Аутогио)",
+  "donations.bank.name.label": "Банка:",
+  "donations.bank.name.value": "Swedbank",
+  "donations.bank.account.label": "Број рачуна:",
+  "donations.bank.account.value": "83139-5142191286",
+  "donations.bank.ocr.label": "OCR / Референца:",
+  "donations.bank.ocr.value": "Ваше име (донатор)",
+  "donations.bank.amount": "Изаберите износ уплате.",
+  "donations.bank.note": "За редовна плаћања поставите Аутогио у вашој банци користећи наведене податке.",
+
   "donations.note": "Хвала што подржавате живот Цркве.",
 
   "contact.title": "Контакт",
