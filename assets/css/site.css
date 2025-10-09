@@ -1,0 +1,5 @@
+/* Brand title weight — pick one */
+.navbar-brand.brand-title { font-weight: 400; }  /* medium */
+@media (prefers-reduced-motion: no-preference) {
+  .navbar-brand.brand-title { transition: color .15s ease-in-out; }
+}
