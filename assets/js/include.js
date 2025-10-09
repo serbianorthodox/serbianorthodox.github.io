@@ -13,37 +13,39 @@ async function inject(selector, url) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // 1) Inject header & footer
   await inject('#include-header', '/partials/header.html');
   await inject('#include-footer', '/partials/footer.html');
 
-  // Pick language — prefer user's saved choice, then URL, then <html lang>, default 'sv'
-  const stored = (localStorage.getItem('lang') || '').toLowerCase();
+  // 2) Language: prefer saved -> URL -> <html lang> -> 'sv'
+  const stored  = (localStorage.getItem('lang') || '').toLowerCase();
   const urlLang = (new URLSearchParams(location.search).get('lang') || '').toLowerCase();
-  const htmlLang = (document.documentElement.lang || '').toLowerCase();
-  const lang = stored || urlLang || htmlLang || 'sv';
+  const htmlLang= (document.documentElement.lang || '').toLowerCase();
+  const lang    = stored || urlLang || htmlLang || 'sv';
 
-  // Re-apply translations for injected content without changing the user's choice
   if (window.__setLang) {
-    await window.__setLang(lang);
+    await window.__setLang(lang); // re-apply i18n to injected content
   } else {
     document.documentElement.lang = lang;
   }
 
-  // Ensure favicon + Apple touch icon on every page
-  (function ensureIcons() {
-    const head = document.head;
-    if (!head.querySelector('link[rel~="icon"]')) {
-      const ico = document.createElement('link');
-      ico.rel = 'icon';
-      ico.href = '/favicon.ico';
-      head.appendChild(ico);
-    }
-    if (!head.querySelector('link[rel="apple-touch-icon"]')) {
-      const apple = document.createElement('link');
-      apple.rel = 'apple-touch-icon';
-      apple.sizes = '180x180';
-      apple.href = '/favicon-180.png';
-      head.appendChild(apple);
+  // 3) Footer dates: current year + page last modified
+  (function initFooterDates(){
+    const y  = document.getElementById('currentYear');
+    const lu = document.getElementById('lastUpdated');
+    if (y)  y.textContent = new Date().getFullYear();
+    if (lu) {
+      const d = new Date(document.lastModified);
+      if (!isNaN(d)) {
+        lu.dateTime = d.toISOString();
+        lu.textContent = d.toLocaleDateString(
+          document.documentElement.lang || 'sv',
+          { year: 'numeric', month: 'short', day: 'numeric' }
+        );
+      }
     }
   })();
+
+  // 4) Signal that layout (header/footer/i18n) is ready (optional hook for pages)
+  document.dispatchEvent(new CustomEvent('layout:ready', { detail: { lang } }));
 });
