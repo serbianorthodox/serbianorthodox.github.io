@@ -14,19 +14,43 @@
       <p class="lead mb-4" data-i18n="donations.intro">Support the parish with a one-time or monthly gift.</p>
 
       <div class="row g-3">
+        <!-- Swish (one-time) -->
         <div class="col-md-6">
           <div class="card h-100">
             <div class="card-body">
-              <h5 class="card-title" data-i18n="donations.bank.title">Bank Transfer</h5>
-              <p class="card-text" data-i18n="donations.bank.body">Bank details will be added here.</p>
+              <h5 class="card-title" data-i18n="donations.swish.title">Swish (one-time)</h5>
+              <p class="card-text mb-1">
+                <strong data-i18n="donations.swish.number.label">Swish number:</strong>
+                <span class="ms-1" data-i18n="donations.swish.number.value">123 446 7320</span>
+              </p>
+              <p class="card-text" data-i18n="donations.swish.note">Enter your name in the message field.</p>
             </div>
           </div>
         </div>
+
+        <!-- Monthly donation (Autogiro) -->
         <div class="col-md-6">
           <div class="card h-100">
             <div class="card-body">
-              <h5 class="card-title" data-i18n="donations.mobile.title">Mobile Payment</h5>
-              <p class="card-text" data-i18n="donations.mobile.body">Swish / mobile details will be added here.</p>
+              <h5 class="card-title" data-i18n="donations.autogiro.title">Monthly donation (Autogiro)</h5>
+
+              <p class="card-text mb-1">
+                <strong data-i18n="donations.bank.name.label">Bank:</strong>
+                <span class="ms-1" data-i18n="donations.bank.name.value">Swedbank</span>
+              </p>
+              <p class="card-text mb-1">
+                <strong data-i18n="donations.bank.account.label">Account number:</strong>
+                <span class="ms-1" data-i18n="donations.bank.account.value">83139-5142191286</span>
+              </p>
+              <p class="card-text mb-1">
+                <strong data-i18n="donations.bank.ocr.label">OCR / Reference:</strong>
+                <span class="ms-1" data-i18n="donations.bank.ocr.value">Your Name (the contributor)</span>
+              </p>
+              <p class="card-text" data-i18n="donations.bank.amount">Choose your payment amount.</p>
+
+              <p class="text-muted small mb-0" data-i18n="donations.bank.note">
+                For recurring payments, set up an Autogiro with your bank using the details above.
+              </p>
             </div>
           </div>
         </div>
@@ -56,4 +80,3 @@
     </script>
   </body>
 </html>
-
