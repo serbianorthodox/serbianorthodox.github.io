@@ -50,7 +50,11 @@
   "contact.intro": "Kontakta församlingen.",
   "contact.link": "Kontakta oss (extern länk)",
   "404.title": "Sidan kunde inte hittas",
-"404.body": "Tyvärr kunde vi inte hitta sidan.",
-"404.back": "Gå till startsidan"
+  "404.body": "Tyvärr kunde vi inte hitta sidan.",
+  "404.back": "Gå till startsidan",
+  "common.copy": "Kopiera",
+  "common.copied": "Kopierat!",
+  "common.failed": "Misslyckades"
+
 
 }
