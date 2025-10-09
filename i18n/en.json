@@ -49,4 +49,8 @@
   "contact.title": "Contact",
   "contact.intro": "Get in touch with the parish.",
   "contact.link": "Contact us (external link)"
+  "404.title": "Page not found",
+  "404.body": "Sorry, we can’t find that page.",
+  "404.back": "Go to the home page"
+
 }
