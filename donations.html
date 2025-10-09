@@ -22,6 +22,8 @@
               <p class="card-text mb-1">
                 <strong data-i18n="donations.swish.number.label">Swish number:</strong>
                 <span class="ms-1" data-i18n="donations.swish.number.value">123 446 7320</span>
+                <button type="button" class="btn btn-sm btn-outline-secondary ms-2"
+                        data-copy="123 446 7320" data-i18n="common.copy">Copy</button>
               </p>
               <p class="card-text" data-i18n="donations.swish.note">Enter your name in the message field.</p>
             </div>
@@ -41,10 +43,14 @@
               <p class="card-text mb-1">
                 <strong data-i18n="donations.bank.account.label">Account number:</strong>
                 <span class="ms-1" data-i18n="donations.bank.account.value">83139-5142191286</span>
+                <button type="button" class="btn btn-sm btn-outline-secondary ms-2"
+                        data-copy="83139-5142191286" data-i18n="common.copy">Copy</button>
               </p>
               <p class="card-text mb-1">
                 <strong data-i18n="donations.bank.ocr.label">OCR / Reference:</strong>
                 <span class="ms-1" data-i18n="donations.bank.ocr.value">Your Name (the contributor)</span>
+                <button type="button" class="btn btn-sm btn-outline-secondary ms-2"
+                        data-copy="Your Name (the contributor)" data-i18n="common.copy">Copy</button>
               </p>
               <p class="card-text" data-i18n="donations.bank.amount">Choose your payment amount.</p>
 
@@ -67,6 +73,11 @@
     <script src="/assets/js/i18n.js"></script>
     <script src="/assets/js/include.js"></script>
 
+    <!-- Localized copy helper strings (hidden) -->
+    <span id="i18n-copy" class="d-none" data-i18n="common.copy">Copy</span>
+    <span id="i18n-copied" class="d-none" data-i18n="common.copied">Copied!</span>
+    <span id="i18n-failed" class="d-none" data-i18n="common.failed">Failed</span>
+
     <!-- Re-apply active language after header/footer injection -->
     <script>
       (function () {
@@ -76,6 +87,46 @@
         const lang = stored || urlLang || htmlLang || 'sv';
         if (window.__setLang) window.__setLang(lang);
         else document.documentElement.lang = lang;
+      })();
+    </script>
+
+    <!-- Localized Copy buttons -->
+    <script>
+      (function () {
+        function t(id, fallback) {
+          var el = document.getElementById(id);
+          return el ? el.textContent.trim() : fallback;
+        }
+        function flash(btn, text) {
+          const original = btn.textContent;
+          btn.textContent = text;
+          btn.disabled = true;
+          setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1200);
+        }
+
+        document.addEventListener('click', async function (e) {
+          const btn = e.target.closest('button[data-copy]');
+          if (!btn) return;
+          const value = btn.getAttribute('data-copy') || '';
+          try {
+            await navigator.clipboard.writeText(value);
+            flash(btn, t('i18n-copied', 'Copied!'));
+          } catch (_) {
+            try {
+              const ta = document.createElement('textarea');
+              ta.value = value;
+              ta.style.position = 'fixed';
+              ta.style.left = '-9999px';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+              flash(btn, t('i18n-copied', 'Copied!'));
+            } catch {
+              flash(btn, t('i18n-failed', 'Failed'));
+            }
+          }
+        });
       })();
     </script>
   </body>
