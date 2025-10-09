@@ -51,6 +51,10 @@
   "contact.link": "Contact us (external link)",
   "404.title": "Page not found",
   "404.body": "Sorry, we can’t find that page.",
-  "404.back": "Go to the home page"
+  "404.back": "Go to the home page",
+  "common.copy": "Copy",
+"common.copied": "Copied!",
+"common.failed": "Failed"
+
 
 }
