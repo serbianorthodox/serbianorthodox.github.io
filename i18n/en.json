@@ -5,7 +5,7 @@
   "nav.services": "Services",
   "nav.calendar": "Calendar",
   "nav.contact": "Contact",
-"nav.news": "News",
+  "nav.news": "News",
 
   "hero.title": "Welcome",
   "hero.lead": "Parish website in progress.",
@@ -17,11 +17,15 @@
   "services.intro": "Divine Liturgy times, Vespers, confession.",
   "calendar.title": "Parish Calendar",
   "calendar.intro": "Upcoming liturgies and events.",
+  "calendar.subscribe.ics": "Subscribe via iCal (.ics)",
+  "calendar.subscribe.help": "Apple Calendar: copy the iCal link. On iPhone/iPad go to Settings → Calendar → Accounts → Add Subscribed Calendar.",
+
+  "news.title": "News & Announcements",
+  "news.intro": "Latest updates from the parish.",
+  "news.sample.title": "Sample announcement",
+  "news.sample.body": "Replace this text with your latest parish news.",
 
   "contact.title": "Contact",
   "contact.intro": "Get in touch with the parish.",
-  "contact.link": "Contact us (external link)",
-  "calendar.subscribe.ics": "Subscribe via iCal (.ics)",
-"calendar.subscribe.help": "Apple Calendar: copy the iCal link. On iPhone/iPad go to Settings → Calendar → Accounts → Add Subscribed Calendar."
-
+  "contact.link": "Contact us (external link)"
 }
