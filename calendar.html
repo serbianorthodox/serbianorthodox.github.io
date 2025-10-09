@@ -12,139 +12,88 @@
     <main class="container py-4">
       <h1 data-i18n="calendar.title">Parish Calendar</h1>
       <p data-i18n="calendar.intro">Upcoming liturgies and events.</p>
-   <div class="mb-3">
-     
-  <div class="ratio ratio-16x9">
-<div class="d-flex flex-wrap gap-2 my-3">
-  <a
-    class="btn btn-primary"
-    href="https://calendar.google.com/calendar/u/0?cid=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com"
-    target="_blank" rel="noopener"
-    data-i18n="calendar.subscribe.google"
-  >
-    Add to Google Calendar
-  </a>
 
-  <a
-    class="btn btn-outline-secondary"
-    href="https://calendar.google.com/calendar/ical/879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com/public/basic.ics"
-    data-i18n="calendar.subscribe.ics"
-  >
-    Subscribe via iCal (.ics)
-  </a>
-</div>
+      <!-- CALENDAR (three fixed iframes; we show/hide by language) -->
+      <div class="mb-3">
+        <!-- Swedish (default visible) -->
+        <iframe
+          class="gcal-frame"
+          data-lang="sv"
+          src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=sv"
+          style="width:100%; height:70vh; min-height:600px; border:0; display:block;"
+          frameborder="0" scrolling="no" loading="lazy"></iframe>
 
-<p class="small text-muted" data-i18n="calendar.subscribe.help">
-  Apple Calendar: copy the iCal link. On iPhone/iPad go to Settings → Calendar → Accounts → Add Subscribed Calendar.
-</p>
+        <!-- English -->
+        <iframe
+          class="gcal-frame"
+          data-lang="en"
+          src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=en"
+          style="width:100%; height:70vh; min-height:600px; border:0; display:none;"
+          frameborder="0" scrolling="no" loading="lazy"></iframe>
 
+        <!-- Serbian -->
+        <iframe
+          class="gcal-frame"
+          data-lang="sr"
+          src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=sr"
+          style="width:100%; height:70vh; min-height:600px; border:0; display:none;"
+          frameborder="0" scrolling="no" loading="lazy"></iframe>
+      </div>
 
+      <!-- SUBSCRIBE BUTTONS -->
+      <div class="d-flex flex-wrap gap-2 my-3">
+        <a
+          class="btn btn-primary"
+          href="https://calendar.google.com/calendar/u/0?cid=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com"
+          target="_blank" rel="noopener"
+          data-i18n="calendar.subscribe.google"
+        >
+          Add to Google Calendar
+        </a>
 
-    
-    <!-- Swedish (default visible) -->
-    <iframe
-      class="gcal-frame"
-      data-lang="sv"
-      src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=sv"
-      style="border:0; display:block;"
-      frameborder="0"
-      scrolling="no"
-      loading="lazy"></iframe>
+        <a
+          class="btn btn-outline-secondary"
+          href="https://calendar.google.com/calendar/ical/879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com/public/basic.ics"
+          data-i18n="calendar.subscribe.ics"
+        >
+          Subscribe via iCal (.ics)
+        </a>
+      </div>
 
-    <!-- English -->
-    <iframe
-      class="gcal-frame"
-      data-lang="en"
-      src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=en"
-      style="border:0; display:none;"
-      frameborder="0"
-      scrolling="no"
-      loading="lazy"></iframe>
-
-    <!-- Serbian -->
-    <iframe
-      class="gcal-frame"
-      data-lang="sr"
-      src="https://calendar.google.com/calendar/embed?src=879f7dc660496c5013f132b95eb0f0b9e71471304b4c879338072473ceddbbc4%40group.calendar.google.com&ctz=Europe%2FStockholm&hl=sr"
-      style="border:0; display:none;"
-      frameborder="0"
-      scrolling="no"
-      loading="lazy"></iframe>
-  </div>
-</div>
-
-
+      <p class="small text-muted" data-i18n="calendar.subscribe.help">
+        Apple Calendar: copy the iCal link. On iPhone/iPad go to Settings → Calendar → Accounts → Add Subscribed Calendar.
+      </p>
     </main>
 
     <div id="include-footer"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/i18n.js"></script>
-<script src="/assets/js/include.js"></script>
 
-<!-- keep your calendar inline script here, if you have one -->
+    <!-- Keep this order -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/include.js"></script>
 
-<script src="/assets/js/i18n.js"></script>
-<script src="/assets/js/include.js"></script>
-
-
+    <!-- One small script to swap iframes when language changes -->
     <script>
-(function () {
-  function getLang() {
-    return localStorage.getItem('lang') || document.documentElement.lang || 'sv';
-  }
-  function showCalendar(lang) {
-    document.querySelectorAll('.gcal-frame').forEach(f => {
-      f.style.display = (f.getAttribute('data-lang') === lang) ? 'block' : 'none';
-    });
-  }
-  // Initial show
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => showCalendar(getLang()));
-  } else {
-    showCalendar(getLang());
-  }
-  // Switch on flag clicks via i18n
-  if (window.__setLang) {
-    const orig = window.__setLang;
-    window.__setLang = async function(lang) {
-      await orig(lang);
-      showCalendar(lang);
-    };
-  }
-})();
-</script>
-<script>
-(function () {
-  function getLang() {
-    // i18n.js updates <html lang>, use that as the source of truth
-    return document.documentElement.lang || localStorage.getItem('lang') || 'sv';
-  }
-
-  function showCalendar(lang) {
-    document.querySelectorAll('.gcal-frame').forEach(function (f) {
-      f.style.display = (f.getAttribute('data-lang') === lang) ? 'block' : 'none';
-    });
-  }
-
-  // Initial show
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { showCalendar(getLang()); });
-  } else {
-    showCalendar(getLang());
-  }
-
-  // React the moment the site language changes
-  var mo = new MutationObserver(function () { showCalendar(getLang()); });
-  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-
-  // Extra fallback: after any flag click, update once the i18n handler runs
-  document.addEventListener('click', function (e) {
-    var btn = e.target.closest('[data-lang]');
-    if (btn) setTimeout(function () { showCalendar(getLang()); }, 0);
-  });
-})();
-</script>
-
-
+    (function () {
+      function getLang() {
+        // i18n sets <html lang>; that's our source of truth
+        return document.documentElement.lang || localStorage.getItem('lang') || 'sv';
+      }
+      function showCalendar(lang) {
+        document.querySelectorAll('.gcal-frame').forEach(function (f) {
+          f.style.display = (f.getAttribute('data-lang') === lang) ? 'block' : 'none';
+        });
+      }
+      // Initial
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { showCalendar(getLang()); });
+      } else {
+        showCalendar(getLang());
+      }
+      // React when <html lang> changes
+      var mo = new MutationObserver(function () { showCalendar(getLang()); });
+      mo.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    })();
+    </script>
   </body>
 </html>
