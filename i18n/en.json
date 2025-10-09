@@ -19,5 +19,8 @@
 
   "contact.title": "Contact",
   "contact.intro": "Get in touch with the parish.",
-  "contact.link": "Contact us (external link)"
+  "contact.link": "Contact us (external link)",
+  "calendar.subscribe.ics": "Subscribe via iCal (.ics)",
+"calendar.subscribe.help": "Apple Calendar: copy the iCal link. On iPhone/iPad go to Settings → Calendar → Accounts → Add Subscribed Calendar."
+
 }
