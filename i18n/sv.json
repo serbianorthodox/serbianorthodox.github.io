@@ -5,21 +5,24 @@
   "nav.services": "Gudstjänster",
   "nav.calendar": "Kalender",
   "nav.news": "Nyheter",
-  "nav.contact": "Kontakt",
   "nav.donations": "Donationer",
+  "nav.gallery": "Galleri",
+  "nav.contact": "Kontakt",
 
   "hero.title": "Välkommen",
   "hero.lead": "Församlingssidan håller på att byggas.",
+  "footer.lastUpdated": "Senast uppdaterad",
   "footer.copyright": "Serbisk-ortodoxa kyrkan i Sverige",
 
   "about.title": "Om församlingen",
   "about.intro": "Kort historia och uppdrag.",
   "about.body.1": "En vacker liten kyrka där den ortodoxa tron lever. Här är Kristus verkligen närvarande i sakramenten, Skriften förkunnas utan kompromiss och gudstjänsten bärs fram så som apostlarna har överlämnat.",
   "about.body.2": "I en tid då många kyrkor böjer sig för politik och trender står denna församling fast i Kristi oföränderliga sanning.",
-  "about.calendar.cta": "Se församlingskalendern för kommande evenemang (på svenska)."
+  "about.calendar.cta": "Se församlingskalendern för kommande evenemang (på svenska).",
 
   "services.title": "Gudstjänster och tider",
   "services.intro": "Gudomlig liturgi, vesper, bikt.",
+
   "calendar.title": "Församlingskalender",
   "calendar.intro": "Kommande liturgier och evenemang.",
   "calendar.subscribe.ics": "Prenumerera via iCal (.ics)",
@@ -29,6 +32,10 @@
   "news.intro": "Senaste uppdateringar från församlingen.",
   "news.sample.title": "Exempelmeddelande",
   "news.sample.body": "Byt ut denna text mot er senaste nyhet.",
+
+  "gallery.title": "Församlingsgalleri",
+  "gallery.intro": "Bilder och ögonblick från församlingslivet.",
+  "gallery.empty": "Inga bilder ännu – titta tillbaka snart.",
 
   "donations.title": "Donationer",
   "donations.intro": "Stöd församlingen med en engångsgåva eller månadsgåva.",
@@ -43,8 +50,8 @@
   "donations.bank.name.value": "Swedbank",
   "donations.bank.account.label": "Kontonummer:",
   "donations.bank.account.value": "83139-5142191286",
-  "donations.bank.ocr.label": "OCR / Referens:",
-  "donations.bank.ocr.value": "Ditt namn (givaren)",
+  "donations.bank.ocr.label": "Referens:",
+  "donations.bank.ocr.value": "Ditt namn",
   "donations.bank.amount": "Välj ditt betalningsbelopp.",
   "donations.bank.note": "För återkommande betalningar, lägg upp ett Autogiro via din bank med uppgifterna ovan.",
 
@@ -53,12 +60,12 @@
   "contact.title": "Kontakt",
   "contact.intro": "Kontakta församlingen.",
   "contact.link": "Kontakta oss (extern länk)",
+
   "404.title": "Sidan kunde inte hittas",
   "404.body": "Tyvärr kunde vi inte hitta sidan.",
   "404.back": "Gå till startsidan",
+
   "common.copy": "Kopiera",
   "common.copied": "Kopierat!",
   "common.failed": "Misslyckades"
-
-
 }
