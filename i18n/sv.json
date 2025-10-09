@@ -5,6 +5,7 @@
   "nav.services": "Gudstjänster",
   "nav.calendar": "Kalender",
   "nav.contact": "Kontakt",
+
   "hero.title": "Välkommen",
   "hero.lead": "Församlingssidan håller på att byggas.",
   "footer.copyright": "Serbisk-ortodoxa kyrkan i Sverige",
@@ -14,8 +15,9 @@
   "services.title": "Gudstjänster och tider",
   "services.intro": "Gudomlig liturgi, vesper, bikt.",
   "calendar.title": "Församlingskalender",
-  "calendar.intro": "Kommande liturgier och evenemang."
+  "calendar.intro": "Kommande liturgier och evenemang.",
 
-
+  "contact.title": "Kontakt",
+  "contact.intro": "Kontakta församlingen.",
+  "contact.link": "Kontakta oss (extern länk)"
 }
-
