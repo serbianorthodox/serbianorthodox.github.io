@@ -14,7 +14,10 @@
   "services.title": "Services & Schedule",
   "services.intro": "Divine Liturgy times, Vespers, confession.",
   "calendar.title": "Parish Calendar",
-  "calendar.intro": "Upcoming liturgies and events."
+  "calendar.intro": "Upcoming liturgies and events.",
+  "contact.title": "Kontakt",
+  "contact.link": "Kontakta oss (extern länk)"
+
 
 
 }
