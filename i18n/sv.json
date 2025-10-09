@@ -28,10 +28,22 @@
 
   "donations.title": "Donationer",
   "donations.intro": "Stöd församlingen med en engångsgåva eller månadsgåva.",
-  "donations.bank.title": "Banköverföring",
-  "donations.bank.body": "Bankuppgifter kommer att läggas in här.",
-  "donations.mobile.title": "Mobil betalning",
-  "donations.mobile.body": "Swish / mobiluppgifter kommer att läggas in här.",
+
+  "donations.swish.title": "Swish (engångsbetalning)",
+  "donations.swish.number.label": "Swish-nummer:",
+  "donations.swish.number.value": "123 446 7320",
+  "donations.swish.note": "Skriv ditt namn i meddelandefältet.",
+
+  "donations.autogiro.title": "Månadsgåva (Autogiro)",
+  "donations.bank.name.label": "Bank:",
+  "donations.bank.name.value": "Swedbank",
+  "donations.bank.account.label": "Kontonummer:",
+  "donations.bank.account.value": "83139-5142191286",
+  "donations.bank.ocr.label": "OCR / Referens:",
+  "donations.bank.ocr.value": "Ditt namn (givaren)",
+  "donations.bank.amount": "Välj ditt betalningsbelopp.",
+  "donations.bank.note": "För återkommande betalningar, lägg upp ett Autogiro via din bank med uppgifterna ovan.",
+
   "donations.note": "Tack för att du stöttar kyrkans liv.",
 
   "contact.title": "Kontakt",
