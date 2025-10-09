@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page not found</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="include-header"></div>
+
+    <main class="container py-5 text-center">
+      <h1 class="mb-3" data-i18n="404.title">Page not found</h1>
+      <p class="lead mb-4" data-i18n="404.body">Sorry, we can’t find that page.</p>
+      <a class="btn btn-primary" href="/" data-i18n="404.back">Go to the home page</a>
+    </main>
+
+    <div id="include-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/include.js"></script>
+    <script>
+      (function () {
+        const stored = (localStorage.getItem('lang') || '').toLowerCase();
+        const urlLang = (new URLSearchParams(location.search).get('lang') || '').toLowerCase();
+        const htmlLang = (document.documentElement.lang || '').toLowerCase();
+        const lang = stored || urlLang || htmlLang || 'sv';
+        if (window.__setLang) window.__setLang(lang);
+        else document.documentElement.lang = lang;
+      })();
+    </script>
+  </body>
+</html>
