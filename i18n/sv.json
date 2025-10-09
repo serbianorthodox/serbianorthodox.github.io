@@ -6,6 +6,7 @@
   "nav.calendar": "Kalender",
   "nav.news": "Nyheter",
   "nav.contact": "Kontakt",
+  "nav.donations": "Donationer",
 
   "hero.title": "Välkommen",
   "hero.lead": "Församlingssidan håller på att byggas.",
@@ -24,6 +25,14 @@
   "news.intro": "Senaste uppdateringar från församlingen.",
   "news.sample.title": "Exempelmeddelande",
   "news.sample.body": "Byt ut denna text mot er senaste nyhet.",
+
+  "donations.title": "Donationer",
+  "donations.intro": "Stöd församlingen med en engångsgåva eller månadsgåva.",
+  "donations.bank.title": "Banköverföring",
+  "donations.bank.body": "Bankuppgifter kommer att läggas in här.",
+  "donations.mobile.title": "Mobil betalning",
+  "donations.mobile.body": "Swish / mobiluppgifter kommer att läggas in här.",
+  "donations.note": "Tack för att du stöttar kyrkans liv.",
 
   "contact.title": "Kontakt",
   "contact.intro": "Kontakta församlingen.",
