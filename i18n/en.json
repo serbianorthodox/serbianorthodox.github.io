@@ -7,15 +7,22 @@
   "nav.contact": "Contact",
   "nav.news": "News",
   "nav.donations": "Donations",
+  "nav.gallery": "Gallery",
 
   "hero.title": "Welcome",
   "hero.lead": "Parish website in progress.",
   "footer.copyright": "Serbian Orthodox Church in Sweden",
+  "footer.lastUpdated": "Last updated",
 
   "about.title": "About the Parish",
   "about.intro": "Brief history and mission.",
+  "about.body.1": "A beautiful little church where the Orthodox faith is alive. Here, Christ is truly present in the sacraments, the Scriptures are proclaimed without compromise, and the worship of God is offered in the same way the Apostles handed down.",
+  "about.body.2": "In a time when many churches bend to politics and fashion, this parish stands firm in the unchanging truth of Christ.",
+  "about.calendar.cta": "See the parish calendar for upcoming events (in Swedish).",
+
   "services.title": "Services & Schedule",
   "services.intro": "Divine Liturgy times, Vespers, confession.",
+
   "calendar.title": "Parish Calendar",
   "calendar.intro": "Upcoming liturgies and events.",
   "calendar.subscribe.ics": "Subscribe via iCal (.ics)",
@@ -25,6 +32,10 @@
   "news.intro": "Latest updates from the parish.",
   "news.sample.title": "Sample announcement",
   "news.sample.body": "Replace this text with your latest parish news.",
+
+  "gallery.title": "Parish Gallery",
+  "gallery.intro": "Photos and moments from parish life.",
+  "gallery.empty": "No photos yet—check back soon.",
 
   "donations.title": "Donations",
   "donations.intro": "Support the parish with a one-time or monthly gift.",
@@ -39,8 +50,8 @@
   "donations.bank.name.value": "Swedbank",
   "donations.bank.account.label": "Account number:",
   "donations.bank.account.value": "83139-5142191286",
-  "donations.bank.ocr.label": "OCR / Reference:",
-  "donations.bank.ocr.value": "Your Name (the contributor)",
+  "donations.bank.ocr.label": "Reference:",
+  "donations.bank.ocr.value": "Your name",
   "donations.bank.amount": "Choose your payment amount.",
   "donations.bank.note": "For recurring payments, set up an Autogiro with your bank using the details above.",
 
@@ -49,12 +60,12 @@
   "contact.title": "Contact",
   "contact.intro": "Get in touch with the parish.",
   "contact.link": "Contact us (external link)",
+
   "404.title": "Page not found",
   "404.body": "Sorry, we can’t find that page.",
   "404.back": "Go to the home page",
+
   "common.copy": "Copy",
-"common.copied": "Copied!",
-"common.failed": "Failed"
-
-
+  "common.copied": "Copied!",
+  "common.failed": "Failed"
 }
