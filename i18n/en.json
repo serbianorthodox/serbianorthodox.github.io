@@ -6,6 +6,7 @@
   "nav.calendar": "Calendar",
   "nav.contact": "Contact",
   "nav.news": "News",
+  "nav.donations": "Donations",
 
   "hero.title": "Welcome",
   "hero.lead": "Parish website in progress.",
@@ -24,6 +25,14 @@
   "news.intro": "Latest updates from the parish.",
   "news.sample.title": "Sample announcement",
   "news.sample.body": "Replace this text with your latest parish news.",
+
+  "donations.title": "Donations",
+  "donations.intro": "Support the parish with a one-time or monthly gift.",
+  "donations.bank.title": "Bank Transfer",
+  "donations.bank.body": "Bank details will be added here.",
+  "donations.mobile.title": "Mobile Payment",
+  "donations.mobile.body": "Swish / mobile details will be added here.",
+  "donations.note": "Thank you for supporting the life of the Church.",
 
   "contact.title": "Contact",
   "contact.intro": "Get in touch with the parish.",
