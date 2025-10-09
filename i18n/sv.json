@@ -65,7 +65,13 @@
 "contact.open.apple": "Öppna i Apple Kartor",
 "contact.clergy.title": "Prästerskap & kontakt"
 
+"contact.address.title": "Adress",
+"contact.open.google": "Öppna i Google Maps",
+"contact.open.apple": "Öppna i Apple Kartor",
+"contact.clergy.title": "Prästerskap & kontakt",
+"contact.role.kyrkoherde": "Kyrkoherde"
 
+  
   "404.title": "Sidan kunde inte hittas",
   "404.body": "Tyvärr kunde vi inte hitta sidan.",
   "404.back": "Gå till startsidan",
