@@ -16,11 +16,10 @@
   "services.intro": "Gudomlig liturgi, vesper, bikt.",
   "calendar.title": "Församlingskalender",
   "calendar.intro": "Kommande liturgier och evenemang.",
+  "calendar.subscribe.ics": "Prenumerera via iCal (.ics)",
+  "calendar.subscribe.help": "Apple Kalender: kopiera iCal-länken. På iPhone/iPad: Inställningar → Kalender → Konton → Lägg till prenumererad kalender.",
 
   "contact.title": "Kontakt",
   "contact.intro": "Kontakta församlingen.",
-  "contact.link": "Kontakta oss (extern länk)",
-  "calendar.subscribe.ics": "Prenumerera via iCal (.ics)",
-"calendar.subscribe.help": "Apple Kalender: kopiera iCal-länken. På iPhone/iPad: Inställningar → Kalender → Konton → Lägg till prenumererad kalender."
-
+  "contact.link": "Kontakta oss (extern länk)"
 }
