@@ -16,9 +16,9 @@
       <h1 class="mb-3" data-i18n="gallery.title">Parish Gallery</h1>
       <p class="lead mb-4" data-i18n="gallery.intro">Photos and moments from parish life.</p>
 
-      <!-- Grid (drop your images in /assets/img/gallery/) -->
+      <!-- Replace sample images with your own files in /assets/img/gallery/ -->
       <div class="row g-3" id="gallery-grid">
-        <!-- Example placeholders; replace with your own images -->
+        <!-- Example placeholders (delete once you add real photos) -->
         <div class="col-6 col-md-4 col-lg-3">
           <div class="card h-100">
             <img class="gallery-img" src="/assets/img/gallery/sample1.jpg" alt="Parish photo 1">
@@ -29,8 +29,8 @@
             <img class="gallery-img" src="/assets/img/gallery/sample2.jpg" alt="Parish photo 2">
           </div>
         </div>
-        <!-- If you have no images yet, show a friendly note -->
       </div>
+
       <p id="gallery-empty" class="text-muted" data-i18n="gallery.empty" style="display:none;">
         No photos yet—check back soon.
       </p>
@@ -42,15 +42,16 @@
     <script src="/assets/js/i18n.js"></script>
     <script src="/assets/js/include.js"></script>
     <script>
-      // Hide the empty note if at least one real image exists
-      (function(){
+      // After header/footer injection, ensure translations apply and empty note toggles
+      (function () {
+        const lang = (localStorage.getItem('lang') || document.documentElement.lang || 'sv').toLowerCase();
+        if (window.__setLang) window.__setLang(lang);
+
+        // Show "empty" note if there are NO real images (i.e., you removed samples and added none)
         const imgs = document.querySelectorAll('#gallery-grid img');
-        let hasReal = false;
-        imgs.forEach(img => {
-          if (!/sample\d\.jpg$/.test(img.src)) hasReal = true;
-        });
-        if (!hasReal && imgs.length === 0) {
-          document.getElementById('gallery-empty').style.display = 'block';
+        if (!imgs || imgs.length === 0) {
+          const empty = document.getElementById('gallery-empty');
+          if (empty) empty.style.display = 'block';
         }
       })();
     </script>
