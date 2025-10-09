@@ -60,7 +60,12 @@
   "contact.title": "Contact",
   "contact.intro": "Get in touch with the parish.",
   "contact.link": "Contact us (external link)",
+  "contact.address.title": "Address",
+  "contact.open.google": "Open in Google Maps",
+  "contact.open.apple": "Open in Apple Maps",
+  "contact.clergy.title": "Clergy & Contact"
 
+  
   "404.title": "Page not found",
   "404.body": "Sorry, we can’t find that page.",
   "404.back": "Go to the home page",
