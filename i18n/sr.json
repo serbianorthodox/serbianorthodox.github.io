@@ -60,6 +60,10 @@
   "contact.title": "Контакт",
   "contact.intro": "Ступите у контакт са парохијом.",
   "contact.link": "Контактирајте нас (спољни линк)",
+"contact.address.title": "Адреса",
+"contact.open.google": "Отвори у Google Maps",
+"contact.open.apple": "Отвори у Apple Maps",
+"contact.clergy.title": "Свештенство и контакт"
 
   "404.title": "Страница није пронађена",
   "404.body": "Жао нам је, не можемо да пронађемо ту страницу.",
