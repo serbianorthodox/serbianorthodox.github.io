@@ -28,10 +28,22 @@
 
   "donations.title": "Donations",
   "donations.intro": "Support the parish with a one-time or monthly gift.",
-  "donations.bank.title": "Bank Transfer",
-  "donations.bank.body": "Bank details will be added here.",
-  "donations.mobile.title": "Mobile Payment",
-  "donations.mobile.body": "Swish / mobile details will be added here.",
+
+  "donations.swish.title": "Swish (one-time)",
+  "donations.swish.number.label": "Swish number:",
+  "donations.swish.number.value": "123 446 7320",
+  "donations.swish.note": "Enter your name in the message field.",
+
+  "donations.autogiro.title": "Monthly donation (Autogiro)",
+  "donations.bank.name.label": "Bank:",
+  "donations.bank.name.value": "Swedbank",
+  "donations.bank.account.label": "Account number:",
+  "donations.bank.account.value": "83139-5142191286",
+  "donations.bank.ocr.label": "OCR / Reference:",
+  "donations.bank.ocr.value": "Your Name (the contributor)",
+  "donations.bank.amount": "Choose your payment amount.",
+  "donations.bank.note": "For recurring payments, set up an Autogiro with your bank using the details above.",
+
   "donations.note": "Thank you for supporting the life of the Church.",
 
   "contact.title": "Contact",
