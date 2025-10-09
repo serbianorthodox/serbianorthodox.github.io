@@ -14,6 +14,10 @@
 
   "about.title": "Om församlingen",
   "about.intro": "Kort historia och uppdrag.",
+  "about.body.1": "En vacker liten kyrka där den ortodoxa tron lever. Här är Kristus verkligen närvarande i sakramenten, Skriften förkunnas utan kompromiss och gudstjänsten bärs fram så som apostlarna har överlämnat.",
+  "about.body.2": "I en tid då många kyrkor böjer sig för politik och trender står denna församling fast i Kristi oföränderliga sanning.",
+  "about.calendar.cta": "Se församlingskalendern för kommande evenemang (på svenska)."
+
   "services.title": "Gudstjänster och tider",
   "services.intro": "Gudomlig liturgi, vesper, bikt.",
   "calendar.title": "Församlingskalender",
