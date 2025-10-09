@@ -16,11 +16,10 @@
   "services.intro": "Света литургија, вечерње, исповест.",
   "calendar.title": "Парохијски календар",
   "calendar.intro": "Предстојеће литургије и догађаји.",
+  "calendar.subscribe.ics": "Претплата преко iCal (.ics)",
+  "calendar.subscribe.help": "Apple Calendar: копирајте iCal линк. На iPhone/iPad: Settings → Calendar → Accounts → Add Subscribed Calendar.",
 
   "contact.title": "Контакт",
   "contact.intro": "Ступите у контакт са парохијом.",
-  "contact.link": "Контактирајте нас (спољни линк)",
-  "calendar.subscribe.ics": "Претплата преко iCal (.ics)",
-"calendar.subscribe.help": "Apple Calendar: копирајте iCal линк. На iPhone/iPad: Settings → Calendar → Accounts → Add Subscribed Calendar."
-
+  "contact.link": "Контактирајте нас (спољни линк)"
 }
