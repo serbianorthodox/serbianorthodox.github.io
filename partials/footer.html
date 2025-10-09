@@ -1,6 +1,12 @@
-<footer class="border-top py-3 mt-5">
-  <div class="container small text-muted">
-    © <span id="year"></span> <span data-i18n="footer.copyright">Serbian Orthodox Church in Sweden</span>
+<footer class="border-top mt-4">
+  <div class="container py-4 text-center text-muted small">
+    <div>
+      <span data-i18n="footer.copyright">Serbian Orthodox Church in Sweden</span>
+      &nbsp;© <span id="currentYear">2025</span>
+    </div>
+    <div>
+      <span data-i18n="footer.lastUpdated">Last updated</span>:
+      <time id="lastUpdated" datetime="">—</time>
+    </div>
   </div>
 </footer>
-<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
