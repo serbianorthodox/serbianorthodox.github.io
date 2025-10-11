@@ -130,7 +130,9 @@
   "etiquette.topic.candles.bullets.2": "During services, candles on stands follow the set order; do not interfere with them.",
   "etiquette.topic.candles.bullets.3": "Holding candles: Great Feasts, Great and Holy Thursday, Pascha, and funerals.",
 
-  "etiquette.candles.usecases.title": "Use-cases & short prayers",
+  "etiquette.candles.usecases.title": "When to light a candle",
+"etiquette.candles.prayers.title": "Short prayers to say"
+
   "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
   "etiquette.candles.usecases.christ.prayer": "Lord Jesus Christ, Son of God, have mercy on me, a sinner.",
   "etiquette.candles.usecases.cross.label": "Before the Cross",
