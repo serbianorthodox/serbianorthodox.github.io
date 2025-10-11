@@ -91,7 +91,9 @@
   "etiquette.cards.all": "All topics…",
 
   "common.ataglance": "At a glance",
-  "common.ask": "Ask the priest",
+  "etiquette.topic.candles.bullets.3": "Holding candles: Great Feasts, Great and Holy Thursday, Pascha, and funerals.",
+"etiquette.candles.usecases.cross.prayer": "Glory, O Lord, to Your honorable Cross."
+
 
   "etiquette.topic.bows.title": "Rules about the bows",
   "etiquette.topic.bows.intro": "Bows express worship and reverence. Make the sign of the Cross calmly, without drawing attention to yourself.",
@@ -124,12 +126,15 @@
   "etiquette.topic.clothing.bullets.2": "Men: neat shoes and trousers; remove caps; avoid sportswear and sleeveless tops.",
   "etiquette.topic.clothing.bullets.3": "Comfort + modesty help you focus in prayer.",
 
+  
+  "etiquette.candles.why.title": "Why we light candles",
+  "etiquette.candles.why.text": "Candles are an offering to God and His saints, a sign of prayer, joy, and reverence. Light them before icons with a simple prayer to the one depicted, asking God’s help and the saints’ intercession. Handle candles carefully and respectfully."
   "etiquette.topic.candles.title": "How to light candles (and prayers)",
-"etiquette.topic.candles.intro": "A candle is an offering and a visible prayer before God and His saints.",
-"etiquette.topic.candles.bullets.0": "Light the candle calmly and place it upright before the appropriate icon.",
-"etiquette.topic.candles.bullets.1": "Short prayers: “Lord Jesus Christ, Son of God, have mercy on me,” “Most Holy Theotokos, save us,” “Saint N., pray to God for us.”",
-"etiquette.topic.candles.bullets.2": "During services, candles on stands follow the set order; do not interfere with them.",
-"etiquette.topic.candles.bullets.3": "Holding candles: Great Feasts, Great and Holy Thursday, Pascha, and funerals.",
+  "etiquette.topic.candles.intro": "A candle is an offering and a visible prayer before God and His saints.",
+  "etiquette.topic.candles.bullets.0": "Light the candle calmly and place it upright before the appropriate icon.",
+  "etiquette.topic.candles.bullets.1": "Short prayers: “Lord Jesus Christ, Son of God, have mercy on me,” “Most Holy Theotokos, save us,” “Saint N., pray to God for us.”",
+  "etiquette.topic.candles.bullets.2": "During services, candles on stands follow the set order; do not interfere with them.",
+  "etiquette.topic.candles.bullets.3": "Holding candles: Great Feasts, Great and Holy Thursday, Pascha, and funerals.",
 
 "etiquette.candles.usecases.title": "Use-cases & short prayers",
 "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
