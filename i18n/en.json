@@ -131,15 +131,13 @@
   "etiquette.topic.candles.bullets.3": "Holding candles: Great Feasts, Great and Holy Thursday, Pascha, and funerals.",
 
   "etiquette.candles.usecases.title": "When to light a candle",
-"etiquette.candles.prayers.title": "Short prayers to say",
-"etiquette.candles.prayers.christ": "Before Christ: “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
-"etiquette.candles.prayers.theotokos": "Before the Mother of God: “Most Holy Theotokos, save us.”",
-"etiquette.candles.prayers.cross": "Before the Cross: “Glory, O Lord, to Your honorable Cross.”",
-"etiquette.candles.prayers.angel": "Before a Guardian Angel: “Angel of Christ, my holy guardian, save me.”",
-"etiquette.candles.prayers.saint": "Before a Saint: “Saint N., pray to God for us.”",
-"etiquette.candles.prayers.memorial": "At the memorial table: “Grant rest, O Lord, to Your departed servants.”",
-
-  
+  "etiquette.candles.prayers.title": "Short prayers to say",
+  "etiquette.candles.prayers.christ": "Before Christ: “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
+  "etiquette.candles.prayers.theotokos": "Before the Mother of God: “Most Holy Theotokos, save us.”",
+  "etiquette.candles.prayers.cross": "Before the Cross: “Glory, O Lord, to Your honorable Cross.”",
+  "etiquette.candles.prayers.angel": "Before a Guardian Angel: “Angel of Christ, my holy guardian, save me.”",
+  "etiquette.candles.prayers.saint": "Before a Saint: “Saint N., pray to God for us.”",
+  "etiquette.candles.prayers.memorial": "At the memorial table: “Grant rest, O Lord, to Your departed servants.”",
 
   "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
   "etiquette.candles.usecases.christ.prayer": "Lord Jesus Christ, Son of God, have mercy on me, a sinner.",
@@ -170,5 +168,13 @@
   "etiquette.candles.holding.bullets.3": "At funerals and memorial services.",
 
   "etiquette.candles.conduct.title": "Conduct",
-  "etiquette.candles.conduct.text": "Offer your candle without disrupting worship. Respect the order of the service and the people around you so that a simple offering becomes a fitting prayer."
+  "etiquette.candles.conduct.text": "Offer your candle without disrupting worship. Respect the order of the service and the people around you so that a simple offering becomes a fitting prayer.",
+
+  "etiquette.candles.when.title": "When to light a candle",
+  "etiquette.candles.when.bullets.0": "Before an icon of Christ, the Mother of God, or a saint — with a short prayer.",
+  "etiquette.candles.when.bullets.1": "At Vespers: all candles are lit before censing at “Lord, I have cried”; later relit after the 8th Ode and kept until the Great Doxology.",
+  "etiquette.candles.when.bullets.2": "In the morning/Liturgy: candles are lit after the Ninth Hour and remain lit until the end.",
+  "etiquette.candles.when.bullets.3": "The faithful may hold candles on Great Feasts: from the Polyeleos to the 3rd Ode; relight after the 8th Ode until the end of the Great Doxology.",
+  "etiquette.candles.when.bullets.4": "Great and Holy Thursday: during the reading of the Twelve Gospels.",
+  "etiquette.candles.when.bullets.5": "Pascha: from the procession until the end of the First Hour; also at funerals."
 }
