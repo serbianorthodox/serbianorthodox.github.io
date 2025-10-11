@@ -122,11 +122,32 @@
   "etiquette.topic.clothing.bullets.3": "Bekvämt + anständigt hjälper koncentrationen i bön.",
   "etiquette.topic.clothing.note": "Lokal praxis kan variera—fråga prästen.",
 
-  "etiquette.topic.candles.title": "Hur man tänder ljus (och böner)",
-  "etiquette.topic.candles.intro": "Ett ljus är en liten gåva och bön inför Herren eller en helig.",
-  "etiquette.topic.candles.bullets.0": "Tänd varsamt och placera ljuset säkert vid rätt ikon.",
-  "etiquette.topic.candles.bullets.1": "Enkla böner: ”Herre Jesus Kristus, Guds Son, förbarma dig”, ”Allraheligaste Guds Moder, fräls oss”, eller ”Helige N., be till Gud för oss”.",
-  "etiquette.topic.candles.bullets.2": "Vid stora högtider kan man hålla ljus under delar av gudstjänsten—följ församlingens sed.",
-  "etiquette.topic.candles.bullets.3": "Fråga kyrkvärdar om du är osäker var ljuset ska stå.",
-  "etiquette.topic.candles.note": "Lokal praxis kan variera—fråga prästen eller kyrkvärdar."
+  
+"etiquette.topic.candles.title": "Hur man tänder ljus (och böner)",
+"etiquette.topic.candles.intro": "Ett ljus är en gåva och en synlig bön inför Gud och Hans helgon.",
+"etiquette.topic.candles.bullets.0": "Tänd ljuset lugnt och ställ det upprätt framför den rätta ikonen.",
+"etiquette.topic.candles.bullets.1": "Korta böner: ”Herre Jesus Kristus, Guds Son, förbarma Dig över mig”, ”Allraheligaste Gudsmoder, fräls oss”, ”Helige N., be till Gud för oss.”",
+"etiquette.topic.candles.bullets.2": "Under gudstjänster följer ljusen sin ordning; rör dem inte.",
+"etiquette.topic.candles.bullets.3": "Ljus hålls i händerna vid stora högtider, Skärtorsdagen, påsknatten och begravningar.",
+
+"etiquette.candles.usecases.title": "När och hur man tänder ljus",
+"etiquette.candles.usecases.christ.label": "Framför Kristi ikon",
+"etiquette.candles.usecases.christ.prayer": "Herre Jesus Kristus, Guds Son, förbarma Dig över mig, syndare.",
+"etiquette.candles.usecases.cross.label": "Framför korset",
+"etiquette.candles.usecases.cross.prayer": "Ära åt Ditt heliga kors, Herre.",
+"etiquette.candles.usecases.theotokos.label": "Framför Gudsmoderns ikon",
+"etiquette.candles.usecases.theotokos.prayer": "Allraheligaste Gudsmoder, fräls oss.",
+"etiquette.candles.usecases.angel.label": "Framför skyddsängeln",
+"etiquette.candles.usecases.angel.prayer": "Kristi ängel, min helige väktare, fräls mig.",
+"etiquette.candles.usecases.saint.label": "Framför en helgonikon",
+"etiquette.candles.usecases.saint.prayer": "Helige N., be till Gud för oss.",
+"etiquette.candles.usecases.memorial.label": "Vid minnesbordet (för avlidna)",
+"etiquette.candles.usecases.memorial.prayer": "Herre, giv vila åt Dina avsomnade tjänare.",
+
+"etiquette.candles.holding.title": "När man håller ljus under gudstjänster",
+"etiquette.candles.holding.bullets.0": "På de tolv stora högtiderna och församlingens festdag: från polyeleos till tredje oden och sedan från åttonde oden till slutet av den stora doxologin.",
+"etiquette.candles.holding.bullets.1": "På Stora och Heliga Torsdagen: under läsningen av de tolv evangelierna.",
+"etiquette.candles.holding.bullets.2": "På påsknatten: från processionen till slutet av första timmen.",
+"etiquette.candles.holding.bullets.3": "Vid begravningar och minnesgudstjänster."
+
 }
