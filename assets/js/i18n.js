@@ -1,72 +1,87 @@
-<script>
 (function () {
   const DEFAULT_LANG = 'sv';
   const SUPPORTED = ['sr', 'sv', 'en'];
+  const I18N_ATTR = 'data-i18n';
+
+  let DICT = {};
+  let CURRENT_LANG = null;
 
   function getLangFromQuery() {
     const p = new URLSearchParams(location.search);
     const lang = (p.get('lang') || '').toLowerCase();
     return SUPPORTED.includes(lang) ? lang : null;
   }
-
   function getBrowserLang() {
     const n = (navigator.language || '').toLowerCase();
     if (n.startsWith('sr')) return 'sr';
     if (n.startsWith('sv')) return 'sv';
     return 'en';
   }
-
-  // Prefer URL ?lang, then localStorage, then browser, then default
   function currentLang() {
+    // Prefer URL ?lang, then localStorage, then browser, then default
     return getLangFromQuery() || localStorage.getItem('lang') || getBrowserLang() || DEFAULT_LANG;
+  }
+
+  function applyTranslations(root) {
+    const scope = root || document;
+    scope.querySelectorAll('[' + I18N_ATTR + ']').forEach(el => {
+      const key = el.getAttribute(I18N_ATTR);
+      if (Object.prototype.hasOwnProperty.call(DICT, key)) {
+        el.textContent = DICT[key];
+      }
+    });
   }
 
   async function loadTranslations(lang) {
     if (!SUPPORTED.includes(lang)) lang = DEFAULT_LANG;
-    try {
-      // Cache-bust so updated keys are fetched immediately
-      const res = await fetch(`/i18n/${lang}.json?v=${Date.now()}`, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Failed to load i18n file for ' + lang);
-      const dict = await res.json();
-
-      document.documentElement.lang = lang;
-
-      // Apply to all elements that declare data-i18n
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (Object.prototype.hasOwnProperty.call(dict, key)) {
-          el.textContent = dict[key];
-        }
-      });
-
-      // Do NOT overwrite <title> with site.name.
-      // If <title> has data-i18n, it was already handled above.
-    } catch (err) {
-      console.error(err);
-    }
+    const url = `/i18n/${lang}.json?v=${Date.now()}`; // cache-bust so new keys show up
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to load i18n file for ' + lang);
+    DICT = await res.json();
+    document.documentElement.lang = lang;
+    applyTranslations(document);
   }
 
   async function setLanguage(lang) {
-    localStorage.setItem('lang', lang);
-    await loadTranslations(lang);
+    CURRENT_LANG = SUPPORTED.includes(lang) ? lang : DEFAULT_LANG;
+    localStorage.setItem('lang', CURRENT_LANG);
+    await loadTranslations(CURRENT_LANG);
+    // keep URL shareable
     const url = new URL(location);
-    url.searchParams.set('lang', lang);
+    url.searchParams.set('lang', CURRENT_LANG);
     history.replaceState(null, '', url);
   }
 
-  // Make it callable if needed
-  window.__setLang = setLanguage;
-
-  // Wire up flag buttons
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-lang]');
-    if (btn) {
-      e.preventDefault();
-      setLanguage(btn.getAttribute('data-lang'));
+  // MutationObserver: re-apply when header/footer are injected by include.js
+  const observer = new MutationObserver(muts => {
+    for (const m of muts) {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType === 1) applyTranslations(node);
+      });
     }
   });
 
-  // Initialize
-  loadTranslations(currentLang());
+  // Wire up flag buttons (elements with data-lang="sv|sr|en")
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-lang]');
+    if (!btn) return;
+    e.preventDefault();
+    setLanguage(btn.getAttribute('data-lang'));
+  });
+
+  // Expose manual switch for quick testing
+  window.__setLang = setLanguage;
+
+  // Init
+  (async () => {
+    try {
+      await setLanguage(currentLang());
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+      // extra safety: re-apply once window fully loaded
+      if (document.readyState === 'complete') applyTranslations(document);
+      else window.addEventListener('load', () => applyTranslations(document), { once: true });
+    } catch (err) {
+      console.error(err);
+    }
+  })();
 })();
-</script>
