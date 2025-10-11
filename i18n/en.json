@@ -77,8 +77,7 @@
 
   "etiquette.title": "Orthodox Etiquette",
   "etiquette.intro": "Simple guidance for reverence and good order in church.",
-  "etiquette.disclaimer": "Local parish practice may vary. When unsure, ask the priest or deacon.",
-
+  
   "etiquette.cards.bows.title": "Rules about the bows",
   "etiquette.cards.bows.desc": "When, why, and how we bow in church.",
   "etiquette.cards.liturgyBows.title": "Bows at the Holy Liturgy",
@@ -97,10 +96,10 @@
   "etiquette.topic.bows.title": "Rules about the bows",
   "etiquette.topic.bows.intro": "Bows express worship and reverence. Make the sign of the Cross calmly, without drawing attention to yourself.",
   "etiquette.topic.bows.bullets.0": "Small bows (from the waist) are most common; deeper bows are for certain moments or seasons.",
-  "etiquette.topic.bows.bullets.1": "Follow the priest’s cues and local parish custom.",
+  "etiquette.topic.bows.bullets.1": "",
   "etiquette.topic.bows.bullets.2": "When unsure, pray simply and bow modestly.",
   "etiquette.topic.bows.bullets.3": "Avoid rushing, noise, or blocking others.",
-  "etiquette.topic.bows.note": "Local practice may vary—ask the priest.",
+ 
 
   "etiquette.topic.liturgyBows.title": "Bows at the Holy Liturgy",
   "etiquette.topic.liturgyBows.intro": "During the Liturgy, bowing is deliberate and simple—especially at greetings and blessings.",
@@ -108,7 +107,7 @@
   "etiquette.topic.liturgyBows.bullets.1": "During readings and key prayers, keep movements gentle; avoid walking around.",
   "etiquette.topic.liturgyBows.bullets.2": "At the dismissal/cross-veneration, bow respectfully; if you communed, you usually do not kiss the priest’s hand.",
   "etiquette.topic.liturgyBows.bullets.3": "When in doubt, follow what the priest and regular faithful do.",
-  "etiquette.topic.liturgyBows.note": "Local practice may vary—ask the priest or deacon.",
+  
 
   "etiquette.topic.bowsGround.title": "Bows down to the ground/from the waist",
   "etiquette.topic.bowsGround.intro": "Two main forms: a deep bow to the ground and a small bow from the waist.",
@@ -116,7 +115,7 @@
   "etiquette.topic.bowsGround.bullets.1": "Small bows are typical the rest of the year.",
   "etiquette.topic.bowsGround.bullets.2": "If you have health or space limitations, make a small bow—God sees the intention.",
   "etiquette.topic.bowsGround.bullets.3": "Children and the elderly may always use the small bow.",
-  "etiquette.topic.bowsGround.note": "Local practice may vary—follow your parish custom.",
+ 
 
   "etiquette.topic.clothing.title": "Christian clothing",
   "etiquette.topic.clothing.intro": "Dress simply and modestly; clothing should support prayer, not distract from it.",
@@ -124,7 +123,7 @@
   "etiquette.topic.clothing.bullets.1": "Women: a simple head covering is often customary; avoid transparent or tight clothing.",
   "etiquette.topic.clothing.bullets.2": "Men: neat shoes and trousers; remove caps; avoid sportswear and sleeveless tops.",
   "etiquette.topic.clothing.bullets.3": "Comfort + modesty help you focus in prayer.",
-  "etiquette.topic.clothing.note": "Local practice may vary—ask your priest.",
+ 
 
   "etiquette.topic.candles.title": "How to light candles (and prayers)",
   "etiquette.topic.candles.intro": "A candle is a small offering and a prayer before the Lord or a saint.",
@@ -132,7 +131,7 @@
   "etiquette.topic.candles.bullets.1": "Simple prayers: “Lord Jesus Christ, Son of God, have mercy on me,” “Most Holy Theotokos, save us,” or “Saint N., pray to God for us.”",
   "etiquette.topic.candles.bullets.2": "On major feasts, you may hold candles during parts of the service—follow the parish custom.",
   "etiquette.topic.candles.bullets.3": "If unsure where to place a candle, ask an attendant.",
-  "etiquette.topic.candles.note": "Local practice may vary—ask the priest or attendants.",
+ 
 
   "etiquette.candles.usecases.title": "Use-cases & short prayers",
   "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
