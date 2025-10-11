@@ -132,5 +132,25 @@
   "etiquette.topic.candles.bullets.1": "Simple prayers: “Lord Jesus Christ, Son of God, have mercy on me,” “Most Holy Theotokos, save us,” or “Saint N., pray to God for us.”",
   "etiquette.topic.candles.bullets.2": "On major feasts, you may hold candles during parts of the service—follow the parish custom.",
   "etiquette.topic.candles.bullets.3": "If unsure where to place a candle, ask an attendant.",
-  "etiquette.topic.candles.note": "Local practice may vary—ask the priest or attendants."
+  "etiquette.topic.candles.note": "Local practice may vary—ask the priest or attendants.",
+
+  "etiquette.candles.usecases.title": "Use-cases & short prayers",
+  "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
+  "etiquette.candles.usecases.christ.prayer": "Lord Jesus Christ, Son of God, have mercy on me.",
+  "etiquette.candles.usecases.cross.label": "Before the Cross",
+  "etiquette.candles.usecases.cross.prayer": "Glory, O Lord, to Your Honourable Cross!",
+  "etiquette.candles.usecases.theotokos.label": "Before the Mother of God",
+  "etiquette.candles.usecases.theotokos.prayer": "Most Holy Lady Theotokos, save us!",
+  "etiquette.candles.usecases.angel.label": "Before your Guardian Angel",
+  "etiquette.candles.usecases.angel.prayer": "Angel of Christ, my holy guardian, save me.",
+  "etiquette.candles.usecases.saint.label": "Before any Saint",
+  "etiquette.candles.usecases.saint.prayer": "Saint N., pray to God for us.",
+  "etiquette.candles.usecases.memorial.label": "At the memorial (for the departed)",
+  "etiquette.candles.usecases.memorial.prayer": "Grant rest, O Lord, to the souls of Your departed servants.",
+
+  "etiquette.candles.holding.title": "Holding candles during services (when customary)",
+  "etiquette.candles.holding.bullets.0": "On the Twelve Great Feasts (and feasts of the same rank) at specified points.",
+  "etiquette.candles.holding.bullets.1": "On Great Thursday during the Twelve Gospels.",
+  "etiquette.candles.holding.bullets.2": "At Pascha (Easter) from the procession until the end of the First Hour.",
+  "etiquette.candles.holding.bullets.3": "During the burial service, as directed by the clergy."
 }
