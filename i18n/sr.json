@@ -59,12 +59,11 @@
 
   "contact.title": "Контакт",
   "contact.intro": "Ступите у контакт са парохијом.",
-
   "contact.address.title": "Адреса",
-"contact.open.google": "Отвори у Google Maps",
-"contact.open.apple": "Отвори у Apple Maps",
-"contact.clergy.title": "Свештенство и контакт",
-"contact.role.kyrkoherde": "Kyrkoherde",
+  "contact.open.google": "Отвори у Google Maps",
+  "contact.open.apple": "Отвори у Apple Maps",
+  "contact.clergy.title": "Свештенство и контакт",
+  "contact.role.kyrkoherde": "Kyrkoherde",
 
   "404.title": "Страница није пронађена",
   "404.body": "Жао нам је, не можемо да пронађемо ту страницу.",
@@ -72,5 +71,66 @@
 
   "common.copy": "Копирај",
   "common.copied": "Копирано!",
-  "common.failed": "Неуспело"
+  "common.failed": "Неуспело",
+
+  "nav.etiquette": "Православни бонтон",
+
+  "etiquette.title": "Православни бонтон",
+  "etiquette.intro": "Једноставна упутства за побожност и добар поредак у храму.",
+  "etiquette.disclaimer": "Месна пракса може да варира. Ако сте у недоумици, питајте свештеника или ђакона.",
+
+  "etiquette.cards.bows.title": "Праваила поклона",
+  "etiquette.cards.bows.desc": "Када, зашто и како се клањамо у храму.",
+  "etiquette.cards.liturgyBows.title": "Поклони на Светој Литургији",
+  "etiquette.cards.liturgyBows.desc": "Главни тренуци за поклоне током Литургије.",
+  "etiquette.cards.bowsGround.title": "Поклон до земље и наклон из струка",
+  "etiquette.cards.bowsGround.desc": "Када се иде до земље, а када се клања из струка.",
+  "etiquette.cards.clothing.title": "Хришћанска одећа",
+  "etiquette.cards.clothing.desc": "Скромност и практичност на богослужењу.",
+  "etiquette.cards.candles.title": "Како палити свеће (и молитве)",
+  "etiquette.cards.candles.desc": "Корак по корак са кратком молитвом.",
+  "etiquette.cards.all": "Сви чланци…",
+
+  "common.ataglance": "Укратко",
+  "common.ask": "Питајте свештеника",
+
+  "etiquette.topic.bows.title": "Праваила поклона",
+  "etiquette.topic.bows.intro": "Поклони изражавају поклоњење и поштовање. Крстите се мирно, без привлачења пажње.",
+  "etiquette.topic.bows.bullets.0": "Мали поклони (из струка) су најчешћи; дубљи поклони су за поједине тренутке и периоде.",
+  "etiquette.topic.bows.bullets.1": "Пратите свештеника и локални обичај у парохији.",
+  "etiquette.topic.bows.bullets.2": "Ако нисте сигурни, помолите се једноставно и смирено се поклоните.",
+  "etiquette.topic.bows.bullets.3": "Избегавајте журбу, буку и ометање других.",
+  "etiquette.topic.bows.note": "Месна пракса може да варира—питајте свештеника.",
+
+  "etiquette.topic.liturgyBows.title": "Поклони на Светој Литургији",
+  "etiquette.topic.liturgyBows.intro": "Током Литургије поклањамо се просто и са пажњом—нарочито при поздравима и благословима.",
+  "etiquette.topic.liturgyBows.bullets.0": "На „Мир свима“: тихи наклон из струка (често без крсног знака).",
+  "etiquette.topic.liturgyBows.bullets.1": "Током читања и кључних молитава: мир у покретима; не шетајте.",
+  "etiquette.topic.liturgyBows.bullets.2": "На отпусту/целивању Крста: наклон и целив; после Причешћа руку свештеника обично не целивамо.",
+  "etiquette.topic.liturgyBows.bullets.3": "Ако се двоумите, пратите свештеника и редовне вернике.",
+  "etiquette.topic.liturgyBows.note": "Месна пракса може да варира—питајте свештеника или ђакона.",
+
+  "etiquette.topic.bowsGround.title": "Поклон до земље и наклон из струка",
+  "etiquette.topic.bowsGround.intro": "Два облика: велики поклон до земље и мали наклон из струка.",
+  "etiquette.topic.bowsGround.bullets.0": "Велики поклони су чешћи у посту (нпр. Велики пост) и уз поједине молитве.",
+  "etiquette.topic.bowsGround.bullets.1": "Мали поклони су уобичајени током године.",
+  "etiquette.topic.bowsGround.bullets.2": "Ако имате здравствена ограничења, учините мали наклон—Бог види намеру.",
+  "etiquette.topic.bowsGround.bullets.3": "Деца и старији увек могу да чине мали наклон.",
+  "etiquette.topic.bowsGround.note": "Месна пракса може да варира—пратите обичај ваше парохије.",
+
+  "etiquette.topic.clothing.title": "Хришћанска одећа",
+  "etiquette.topic.clothing.intro": "Облачите се једноставно и смерно; одећа треба да помаже молитви, а не да одвлачи пажњу.",
+  "etiquette.topic.clothing.bullets.0": "Избегавајте упадљив стил; пристојна и чиста одећа погодна за поклоне.",
+  "etiquette.topic.clothing.bullets.1": "Жене: једноставна марама; избегавати провидно и преуско.",
+  "etiquette.topic.clothing.bullets.2": "Мушкарци: уредна обућа и панталоне; без капе; избегавати спортску одећу и мајице без рукава.",
+  "etiquette.topic.clothing.bullets.3": "Комфор и скромност помажу сабрању у молитви.",
+  "etiquette.topic.clothing.note": "Месна пракса може да варира—питајте свештеника.",
+
+  "etiquette.topic.candles.title": "Како палити свеће (и молитве)",
+  "etiquette.topic.candles.intro": "Свећа је мали принос и молитва пред Господом или светитељем.",
+  "etiquette.topic.candles.bullets.0": "Пажљиво упалите и безбедно поставите свећу пред одговарајућу икону.",
+  "etiquette.topic.candles.bullets.1": "Једноставне молитве: „Господе Исусе Христе, Сине Божји, помилуј ме“, „Пресвета Богородице, спаси нас“, или „Свети Н., моли Бога за нас“.",
+  "etiquette.topic.candles.bullets.2": "На велике празнике понекад се држе свеће током делова службе—следите парохијски обичај.",
+  "etiquette.topic.candles.bullets.3": "Ако нисте сигурни где да ставите свећу, питајте послужитеље у храму.",
+  "etiquette.topic.candles.note": "Месна пракса може да варира—питајте свештеника или послужитеље."
 }
