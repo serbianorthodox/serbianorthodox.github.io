@@ -77,7 +77,7 @@
 
   "etiquette.title": "Orthodox Etiquette",
   "etiquette.intro": "Simple guidance for reverence and good order in church.",
-  
+
   "etiquette.cards.bows.title": "Rules about the bows",
   "etiquette.cards.bows.desc": "When, why, and how we bow in church.",
   "etiquette.cards.liturgyBows.title": "Bows at the Holy Liturgy",
@@ -98,7 +98,6 @@
   "etiquette.topic.bows.bullets.1": "",
   "etiquette.topic.bows.bullets.2": "When unsure, pray simply and bow modestly.",
   "etiquette.topic.bows.bullets.3": "Avoid rushing, noise, or blocking others.",
- 
 
   "etiquette.topic.liturgyBows.title": "Bows at the Holy Liturgy",
   "etiquette.topic.liturgyBows.intro": "During the Liturgy, bowing is deliberate and simple—especially at greetings and blessings.",
@@ -106,7 +105,6 @@
   "etiquette.topic.liturgyBows.bullets.1": "During readings and key prayers, keep movements gentle; avoid walking around.",
   "etiquette.topic.liturgyBows.bullets.2": "At the dismissal/cross-veneration, bow respectfully; if you communed, you usually do not kiss the priest’s hand.",
   "etiquette.topic.liturgyBows.bullets.3": "When in doubt, follow what the priest and regular faithful do.",
-  
 
   "etiquette.topic.bowsGround.title": "Bows down to the ground/from the waist",
   "etiquette.topic.bowsGround.intro": "Two main forms: a deep bow to the ground and a small bow from the waist.",
@@ -114,7 +112,6 @@
   "etiquette.topic.bowsGround.bullets.1": "Small bows are typical the rest of the year.",
   "etiquette.topic.bowsGround.bullets.2": "If you have health or space limitations, make a small bow—God sees the intention.",
   "etiquette.topic.bowsGround.bullets.3": "Children and the elderly may always use the small bow.",
- 
 
   "etiquette.topic.clothing.title": "Christian clothing",
   "etiquette.topic.clothing.intro": "Dress simply and modestly; clothing should support prayer, not distract from it.",
@@ -123,9 +120,9 @@
   "etiquette.topic.clothing.bullets.2": "Men: neat shoes and trousers; remove caps; avoid sportswear and sleeveless tops.",
   "etiquette.topic.clothing.bullets.3": "Comfort + modesty help you focus in prayer.",
 
-  
   "etiquette.candles.why.title": "Why we light candles",
   "etiquette.candles.why.text": "Candles are an offering to God and His saints, a sign of prayer, joy, and reverence. Light them before icons with a simple prayer to the one depicted, asking God’s help and the saints’ intercession. Handle candles carefully and respectfully.",
+
   "etiquette.topic.candles.title": "How to light candles (and prayers)",
   "etiquette.topic.candles.intro": "A candle is an offering and a visible prayer before God and His saints.",
   "etiquette.topic.candles.bullets.0": "Light the candle calmly and place it upright before the appropriate icon.",
@@ -133,24 +130,35 @@
   "etiquette.topic.candles.bullets.2": "During services, candles on stands follow the set order; do not interfere with them.",
   "etiquette.topic.candles.bullets.3": "Holding candles: Great Feasts, Great and Holy Thursday, Pascha, and funerals.",
 
-"etiquette.candles.usecases.title": "Use-cases & short prayers",
-"etiquette.candles.usecases.christ.label": "Before the icon of Christ",
-"etiquette.candles.usecases.christ.prayer": "Lord Jesus Christ, Son of God, have mercy on me, a sinner.",
-"etiquette.candles.usecases.cross.label": "Before the Cross",
-"etiquette.candles.usecases.cross.prayer": "Glory, O Lord, to Your honorable Cross.",
-"etiquette.candles.usecases.theotokos.label": "Before the Mother of God",
-"etiquette.candles.usecases.theotokos.prayer": "Most Holy Theotokos, save us.",
-"etiquette.candles.usecases.angel.label": "Before your Guardian Angel",
-"etiquette.candles.usecases.angel.prayer": "Angel of Christ, my holy guardian, save me.",
-"etiquette.candles.usecases.saint.label": "Before any Saint",
-"etiquette.candles.usecases.saint.prayer": "Saint N., pray to God for us.",
-"etiquette.candles.usecases.memorial.label": "At the memorial (for the departed)",
-"etiquette.candles.usecases.memorial.prayer": "Grant rest, O Lord, to the souls of Your departed servants.",
+  "etiquette.candles.usecases.title": "Use-cases & short prayers",
+  "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
+  "etiquette.candles.usecases.christ.prayer": "Lord Jesus Christ, Son of God, have mercy on me, a sinner.",
+  "etiquette.candles.usecases.cross.label": "Before the Cross",
+  "etiquette.candles.usecases.cross.prayer": "Glory, O Lord, to Your honorable Cross.",
+  "etiquette.candles.usecases.theotokos.label": "Before the Mother of God",
+  "etiquette.candles.usecases.theotokos.prayer": "Most Holy Theotokos, save us.",
+  "etiquette.candles.usecases.angel.label": "Before your Guardian Angel",
+  "etiquette.candles.usecases.angel.prayer": "Angel of Christ, my holy guardian, save me.",
+  "etiquette.candles.usecases.saint.label": "Before any Saint",
+  "etiquette.candles.usecases.saint.prayer": "Saint N., pray to God for us.",
+  "etiquette.candles.usecases.memorial.label": "At the memorial (for the departed)",
+  "etiquette.candles.usecases.memorial.prayer": "Grant rest, O Lord, to the souls of Your departed servants.",
 
-"etiquette.candles.holding.title": "Holding candles during services (when customary)",
-"etiquette.candles.holding.bullets.0": "At the Twelve Great Feasts and parish feast day: from the Polyeleos until the 3rd Ode, then again after the 8th Ode until the end of the Great Doxology.",
-"etiquette.candles.holding.bullets.1": "On Great and Holy Thursday: during the reading of the Twelve Gospels.",
-"etiquette.candles.holding.bullets.2": "At Pascha: from the procession until the end of the First Hour.",
-"etiquette.candles.holding.bullets.3": "At funerals and memorial services."
+  "etiquette.candles.where.title": "Where and how",
+  "etiquette.candles.where.steps.0": "Approach the icon stand calmly.",
+  "etiquette.candles.where.steps.1": "Make the sign of the Cross, bow, and light the candle from an existing flame if possible.",
+  "etiquette.candles.where.steps.2": "Place it upright before the icon of Christ, the Mother of God, or the saint you are addressing.",
+  "etiquette.candles.where.steps.3": "Do not block others, jostle, or rearrange others’ candles. Keep wax drips to a minimum.",
 
+  "etiquette.candles.stands.title": "When candles on stands are lit during services",
+  "etiquette.candles.stands.text": "At Vespers, candles are lit before censing at “Lord, I have cried,” then follow the set pattern of being extinguished and relit at specific moments, remaining lit through the Great Doxology. At the morning service and the Divine Liturgy, candles are lit after the Ninth Hour and remain lit until the end. Don’t wander around tending candles in a way that disrupts the service or decorum.",
+
+  "etiquette.candles.holding.title": "Holding candles during services (when customary)",
+  "etiquette.candles.holding.bullets.0": "At the Twelve Great Feasts and parish feast day: from the Polyeleos until the 3rd Ode, then again after the 8th Ode until the end of the Great Doxology.",
+  "etiquette.candles.holding.bullets.1": "On Great and Holy Thursday: during the reading of the Twelve Gospels.",
+  "etiquette.candles.holding.bullets.2": "At Pascha: from the procession until the end of the First Hour.",
+  "etiquette.candles.holding.bullets.3": "At funerals and memorial services.",
+
+  "etiquette.candles.conduct.title": "Conduct",
+  "etiquette.candles.conduct.text": "Offer your candle without disrupting worship. Respect the order of the service and the people around you so that a simple offering becomes a fitting prayer."
 }
