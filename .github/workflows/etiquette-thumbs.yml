@@ -4,10 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'assets/img/etiquette/*.jpg'
-      - 'assets/img/etiquette/*.jpeg'
-      - 'assets/img/etiquette/*.JPG'
-      - 'assets/img/etiquette/*.JPEG'
+      - 'assets/img/etiquette/*'
 
 jobs:
   make-thumbs:
@@ -16,27 +13,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install ImageMagick
         run: sudo apt-get update && sudo apt-get install -y imagemagick
-      - name: Generate resized images
+
+      - name: Generate resized images (JPG, JPEG, PNG, WEBP)
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p assets/img/etiquette/thumbs
-          for f in assets/img/etiquette/*.[jJ][pP][eE]?[gG]; do
-            [ -e "$f" ] || continue
+          shopt -s nullglob
+          for f in assets/img/etiquette/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp,WEBP}; do
             base="$(basename "$f")"
-            # Large page image (max 1600px wide)
-            convert "$f" -strip -resize 1600x -quality 80 "assets/img/etiquette/large-$base"
-            # Card thumbnail 1200x800 (center-crop)
-            convert "$f" -strip -resize 1200x800^ -gravity center -extent 1200x800 -quality 80 "assets/img/etiquette/thumbs/$base"
+            stem="${base%.*}"
+            # Large page image (max 1600px wide) -> large-<stem>.jpg
+            convert "$f" -strip -resize 1600x -quality 80 "assets/img/etiquette/large-${stem}.jpg"
+            # Card thumbnail 1200x800 center-crop -> thumbs/<stem>.jpg
+            convert "$f" -strip -resize 1200x800^ -gravity center -extent 1200x800 -quality 80 "assets/img/etiquette/thumbs/${stem}.jpg"
           done
+
       - name: Commit resized images
+        shell: bash
         run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git status --porcelain | grep .; then
-            git add assets/img/etiquette/thumbs assets/img/etiquette/large-*.jpg assets/img/etiquette/large-*.jpeg || true
+          # Only commit if we actually created files
+          if ls assets/img/etiquette/large-*.jpg assets/img/etiquette/thumbs/*.jpg >/dev/null 2>&1; then
+            git add assets/img/etiquette/large-*.jpg assets/img/etiquette/thumbs/*.jpg
             git commit -m "Auto-generate etiquette thumbnails and large images"
             git push
           else
-            echo "No changes to commit."
+            echo "No images found to process."
           fi
