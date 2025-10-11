@@ -59,19 +59,79 @@
 
   "contact.title": "Kontakt",
   "contact.intro": "Kontakta församlingen.",
- 
-"contact.address.title": "Adress",
-"contact.open.google": "Öppna i Google Maps",
-"contact.open.apple": "Öppna i Apple Kartor",
-"contact.clergy.title": "Prästerskap & kontakt",
-"contact.role.kyrkoherde": "Kyrkoherde",
+  "contact.address.title": "Adress",
+  "contact.open.google": "Öppna i Google Maps",
+  "contact.open.apple": "Öppna i Apple Kartor",
+  "contact.clergy.title": "Prästerskap & kontakt",
+  "contact.role.kyrkoherde": "Kyrkoherde",
 
-  
   "404.title": "Sidan kunde inte hittas",
   "404.body": "Tyvärr kunde vi inte hitta sidan.",
   "404.back": "Gå till startsidan",
 
   "common.copy": "Kopiera",
   "common.copied": "Kopierat!",
-  "common.failed": "Misslyckades"
+  "common.failed": "Misslyckades",
+
+  /* === Tillagt för avdelningen Vett och etikett (SV) === */
+  "nav.etiquette": "Vett och etikett",
+
+  "etiquette.title": "Vett och etikett",
+  "etiquette.intro": "Enkel vägledning för vördnad och god ordning i kyrkan.",
+  "etiquette.disclaimer": "Lokal praxis kan variera. Fråga prästen eller diakonen vid osäkerhet.",
+
+  "etiquette.cards.bows.title": "Regler för bugningar",
+  "etiquette.cards.bows.desc": "När, varför och hur vi bugar i kyrkan.",
+  "etiquette.cards.liturgyBows.title": "Bugningar under den Heliga Liturgin",
+  "etiquette.cards.liturgyBows.desc": "Viktiga tillfällen för bugningar under liturgin.",
+  "etiquette.cards.bowsGround.title": "Bugning till marken (Guds böjning)",
+  "etiquette.cards.bowsGround.desc": "När man bugar till marken respektive bugar från midjan.",
+  "etiquette.cards.clothing.title": "Kristen klädsel",
+  "etiquette.cards.clothing.desc": "Anständig och praktisk klädsel i gudstjänsten.",
+  "etiquette.cards.candles.title": "Hur man tänder ljus (och böner)",
+  "etiquette.cards.candles.desc": "Steg för steg med en kort bön.",
+  "etiquette.cards.all": "Alla ämnen…",
+
+  "common.ataglance": "I korthet",
+  "common.ask": "Fråga prästen",
+
+  "etiquette.topic.bows.title": "Regler för bugningar",
+  "etiquette.topic.bows.intro": "Bugningar uttrycker tillbedjan och vördnad. Gör korstecknet lugnt utan att dra uppmärksamhet.",
+  "etiquette.topic.bows.bullets.0": "Små bugningar (från midjan) är vanligast; djupare bugningar görs vid särskilda tillfällen eller tider.",
+  "etiquette.topic.bows.bullets.1": "Följ prästens tecken och församlingens sed.",
+  "etiquette.topic.bows.bullets.2": "Vid osäkerhet: be enkelt och bug modest.",
+  "etiquette.topic.bows.bullets.3": "Undvik att stressa, låta eller blockera andra.",
+  "etiquette.topic.bows.note": "Lokal praxis kan variera—fråga prästen.",
+
+  "etiquette.topic.liturgyBows.title": "Bugningar under den Heliga Liturgin",
+  "etiquette.topic.liturgyBows.intro": "Under liturgin är bugningen avsiktlig och enkel—särskilt vid hälsningar och välsignelser.",
+  "etiquette.topic.liturgyBows.bullets.0": "Vid ”Frid vare med er”: gör en stilla midjebugning (ofta utan korstecken).",
+  "etiquette.topic.liturgyBows.bullets.1": "Under läsningar och viktiga böner: håll rörelserna stilla; undvik att gå runt.",
+  "etiquette.topic.liturgyBows.bullets.2": "Vid avslutning/kors-vördnad: bug respektfullt; efter kommunion brukar man inte kyssa prästens hand.",
+  "etiquette.topic.liturgyBows.bullets.3": "Om du tvekar: se vad prästen och de vana församlingsborna gör.",
+  "etiquette.topic.liturgyBows.note": "Lokal praxis kan variera—fråga prästen eller diakonen.",
+
+  "etiquette.topic.bowsGround.title": "Bugning till marken (Guds böjning)",
+  "etiquette.topic.bowsGround.intro": "Två huvudformer: djup bugning till marken och liten bugning från midjan.",
+  "etiquette.topic.bowsGround.bullets.0": "Djupa bugningar är vanligare under fastetider (t.ex. Stora fastan) och vid vissa böner.",
+  "etiquette.topic.bowsGround.bullets.1": "Små bugningar är typiska annars under året.",
+  "etiquette.topic.bowsGround.bullets.2": "Har du begränsningar i kropp eller utrymme? Gör en liten bugning—Gud ser avsikten.",
+  "etiquette.topic.bowsGround.bullets.3": "Barn och äldre kan alltid göra den lilla bugningen.",
+  "etiquette.topic.bowsGround.note": "Lokal praxis kan variera—följ församlingens sed.",
+
+  "etiquette.topic.clothing.title": "Kristen klädsel",
+  "etiquette.topic.clothing.intro": "Klä dig enkelt och anständigt; kläderna ska hjälpa bön, inte störa.",
+  "etiquette.topic.clothing.bullets.0": "Undvik iögonfallande stil; välj ren, anständig klädsel som fungerar att buga i.",
+  "etiquette.topic.clothing.bullets.1": "Kvinnor: enkel huvudduk är ofta brukligt; undvik genomskinligt eller alltför tight.",
+  "etiquette.topic.clothing.bullets.2": "Män: prydliga skor och byxor; ta av huvudbonad; undvik sportkläder och ärmlöst.",
+  "etiquette.topic.clothing.bullets.3": "Bekvämt + anständigt hjälper koncentrationen i bön.",
+  "etiquette.topic.clothing.note": "Lokal praxis kan variera—fråga prästen.",
+
+  "etiquette.topic.candles.title": "Hur man tänder ljus (och böner)",
+  "etiquette.topic.candles.intro": "Ett ljus är en liten gåva och bön inför Herren eller en helig.",
+  "etiquette.topic.candles.bullets.0": "Tänd varsamt och placera ljuset säkert vid rätt ikon.",
+  "etiquette.topic.candles.bullets.1": "Enkla böner: ”Herre Jesus Kristus, Guds Son, förbarma dig”, ”Allraheligaste Guds Moder, fräls oss”, eller ”Helige N., be till Gud för oss”.",
+  "etiquette.topic.candles.bullets.2": "Vid stora högtider kan man hålla ljus under delar av gudstjänsten—följ församlingens sed.",
+  "etiquette.topic.candles.bullets.3": "Fråga kyrkvärdar om du är osäker var ljuset ska stå.",
+  "etiquette.topic.candles.note": "Lokal praxis kan variera—fråga prästen eller kyrkvärdar."
 }
