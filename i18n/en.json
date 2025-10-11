@@ -132,6 +132,14 @@
 
   "etiquette.candles.usecases.title": "When to light a candle",
 "etiquette.candles.prayers.title": "Short prayers to say",
+"etiquette.candles.prayers.christ": "Before Christ: “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
+"etiquette.candles.prayers.theotokos": "Before the Mother of God: “Most Holy Theotokos, save us.”",
+"etiquette.candles.prayers.cross": "Before the Cross: “Glory, O Lord, to Your honorable Cross.”",
+"etiquette.candles.prayers.angel": "Before a Guardian Angel: “Angel of Christ, my holy guardian, save me.”",
+"etiquette.candles.prayers.saint": "Before a Saint: “Saint N., pray to God for us.”",
+"etiquette.candles.prayers.memorial": "At the memorial table: “Grant rest, O Lord, to Your departed servants.”",
+
+  
 
   "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
   "etiquette.candles.usecases.christ.prayer": "Lord Jesus Christ, Son of God, have mercy on me, a sinner.",
