@@ -39,12 +39,10 @@
 
   "donations.title": "Donationer",
   "donations.intro": "Stöd församlingen med en engångsgåva eller månadsgåva.",
-
   "donations.swish.title": "Swish (engångsbetalning)",
   "donations.swish.number.label": "Swish-nummer:",
   "donations.swish.number.value": "123 446 7320",
   "donations.swish.note": "Skriv ditt namn i meddelandefältet.",
-
   "donations.autogiro.title": "Månadsgåva (Autogiro)",
   "donations.bank.name.label": "Bank:",
   "donations.bank.name.value": "Swedbank",
@@ -54,7 +52,6 @@
   "donations.bank.ocr.value": "Ditt namn",
   "donations.bank.amount": "Välj ditt betalningsbelopp.",
   "donations.bank.note": "För återkommande betalningar, lägg upp ett Autogiro via din bank med uppgifterna ovan.",
-
   "donations.note": "Tack för att du stöttar kyrkans liv.",
 
   "contact.title": "Kontakt",
@@ -73,9 +70,7 @@
   "common.copied": "Kopierat!",
   "common.failed": "Misslyckades",
 
-  /* === Tillagt för avdelningen Vett och etikett (SV) === */
   "nav.etiquette": "Vett och etikett",
-
   "etiquette.title": "Vett och etikett",
   "etiquette.intro": "Enkel vägledning för vördnad och god ordning i kyrkan.",
   "etiquette.disclaimer": "Lokal praxis kan variera. Fråga prästen eller diakonen vid osäkerhet.",
