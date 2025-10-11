@@ -46,8 +46,8 @@
   "donations.swish.note": "Enter your name in the message field.",
 
   "donations.autogiro.title": "Monthly donation (Autogiro)",
-  "donations.bank.name.label": "Bank(test):",
-  "donations.bank.name.value": "Swedbank",
+  "donations.bank.name.label": "Bank:",
+  "donations.bank.name.value": "Swedbank(test)",
   "donations.bank.account.label": "Account number:",
   "donations.bank.account.value": "83139-5142191286",
   "donations.bank.ocr.label": "Reference:",
