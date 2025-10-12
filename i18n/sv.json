@@ -63,7 +63,9 @@
   "contact.open.google": "Öppna i Google Maps",
   "contact.open.apple": "Öppna i Apple Kartor",
   "contact.clergy.title": "Prästerskap och kontakt",
-  "contact.role.kyrkoherde": "Kyrkoherde",
+  "contact.role.archpriest": "Ärkepräst",
+  "contact.role.deputyArchpriest": "Protonamjesnik (ställföreträdande ärkepräst)",
+
 
   "404.title": "Sidan kunde inte hittas",
   "404.body": "Vi kan tyvärr inte hitta sidan.",
