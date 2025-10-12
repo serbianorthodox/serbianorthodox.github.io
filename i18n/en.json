@@ -90,6 +90,9 @@
   "etiquette.cards.clothing.desc": "Modesty and practicality for services.",
   "etiquette.cards.candles.title": "How to light candles (and prayers)",
   "etiquette.cards.candles.desc": "Step-by-step with a short prayer.",
+  "etiquette.cards.bowsLent.title": "Bows during the Great Lent",
+  "etiquette.cards.bowsLent.desc": "Exact rules for bows in Lent: when to bow to the ground or from the waist.",
+
   "etiquette.cards.all": "All topics…",
 
   "common.ataglance": "At a glance",
@@ -261,5 +264,50 @@
   "etiquette.candles.when.bullets.2": "In the morning/Liturgy: candles are lit after the Ninth Hour and remain lit until the end.",
   "etiquette.candles.when.bullets.3": "The faithful may hold candles on Great Feasts: from the Polyeleos to the 3rd Ode; relight after the 8th Ode until the end of the Great Doxology.",
   "etiquette.candles.when.bullets.4": "Great and Holy Thursday: during the reading of the Twelve Gospels.",
-  "etiquette.candles.when.bullets.5": "Pascha: from the procession until the end of the First Hour; also at funerals."
+  "etiquette.candles.when.bullets.5": "Pascha: from the procession until the end of the First Hour; also at funerals.",
+
+  
+  
+
+  "etiquette.topic.bowsLent.title": "Bows during the Great Lent",
+  "etiquette.topic.bowsLent.intro": "During Great Lent, bows to the ground are common on weekdays. This page lists the exceptions and the exact order for key Lenten services.",
+  "etiquette.topic.bowsLent.bullets.0": "Weekdays of Lent: bows to the ground are made throughout.",
+  "etiquette.topic.bowsLent.bullets.1": "Exceptions: certain openings of Sunday evening/night services and at the first “Glory” of weekday kathismas — these are bows from the waist.",
+  "etiquette.topic.bowsLent.bullets.2": "Prayer of St Ephraim: normally 17 bows to the ground; at some services only 3 or 4.",
+  "etiquette.topic.bowsLent.bullets.3": "Saturdays and Sundays of Lent: bows from the waist only.",
+
+  "etiquette.bowsLent.ephraim.title": "The Prayer of St Ephraim the Syrian",
+  "etiquette.bowsLent.ephraim.text": "“Lord and Sovereign of my life…” — at the end of every church service during Lent, 17 bows to the ground are made with this prayer.",
+  "etiquette.bowsLent.ephraim.var.0": "On Sunday evenings (services for Monday): 4 bows to the ground.",
+  "etiquette.bowsLent.ephraim.var.1": "At festive (polyeleos) services in Lent: 4 bows to the ground.",
+  "etiquette.bowsLent.ephraim.var.2": "At the end of a festive Lenten morning service: 3 bows to the ground.",
+
+  "etiquette.bowsLent.greatNight.title": "Great Night Service during Lent",
+  "etiquette.bowsLent.greatNight.text.0": "After the Creed (“I believe in one God…”), the refrain is sung: “O Most Holy Lady Mother of God All-Merciful, pray to God for us sinners.” At each refrain, one bow to the ground is made — alternating halves of the church.",
+  "etiquette.bowsLent.greatNight.list.0": "During the Trisagion (“Holy God…”): three bows from the waist.",
+  "etiquette.bowsLent.greatNight.list.1": "At Lenten polyeleos services: bows from the waist.",
+  "etiquette.bowsLent.greatNight.list.2": "At the Great Night Service on Nativity, Theophany, or Annunciation: bows from the waist.",
+
+  "etiquette.bowsLent.weekends.title": "Saturdays, Sundays, and special times",
+  "etiquette.bowsLent.weekends.list.0": "Monday midnight service of the first week of Lent: bows from the waist.",
+  "etiquette.bowsLent.weekends.list.1": "All Saturdays and Sundays of Lent: bows from the waist only.",
+  "etiquette.bowsLent.weekends.list.2": "From Friday evening onward (for Saturday): no bows to the ground, except where specifically prescribed; use waist bows.",
+
+  "etiquette.bowsLent.presanctified.title": "Liturgy of the Presanctified Gifts",
+  "etiquette.bowsLent.presanctified.text.0": "At “Let my prayer be set aright before You, the lifting up of my hands, the evening sacrifice”:",
+  "etiquette.bowsLent.presanctified.steps.0": "First chanting: the whole church bows to the ground without the sign of the Cross and remains bowed for the entire verse.",
+  "etiquette.bowsLent.presanctified.steps.1": "Then, five alternations: one half sings while the other bows to the ground, switching each time.",
+  "etiquette.bowsLent.presanctified.steps.2": "At the last repetition: the first half remains bowed for the first part, then all stand for the second part.",
+  "etiquette.bowsLent.presanctified.steps.3": "After this: three bows to the ground with the Prayer of St Ephraim.",
+  "etiquette.bowsLent.presanctified.after": "All other bows during the Presanctified Liturgy are to the ground.",
+  "etiquette.bowsLent.presanctified.other": "Presanctified is served on Wednesdays and Fridays and on some weekday feasts in Lent.",
+
+  "etiquette.bowsLent.presanctified.exceptions.title": "Presanctified: exceptions",
+  "etiquette.bowsLent.presanctified.exceptions.0": "Fridays (evening belongs to Saturday): the evening service uses waist bows; the Presanctified part (“Let my prayer…”) keeps bows to the ground.",
+  "etiquette.bowsLent.presanctified.exceptions.1": "On the eve of certain feasts during Lent (e.g., Annunciation) when bows to the ground are forbidden: evening service uses waist bows; the Presanctified part retains bows to the ground where prescribed.",
+
+  "etiquette.bowsLent.other.title": "Other services during Lent",
+  "etiquette.bowsLent.other.text": "All bows at services performed during Great Lent — funerals, molebens (prayer services), anointing of the sick, and at the beginning of confession — are from the waist."
+
+
 }
