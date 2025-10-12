@@ -82,7 +82,7 @@
   "etiquette.cards.bows.desc": "When, why, and how we bow in church.",
   "etiquette.cards.liturgyBows.title": "Bows at the Holy Liturgy",
   "etiquette.cards.liturgyBows.desc": "Key moments for bows during the Divine Liturgy.",
-  "etiquette.cards.bowsGround.title": "Bows down to the ground/from the waist",
+  "etiquette.cards.bowsGround.title": "Bows to the Ground and from the Waist",
   "etiquette.cards.bowsGround.desc": "When to go to the ground and when to bow from the waist.",
   "etiquette.cards.clothing.title": "Christian clothing",
   "etiquette.cards.clothing.desc": "Modesty and practicality for services.",
@@ -106,12 +106,28 @@
   "etiquette.topic.liturgyBows.bullets.2": "At the dismissal/cross-veneration, bow respectfully; if you communed, you usually do not kiss the priest’s hand.",
   "etiquette.topic.liturgyBows.bullets.3": "When in doubt, follow what the priest and regular faithful do.",
 
-  "etiquette.topic.bowsGround.title": "Bows down to the ground/from the waist",
-  "etiquette.topic.bowsGround.intro": "Two main forms: a deep bow to the ground and a small bow from the waist.",
-  "etiquette.topic.bowsGround.bullets.0": "Deep bows are more common in fasting seasons (e.g., Great Lent) and at certain prayers.",
-  "etiquette.topic.bowsGround.bullets.1": "Small bows are typical the rest of the year.",
-  "etiquette.topic.bowsGround.bullets.2": "If you have health or space limitations, make a small bow—God sees the intention.",
-  "etiquette.topic.bowsGround.bullets.3": "Children and the elderly may always use the small bow.",
+  "etiquette.topic.bowsGround.title": "Bows to the Ground and from the Waist",
+  "etiquette.topic.bowsGround.intro": "Bows during Divine services express worship to the Lord, reverence toward the Theotokos, and veneration of the saints. Orthodox practice uses both full prostrations to the ground and smaller bows from the waist.",
+  "etiquette.topic.bowsGround.bullets.0": "Great bows are more common in fasting seasons, especially Great Lent, and at certain prayers.",
+  "etiquette.topic.bowsGround.bullets.1": "Waist bows are typical for most of the year and at ordinary parish services.",
+  "etiquette.topic.bowsGround.bullets.2": "If health or space is limited, make a reverent waist bow. God sees the intention.",
+  "etiquette.topic.bowsGround.bullets.3": "Children and the elderly may always use the waist bow.",
+
+  "etiquette.bows.ground.kinds.title": "The three types of bows",
+  "etiquette.bows.ground.kinds.list.0": "Ordinary bow to the chest or navel",
+  "etiquette.bows.ground.kinds.list.1": "Middle bow from the waist",
+  "etiquette.bows.ground.kinds.list.2": "Great bow to the ground — full prostration",
+
+  "etiquette.bows.ground.technique.title": "Technique for a great bow",
+  "etiquette.bows.ground.technique.text": "Do not strike or press your head to the floor. Bend the knees, lower the head gently, and if customary, touch the prayer rug lightly. Bring the hands from the heart together, place them on the rug, and keep elbows close. In services, bow and rise together with the people at the rector’s direction.",
+
+  "etiquette.bows.ground.throwing.title": "About the quick throwing bow",
+  "etiquette.bows.ground.throwing.text": "A rapid form sometimes called a throwing bow is done in quick succession without lowering the head fully to the rug.",
+
+  "etiquette.bows.ground.notes.title": "Practical notes",
+  "etiquette.bows.ground.notes.list.0": "Follow the local typikon and the priest’s cues. Bow with the congregation.",
+  "etiquette.bows.ground.notes.list.1": "Keep movements calm and modest. Use a prayer rug where customary.",
+  "etiquette.bows.ground.notes.list.2": "If movement is limited, a simple head inclination is sufficient.",
 
   "etiquette.bows.ground.timing.title": "When bows are made or omitted",
   "etiquette.bows.ground.timing.intro": "The Church’s order for bowing follows the rhythm of feasts and fasts. Full prostrations are not permitted on Sundays or from Pascha until Pentecost, because every Sunday is a celebration of the Resurrection.",
@@ -119,8 +135,6 @@
   "etiquette.bows.ground.timing.list.1": "On Saturdays and Sundays, only waist bows are made, never to the ground.",
   "etiquette.bows.ground.timing.list.2": "From Pascha until Pentecost, no full prostrations are made at all.",
   "etiquette.bows.ground.timing.list.3": "At major feasts and during the Divine Liturgy after “Christ is Risen,” bows from the waist replace prostrations.",
-
-
 
   "etiquette.topic.clothing.title": "Christian clothing",
   "etiquette.topic.clothing.intro": "Dress simply and modestly; clothing should support prayer, not distract from it.",
