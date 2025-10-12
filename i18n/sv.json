@@ -100,11 +100,39 @@
   "etiquette.topic.bows.bullets.3": "Undvik stress, ljud och att blockera andra.",
 
   "etiquette.topic.liturgyBows.title": "Bugningar vid den heliga liturgin",
-  "etiquette.topic.liturgyBows.intro": "Under liturgin är bugningarna avsiktliga och stillsamma – särskilt vid hälsningar och välsignelser.",
-  "etiquette.topic.liturgyBows.bullets.0": "Vid \"Frid till alla\" gör en stilla midjebugning (ofta utan korstecken).",
-  "etiquette.topic.liturgyBows.bullets.1": "Under läsningar och viktiga böner, håll rörelserna milda; undvik att gå omkring.",
-  "etiquette.topic.liturgyBows.bullets.2": "Vid avsked/korsvördnad, buga respektfullt; om du mottog kommunion kysser du normalt inte prästens hand.",
+  "etiquette.topic.liturgyBows.intro": "Tydliga, föreskrivna bugningar görs vid bestämda ögonblick under liturgin.",
+  "etiquette.topic.liturgyBows.bullets.0": "Vid ”Frid till alla”: buga från midjan utan korstecken och svara i ditt inre: ”Och med din ande.”",
+  "etiquette.topic.liturgyBows.bullets.1": "Under läsningar och viktiga böner: rör dig stilla; gå inte omkring.",
+  "etiquette.topic.liturgyBows.bullets.2": "Vid avsked och korsvördnad: buga från midjan; de som mottog den heliga kommunionen kysser inte prästens hand.",
   "etiquette.topic.liturgyBows.bullets.3": "När du är osäker, följ prästen och de vana församlingsborna.",
+
+  "etiquette.liturgy.bows.general.title": "Allmänt",
+  "etiquette.liturgy.bows.general.text": "Vid ”Frid till alla”: buga från midjan utan korstecken och svara i ditt inre: ”Och med din ande.”",
+
+  "etiquette.liturgy.bows.transfer.title": "Överföringen av de heliga gåvorna (efter första delen av kerubhymnen)",
+  "etiquette.liturgy.bows.transfer.intro": "Efter första delen av kerubhymnen, när de heliga gåvorna bärs fram, gör följande bugningar:",
+  "etiquette.liturgy.bows.transfer.list.0": "Första utropet — midjebugning; Rövarens bön: ”Tänk på mig, Herre, när Du kommer i Ditt rike.”",
+  "etiquette.liturgy.bows.transfer.list.1": "Andra utropet — midjebugning; Rövarens bön: ”Tänk på mig, Herre, när Du kommer i Ditt rike.”",
+  "etiquette.liturgy.bows.transfer.list.2": "Tredje utropet — full nedfallning; Rövarens bön (utvidgad): ”Tänk på mig, Helige, när Du kommer i Ditt rike.”",
+  "etiquette.liturgy.bows.transfer.notePriestDeacon": "När präst och diakon tjänar tillsammans, buga vid prästens utrop.",
+  "etiquette.liturgy.bows.transfer.noteBishop": "När biskop tjänar, gör den tredje bugningen vid hans sista utrop.",
+
+  "etiquette.liturgy.bows.eucharist.title": "Eukaristiska utrop",
+  "etiquette.liturgy.bows.eucharist.intro": "Vid varje Herren-ord, gör en midjebugning och säg Jesusbönen:",
+  "etiquette.liturgy.bows.eucharist.list.0": "”Tag, ätten, detta är Min kropp …” — ”Herre Jesus Kristus, Guds Son, förbarma Dig över mig, syndare.”",
+  "etiquette.liturgy.bows.eucharist.list.1": "”Dricken härav alla, detta är Mitt blod …” — ”Herre Jesus Kristus, Guds Son, förbarma Dig över mig, syndare.”",
+  "etiquette.liturgy.bows.eucharist.list.2": "”Dina egna av Ditt eget frambärande …” — ”Herre Jesus Kristus, Guds Son, förbarma Dig över mig, syndare.”",
+
+  "etiquette.liturgy.bows.other.title": "Övriga liturgiska moment",
+  "etiquette.liturgy.bows.other.list.0": "”Särskilt över allheliga, allrena …” — full nedfallning; Gudsmodersbön: ”Allraheligaste Gudsmoder, fräls oss.”",
+  "etiquette.liturgy.bows.other.list.1": "”Med gudsfruktan och tro träden fram” — midjebugning; Jesusbönen: ”Herre Jesus Kristus, Guds Son, förbarma Dig över mig, syndare.”",
+  "etiquette.liturgy.bows.other.list.2": "”Alltid, nu och alltid och i evigheters evighet” — midjebugning; Hymn: ”Ära, o Herre, åt Din himmelsfärd.”",
+  "etiquette.liturgy.bows.other.list.3": "Före bönen bakom ambon vid ”Låt oss bedja till Herren” — midjebugning; ”Herre, förbarma Dig.”",
+  "etiquette.liturgy.bows.other.list.4": "”Välsignat vare Herrens namn från nu och till evig tid” — tre midjebugningar.",
+
+  "etiquette.liturgy.bows.dismissal.title": "Avslutning och korsvördnad",
+  "etiquette.liturgy.bows.dismissal.list.0": "När korset frambärs i slutet av liturgin — midjebugning; Korshymn: ”Ära, o Herre, åt Ditt ärorika kors.”",
+  "etiquette.liturgy.bows.dismissal.noteCommuned": "De som mottagit den heliga kommunionen kysser inte prästens hand.",
 
   "etiquette.topic.bowsGround.title": "Bugningar till marken och från midjan",
   "etiquette.topic.bowsGround.intro": "Bugningar under gudstjänster uttrycker tillbedjan inför Herren, vördnad inför Gudsmoder och helgonens minne. Den ortodoxa traditionen använder både fulla nedfall till marken och mindre bugningar från midjan.",
