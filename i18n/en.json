@@ -63,7 +63,9 @@
   "contact.open.google": "Open in Google Maps",
   "contact.open.apple": "Open in Apple Maps",
   "contact.clergy.title": "Clergy & Contact",
-  "contact.role.kyrkoherde": "Kyrkoherde",
+ "contact.role.archpriest": "Archpriest",
+ "contact.role.deputyArchpriest": "Deputy Archpriest(Protonamjesnik)",
+
 
   "404.title": "Page not found",
   "404.body": "Sorry, we can’t find that page.",
