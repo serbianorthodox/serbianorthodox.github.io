@@ -63,7 +63,8 @@
   "contact.open.google": "Отвори у Google Maps",
   "contact.open.apple": "Отвори у Apple Maps",
   "contact.clergy.title": "Свештенство и контакт",
-  "contact.role.kyrkoherde": "Парох",
+  "contact.role.archpriest": "Протојереј-ставрофор",                            
+  "contact.role.deputyArchpriest": "Протонамесник"                                  
 
   "404.title": "Страна није пронађена",
   "404.body": "Жао нам је, не можемо да пронађемо ту страну.",
