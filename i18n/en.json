@@ -100,11 +100,39 @@
   "etiquette.topic.bows.bullets.3": "Avoid rushing, noise, or blocking others.",
 
   "etiquette.topic.liturgyBows.title": "Bows at the Holy Liturgy",
-  "etiquette.topic.liturgyBows.intro": "During the Liturgy, bowing is deliberate and simple—especially at greetings and blessings.",
-  "etiquette.topic.liturgyBows.bullets.0": "At “Peace to all,” make a quiet waist bow (often without the sign of the Cross).",
+  "etiquette.topic.liturgyBows.intro": "Clear, prescribed bows are made at specific moments during the Liturgy.",
+  "etiquette.topic.liturgyBows.bullets.0": "At “Peace to all”: bow from the waist without the sign of the Cross, inwardly respond “And to your spirit.”",
   "etiquette.topic.liturgyBows.bullets.1": "During readings and key prayers, keep movements gentle; avoid walking around.",
-  "etiquette.topic.liturgyBows.bullets.2": "At the dismissal/cross-veneration, bow respectfully; if you communed, you usually do not kiss the priest’s hand.",
+  "etiquette.topic.liturgyBows.bullets.2": "At the dismissal and veneration of the Cross: bow from the waist; those who received Holy Communion do not kiss the priest’s hand.",
   "etiquette.topic.liturgyBows.bullets.3": "When in doubt, follow what the priest and regular faithful do.",
+
+  "etiquette.liturgy.bows.general.title": "General",
+  "etiquette.liturgy.bows.general.text": "At “Peace to all”: bow from the waist without the sign of the Cross, inwardly responding “And to your spirit.”",
+
+  "etiquette.liturgy.bows.transfer.title": "Transfer of the Holy Gifts (after the first part of the Cherubic Hymn)",
+  "etiquette.liturgy.bows.transfer.intro": "After the first part of the Cherubic Hymn, while the Holy Gifts are being transferred, make the following bows:",
+  "etiquette.liturgy.bows.transfer.list.0": "First exclamation — waist bow; Prayer of the Thief: “Remember me, O Lord, when You come in Your Kingdom.”",
+  "etiquette.liturgy.bows.transfer.list.1": "Second exclamation — waist bow; Prayer of the Thief: “Remember me, O Lord, when You come in Your Kingdom.”",
+  "etiquette.liturgy.bows.transfer.list.2": "Third exclamation — full prostration; Prayer of the Thief (extended): “Remember me, O Holy One, when You come in Your Kingdom.”",
+  "etiquette.liturgy.bows.transfer.notePriestDeacon": "When a priest and deacon serve together, bow at the priest’s exclamations.",
+  "etiquette.liturgy.bows.transfer.noteBishop": "When a bishop serves, make the third bow at his final exclamation.",
+
+  "etiquette.liturgy.bows.eucharist.title": "Eucharistic exclamations",
+  "etiquette.liturgy.bows.eucharist.intro": "At each proclamation of the Lord’s words, make a waist bow and say the Jesus Prayer:",
+  "etiquette.liturgy.bows.eucharist.list.0": "“Take, eat, this is My Body…” — “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
+  "etiquette.liturgy.bows.eucharist.list.1": "“Drink of it, all of you, this is My Blood…” — “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
+  "etiquette.liturgy.bows.eucharist.list.2": "“Offering You what is Yours, from what is Yours…” — “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
+
+  "etiquette.liturgy.bows.other.title": "Other liturgical moments",
+  "etiquette.liturgy.bows.other.list.0": "“Especially about the Most Holy, Most Pure…” — full prostration; Theotokos Prayer: “Most Holy Lady Mother of God, save us.”",
+  "etiquette.liturgy.bows.other.list.1": "“Approach with the fear of God and faith” — waist bow; Jesus Prayer: “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
+  "etiquette.liturgy.bows.other.list.2": "“Always, now and ever, and unto the ages of ages” — waist bow; Hymn of Glory: “Glory, O Lord, to Your Ascension.”",
+  "etiquette.liturgy.bows.other.list.3": "Before the Prayer behind the Ambo at “Let us pray to the Lord” — waist bow; “Lord, have mercy.”",
+  "etiquette.liturgy.bows.other.list.4": "“Let the Lord’s name be blessed from this time forth and forevermore” — three bows from the waist.",
+
+  "etiquette.liturgy.bows.dismissal.title": "Dismissal and veneration of the Cross",
+  "etiquette.liturgy.bows.dismissal.list.0": "At the end of the Liturgy when the Cross is presented — waist bow; Cross Hymn: “Glory, O Lord, to Your honorable Cross.”",
+  "etiquette.liturgy.bows.dismissal.noteCommuned": "Those who have received Holy Communion do not kiss the priest’s hand.",
 
   "etiquette.topic.bowsGround.title": "Bows to the Ground and from the Waist",
   "etiquette.topic.bowsGround.intro": "Bows during Divine services express worship to the Lord, reverence toward the Theotokos, and veneration of the saints. Orthodox practice uses both full prostrations to the ground and smaller bows from the waist.",
