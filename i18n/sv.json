@@ -266,9 +266,6 @@
   "etiquette.candles.when.bullets.4": "Stora och heliga torsdagen: under läsningen av de tolv evangelierna.",
   "etiquette.candles.when.bullets.5": "På påsknatten: från processionen till slutet av första timmen; även vid begravningar.",
 
-  "etiquette.cards.lentBows.title": "Bugningar under den stora fastan",
-  "etiquette.cards.lentBows.desc": "Hur man bugar i fastetiden enligt kyrkans ordning.",
-
   "etiquette.topic.lentBows.title": "Bugningar under den stora fastan",
   "etiquette.topic.lentBows.intro": "Under den stora fastan gör de troende i regel bugningar från midjan. Fulla nedfallningar görs inte på söndagar och inte alls från påsken till pingst.",
 
@@ -279,9 +276,9 @@
 
   "etiquette.lentBows.divineLiturgy.title": "Vid den gudomliga liturgin i fastan",
   "etiquette.lentBows.divineLiturgy.list.0": "Vid uppmaningen: \"Frid till alla\" → gör en stilla midjebugning; svara i ditt sinne: \"Och med din ande.\"",
-  "etiquette.lentBows.divineLiturgy.list.1": "Vid den Lilla ingången (små evangeliet): när prästen säger: \"Herre, fräls de fromma och välsigna ditt arv\" → gör en midjebugning.",
+  "etiquette.lentBows.divineLiturgy.list.1": "Vid den Lilla ingången: när prästen säger: \"Herre, fräls de fromma och välsigna ditt arv\" → gör en midjebugning.",
   "etiquette.lentBows.divineLiturgy.list.2": "Under Trishagion-hymnen (\"Helige Gud\") → stå uppmärksamt; ingen särskild bön sägs av folket då.",
-  "etiquette.lentBows.divineLiturgy.list.3": "Under Serafimskhymnen (Cherubiska sången) och överföringen av de heliga gåvorna → buga från midjan och be: \"Må Herren Gud komma ihåg er i sitt rike, alltid, nu och alltid och i evigheters evighet.\"",
+  "etiquette.lentBows.divineLiturgy.list.3": "Under Cherubiska sången och överföringen av de heliga gåvorna → buga från midjan och be: \"Må Herren Gud komma ihåg er i sitt rike, alltid, nu och alltid och i evigheters evighet.\"",
   "etiquette.lentBows.divineLiturgy.list.4": "Vid uppmaningen: \"Särskilt om den Allraheligaste, Allrenaste…\" (Theotokos) → buga från midjan och be: \"Allraheligaste Gudsmoder, fräls oss.\"",
   "etiquette.lentBows.divineLiturgy.list.5": "Vid \"Fader vår\" → stå samlat; ingen bugning mitt i bönen.",
   "etiquette.lentBows.divineLiturgy.list.6": "Vid doksologin efter \"Fader vår\": \"Ty riket är ditt…\" → gör en stilla midjebugning.",
@@ -291,11 +288,11 @@
   "etiquette.lentBows.penitential.title": "Botgudstjänster i fastan",
   "etiquette.lentBows.penitential.list.0": "Vid den helige Efraims bön → tre fulla nedfallningar om inte dagen är lördag/söndag.",
   "etiquette.lentBows.penitential.list.1": "Stora botkanon: följ prästens tecken och bugningar.",
-  "etiquette.lentBows.penitential.list.2": "Vid andra fastetjänster (t.ex. förbön, smörjelse, början av bikt) → bugningar från midjan.",
+  "etiquette.lentBows.penitential.list.2": "Vid andra tjänster under fastan (begravningsgudstjänst, förbön, smörjelse, början av bikt) → bugningar från midjan.",
 
   "etiquette.lentBows.palmsPascha.title": "Palmsöndagen och den ljusa veckan",
   "etiquette.lentBows.palmsPascha.list.0": "På Palmsöndagen: gudstjänsterna är högtidliga; bugningar från midjan.",
-  "etiquette.lentBows.palmsPascha.list.1": "Från Påsken till Pingst: inga fulla nedfallningar.",
+  "etiquette.lentBows.palmsPascha.list.1": "Från Påsk till Pingst: inga fulla nedfallningar.",
   "etiquette.lentBows.palmsPascha.list.2": "Söndagar året runt: ingen bugning till marken.",
 
   "etiquette.lentBows.notes.title": "Praktiska anmärkningar",
@@ -308,7 +305,9 @@
   "etiquette.lentBows.forbidden.list.0": "På alla söndagar.",
   "etiquette.lentBows.forbidden.list.1": "Från Påsk (Pascha) till Pingst.",
   "etiquette.lentBows.forbidden.list.2": "Under högtidliga gudstjänster där typikon föreskriver endast midjebugningar.",
-  "etiquette.lentBows.forbidden.list.3": "När hälsa eller trängsel gör det olämpligt; ersätt med midjebugning.",
+  "etiquette.lentBows.forbidden.list.3": "När hälsa eller trängsel gör det olämpligt; ersätt med midjebugning."
+
+
 
   "etiquette.topic.bows.littleEntrancePrayer": "Lilla ingångens rop",
   "etiquette.topic.bows.littleEntrancePrayer.text": "Herre, fräls de fromma och välsigna ditt arv.",
