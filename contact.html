@@ -1,99 +1,71 @@
-<!doctype html>
-<html lang="sv">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contact</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      .contact-hero{
-        position:relative;
-        background:url('/assets/img/gallery/Fathers.jpg') center 20% / cover no-repeat; /* keep faces in frame */
-        min-height:380px; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff;
-      }
-      @media (min-width: 992px){
-        .contact-hero{ min-height:440px; background-position:center 28%; }
-      }
-      .contact-hero::before{ content:""; position:absolute; inset:0; background:rgba(0,0,0,.35); }
-      .contact-hero .inner{ position:relative; z-index:1; padding:3rem 1rem; }
-      .contact-card{ background:#fff; border-radius:.75rem; box-shadow:0 .25rem .75rem rgba(0,0,0,.12); }
-      .mono{ font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-    </style>
-  </head>
-  <body>
-    <div id="include-header"></div>
+<!-- Hero with background -->
+<section class="contact-hero">
+  <div class="inner">
+    <h1 class="mb-2" data-i18n="contact.title">Contact</h1>
+    <p class="lead mb-0" data-i18n="contact.intro">Get in touch with the parish.</p>
+  </div>
+</section>
 
-    <!-- Hero with background -->
-    <section class="contact-hero">
-      <div class="inner">
-        <h1 class="mb-2" data-i18n="contact.title">Contact</h1>
-        <p class="lead mb-0" data-i18n="contact.intro">Get in touch with the parish.</p>
+<main class="container py-4">
+  <div class="row g-4">
+    <!-- Address & Maps -->
+    <div class="col-lg-6">
+      <div class="p-4 contact-card h-100">
+        <h5 class="mb-3" data-i18n="contact.address.title">Address</h5>
+        <address class="mb-3">
+          <strong>Serbiska Ortodoxa kyrkoförsamlingen<br>St Cyril och Methodius</strong><br>
+          <strong> Tel : 040-830 14</strong><br>
+          <br>
+          Cedergatan 4<br>
+          215 67 Malmö
+        </address>
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-primary"
+             href="https://www.google.com/maps/search/?api=1&query=Cedergatan+4,+215+67+Malmö"
+             target="_blank" rel="noopener" data-i18n="contact.open.google">Open in Google Maps</a>
+          <a class="btn btn-outline-secondary"
+             href="https://maps.apple.com/?q=Cedergatan%204,%20215%2067%20Malm%C3%B6"
+             target="_blank" rel="noopener" data-i18n="contact.open.apple">Open in Apple Maps</a>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <main class="container py-4">
-      <div class="row g-4">
-        <!-- Address & Maps -->
-        <div class="col-lg-6">
-          <div class="p-4 contact-card h-100">
-            <h5 class="mb-3" data-i18n="contact.address.title">Address</h5>
-            <address class="mb-3">
-              <strong>Serbiska Ortodoxa kyrkoförsamlingen<br>St Cyril och Methodius</strong><br>
-              <strong> Tel : 040-830 14</strong><br>
-              <br>
-              Cedergatan 4<br>
-              215 67 Malmö
-            </address>
-            <div class="d-flex flex-wrap gap-2">
-              <a class="btn btn-primary"
-                 href="https://www.google.com/maps/search/?api=1&query=Cedergatan+4,+215+67+Malmö"
-                 target="_blank" rel="noopener" data-i18n="contact.open.google">Open in Google Maps</a>
-              <a class="btn btn-outline-secondary"
-                 href="https://maps.apple.com/?q=Cedergatan%204,%20215%2067%20Malm%C3%B6"
-                 target="_blank" rel="noopener" data-i18n="contact.open.apple">Open in Apple Maps</a>
-            </div>
+    <!-- Clergy -->
+    <div class="col-lg-6">
+      <div class="p-4 contact-card h-100">
+        <h5 class="mb-3" data-i18n="contact.clergy.title">Clergy & Contact</h5>
+
+        <div class="mb-3">
+          <div class="fw-semibold" data-i18n="contact.role.archpriest">Archpriest-stavrophorus</div>
+          <div>Aleksandar Samardzic <small class="text-muted">(protojerej-stavrofor)</small></div>
+          <div>
+            Mobile: (+46)728 396 396<br>
+            &nbsp;email:
+            <a class="mono" href="mailto:svestenik@crkva.se">svestenik@crkva.se</a>
           </div>
         </div>
 
-        <!-- Clergy -->
-        <div class="col-lg-6">
-          <div class="p-4 contact-card h-100">
-            <h5 class="mb-3" data-i18n="contact.clergy.title">Clergy & Contact</h5>
-
-            <div class="mb-3">
-              <div class="fw-semibold" data-i18n="contact.role.kyrkoherde">Archpriest</div>
-              <div>Aleksandar Samardzic <small class="text-muted">(protojerej-stavrofor)</small></div>
-              <div>
-               Mobile: (+46)728 396 396<br>
-                &nbsp;email: 
-                <a class="mono" href="mailto:svestenik@crkva.se">svestenik@crkva.se</a>
-              </div>
-            </div>
-
-            <div>
-              <div class="fw-semibold" data-i18n="contact.role.kyrkoherde">Kyrkoherde</div>
-              <div>Nemanja Mirovic <small class="text-muted">(protonamjesnik)</small></div>
-              <div>
-             Mobile:(+46)760 836 889<br>
-               
-              </div>
-            </div>
-
+        <div>
+          <div class="fw-semibold" data-i18n="contact.role.deputyArchpriest">Deputy Archpriest (Protonamjesnik)</div>
+          <div>Nemanja Mirovic <small class="text-muted">(protonamjesnik)</small></div>
+          <div>
+            Mobile: (+46)760 836 889
           </div>
         </div>
+
       </div>
-    </main>
+    </div>
+  </div>
+</main>
 
-    <div id="include-footer"></div>
+<div id="include-footer"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/i18n.js"></script>
-    <script src="/assets/js/include.js"></script>
-    <script>
-      // Re-apply active language after header/footer injection
-      window.__setLang && window.__setLang(
-        (localStorage.getItem('lang') || document.documentElement.lang || 'sv').toLowerCase()
-      );
-    </script>
-  </body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/i18n.js"></script>
+<script src="/assets/js/include.js"></script>
+<script>
+  // Re-apply active language after header/footer injection
+  window.__setLang && window.__setLang(
+    (localStorage.getItem('lang') || document.documentElement.lang || 'sv').toLowerCase()
+  );
+</script>
