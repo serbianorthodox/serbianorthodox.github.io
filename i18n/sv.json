@@ -1,4 +1,4 @@
-
+{
   "site.name": "Serbisk-ortodoxa kyrkan i Sverige",
   "nav.home": "Hem",
   "nav.about": "Om",
@@ -30,7 +30,6 @@
   "gallery.title": "Församlingsgalleri",
   "gallery.intro": "Bilder och ögonblick från församlingslivet.",
   "gallery.empty": "Inga bilder ännu – kom tillbaka snart.",
-
   "donations.title": "Gåvor",
   "donations.intro": "Stöd församlingen med en engångsgåva eller månadsgåva.",
   "donations.swish.title": "Swish (engångsgåva)",
@@ -47,7 +46,6 @@
   "donations.bank.amount": "Välj belopp.",
   "donations.bank.note": "För återkommande betalningar, lägg upp Autogiro i din bank med uppgifterna ovan.",
   "donations.note": "Tack för att du stödjer Kyrkans liv.",
-
   "contact.title": "Kontakt",
   "contact.intro": "Ta kontakt med församlingen.",
   "contact.address.title": "Adress",
@@ -56,15 +54,12 @@
   "contact.clergy.title": "Prästerskap och kontakt",
   "contact.role.archpriest": "Ärkepräst",
   "contact.role.deputyArchpriest": "Protonamjesnik (ställföreträdande ärkepräst)",
-
   "404.title": "Sidan kunde inte hittas",
   "404.body": "Vi kan tyvärr inte hitta sidan.",
   "404.back": "Gå till startsidan",
-
   "common.copy": "Kopiera",
   "common.copied": "Kopierat!",
   "common.failed": "Misslyckades",
-
   "nav.etiquette": "Ortodox etikett",
   "etiquette.title": "Ortodox etikett",
   "etiquette.intro": "Enkel vägledning för vördnad och god ordning i kyrkan.",
@@ -81,24 +76,20 @@
   "etiquette.cards.lentBows.title": "Bugningar under den stora fastan",
   "etiquette.cards.lentBows.desc": "Hur man bugar i fastetiden enligt kyrkans ordning.",
   "etiquette.cards.all": "Alla ämnen…",
-
   "common.ataglance": "Kortfattat",
-
   "etiquette.topic.bows.title": "Regler om bugningar",
   "etiquette.topic.bows.intro": "Bugningar uttrycker tillbedjan och vördnad. Gör korstecknet lugnt utan att dra uppmärksamhet till dig själv.",
   "etiquette.topic.bows.bullets.0": "Små bugningar (från midjan) är vanligast; djupare bugningar används vid vissa tillfällen eller tider.",
   "etiquette.topic.bows.bullets.1": "",
   "etiquette.topic.bows.bullets.2": "När du är osäker, be enkelt och buga måttfullt.",
   "etiquette.topic.bows.bullets.3": "Undvik stress, ljud och att blockera andra.",
-  
-"etiquette.topic.liturgyBows.title": "Bugningar vid den heliga liturgin",
+  "etiquette.topic.liturgyBows.title": "Bugningar vid den heliga liturgin",
   "etiquette.topic.liturgyBows.intro": "Tydliga, föreskrivna bugningar görs vid bestämda ögonblick under liturgin.",
   "etiquette.topic.liturgyBows.bullets.0": "Vid ”Frid till alla”: buga från midjan utan korstecken och svara i ditt inre: ”Och med din ande.”",
   "etiquette.topic.liturgyBows.bullets.1": "Under läsningar och viktiga böner: rör dig stilla; gå inte omkring.",
   "etiquette.topic.liturgyBows.bullets.2": "Vid avsked och korsvördnad: buga från midjan; de som mottog den heliga kommunionen kysser inte prästens hand.",
   "etiquette.topic.liturgyBows.bullets.3": "När du är osäker, följ prästen och de vana församlingsborna.",
- 
-"etiquette.liturgy.bows.general.title": "Allmänt",
+  "etiquette.liturgy.bows.general.title": "Allmänt",
   "etiquette.liturgy.bows.general.text": "Vid ”Frid till alla”: buga från midjan utan korstecken och svara i ditt inre: ”Och med din ande.”",
   "etiquette.liturgy.bows.transfer.title": "Överföringen av de heliga gåvorna (efter första delen av kerubhymnen)",
   "etiquette.liturgy.bows.transfer.intro": "Efter första delen av kerubhymnen, när de heliga gåvorna bärs fram, gör följande bugningar:",
@@ -121,15 +112,13 @@
   "etiquette.liturgy.bows.dismissal.title": "Avslutning och korsvördnad",
   "etiquette.liturgy.bows.dismissal.list.0": "När korset frambärs i slutet av liturgin — midjebugning; Korshymn: ”Ära, o Herre, åt Ditt ärorika kors.”",
   "etiquette.liturgy.bows.dismissal.noteCommuned": "De som mottagit den heliga kommunionen kysser inte prästens hand.",
-
-"etiquette.topic.bowsGround.title": "Bugningar till marken och från midjan",
+  "etiquette.topic.bowsGround.title": "Bugningar till marken och från midjan",
   "etiquette.topic.bowsGround.intro": "Bugningar under gudstjänster uttrycker tillbedjan inför Herren, vördnad inför Gudsmoder och helgonens minne. Den ortodoxa traditionen använder både fulla nedfall till marken och mindre bugningar från midjan.",
   "etiquette.topic.bowsGround.bullets.0": "Stora bugningar är vanligare under fastetider, särskilt den stora fastan, och vid vissa böner.",
   "etiquette.topic.bowsGround.bullets.1": "Midjebugningar är typiska under resten av året och vid vanliga gudstjänster.",
   "etiquette.topic.bowsGround.bullets.2": "Om hälsa eller utrymme är begränsat, gör en vördnadsfull midjebugning. Gud ser avsikten.",
   "etiquette.topic.bowsGround.bullets.3": "Barn och äldre kan alltid använda midjebugningen.",
-
-"etiquette.bows.ground.kinds.title": "De tre typerna av bugningar",
+  "etiquette.bows.ground.kinds.title": "De tre typerna av bugningar",
   "etiquette.bows.ground.kinds.list.0": "Enkel bugning till bröstet eller naveln",
   "etiquette.bows.ground.kinds.list.1": "Mellanbugning från midjan",
   "etiquette.bows.ground.kinds.list.2": "Stor bugning till marken – full nedfallning",
@@ -147,8 +136,7 @@
   "etiquette.bows.ground.timing.list.1": "På lördagar och söndagar görs endast midjebugningar, aldrig till marken.",
   "etiquette.bows.ground.timing.list.2": "Från påsken till pingst görs inga fulla nedfallningar alls.",
   "etiquette.bows.ground.timing.list.3": "Vid stora högtider och under liturgin efter \"Kristus är uppstånden\" ersätts nedfallningar med midjebugningar.",
- 
-"etiquette.topic.clothing.title": "Kristen klädsel",
+  "etiquette.topic.clothing.title": "Kristen klädsel",
   "etiquette.topic.clothing.intro": "Klä dig enkelt och anständigt. Till vardags bär vanliga, rena kläder; i bön och i kyrkan bör klädseln återspegla vördnad inför Gud.",
   "etiquette.topic.clothing.bullets.0": "Vanliga kläder duger i vardagen om de är rena och anständiga.",
   "etiquette.topic.clothing.bullets.1": "I kyrkan och vid bön: välj en enkel, anständig klädsel som främjar vördnad.",
@@ -181,8 +169,7 @@
   "etiquette.clothing.belt.p1": "Bältet symboliserar kyskhet, beredskap och självbehärskning.",
   "etiquette.clothing.belt.p2": "I vissa tidiga ortodoxa traditioner – särskilt bland ryska gammaltroende och i kloster – välsignades ett bälte vid dopet som tecken på disciplin; detta är inte allmänt i dag.",
   "etiquette.clothing.belt.p3": "Att vara \"omgjordad med bälte\" betyder att leva beredd för bön och tjänst. Många helgon – som profeten Elias och aposteln Petrus – beskrivs med bälte som tecken på vaksamhet och styrka i tron.",
-
-"etiquette.candles.why.title": "Varför vi tänder ljus",
+  "etiquette.candles.why.title": "Varför vi tänder ljus",
   "etiquette.candles.why.text": "Ljus är en gåva inför Gud och Hans helgon, ett tecken på bön, glädje och vördnad. Tänd dem framför ikonerna med en enkel bön till den avbildade, och be om Guds hjälp och helgonens förbön. Hantera ljusen varsamt och respektfullt.",
   "etiquette.topic.candles.title": "Hur man tänder ljus (och böner)",
   "etiquette.topic.candles.intro": "Ett ljus är en gåva och en synlig bön inför Gud och Hans helgon.",
@@ -231,8 +218,7 @@
   "etiquette.candles.when.bullets.3": "De troende kan hålla ljus vid stora högtider: från polyeleos till tredje oden; tänd igen efter åttonde oden till slutet av stora doxologin.",
   "etiquette.candles.when.bullets.4": "Stora och heliga torsdagen: under läsningen av de tolv evangelierna.",
   "etiquette.candles.when.bullets.5": "På påsknatten: från processionen till slutet av första timmen; även vid begravningar.",
-
-"etiquette.topic.lentBows.title": "Bugningar under den stora fastan",
+  "etiquette.topic.lentBows.title": "Bugningar under den stora fastan",
   "etiquette.topic.lentBows.intro": "Under den stora fastan gör de troende i regel bugningar från midjan. Fulla nedfallningar görs inte på söndagar och inte alls från påsken till pingst.",
   "etiquette.lentBows.general.title": "Grundregel under fastan",
   "etiquette.lentBows.general.list.0": "På vardagar i fastan: bugning från midjan på prästens uppmaningar och vid angivna böner.",
@@ -276,3 +262,4 @@
   "etiquette.topic.bows.threeHolyHymn.text": "Helige Gud, Helige Starke, Helige Odödlige, förbarma dig över oss.",
   "etiquette.topic.bows.lordsPrayer": "Fader vår — doksologi",
   "etiquette.topic.bows.lordsPrayer.text": "Ty riket är ditt och makten och härligheten, Faderns och Sonens och den Helige Andes, nu och alltid och i evigheters evighet. Amen."
+}
