@@ -1,4 +1,5 @@
-name: Deploy static site to GitHub Pages
+name: Pages (PR build)
+
 on:
   push:
     branches: ["main"]
@@ -10,11 +11,14 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: "pages"
   cancel-in-progress: true
+
 jobs:
   build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,7 +29,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
   deploy:
+    name: deploy
     runs-on: ubuntu-latest
     needs: build
     environment:
