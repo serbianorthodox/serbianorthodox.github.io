@@ -24,11 +24,11 @@
   }
 })();
 
+// --- HTML partial include with cache-buster ---
 async function inject(selector, url) {
   const host = document.querySelector(selector);
   if (!host) return false;
   try {
-    // Cache-buster so GitHub Pages/CDNs never serve stale header/footer
     const bust = `v=${Date.now()}`;
     const sep = url.includes("?") ? "&" : "?";
     const res = await fetch(`${url}${sep}${bust}`, { cache: "no-store" });
@@ -41,30 +41,52 @@ async function inject(selector, url) {
   }
 }
 
-// Highlight the current nav link after header is injected
+// --- Active nav highlighting ---
 function markActiveNav() {
-  const path = location.pathname.replace(/index\.html$/i, "") || "/";
-  const links = document.querySelectorAll("nav .nav-link[href]");
-  links.forEach((a) => {
-    try {
-      const href =
-        new URL(a.getAttribute("href"), location.origin).pathname.replace(/index\.html$/i, "") ||
-        "/";
+  try {
+    // normalize current path
+    let p = location.pathname.replace(/\/+$/, "") || "/";
+    if (p.endsWith("/index.html")) p = p.slice(0, -"/index.html".length) || "/";
 
-      // Exact match…
-      let isActive = href === path;
+    // clear any previous active marks
+    document.querySelectorAll("nav .nav-link.active").forEach((el) => {
+      el.classList.remove("active");
+      el.setAttribute("aria-current", "");
+    });
 
-      // …plus: treat /etiquette.html as active for any /etiquette/* subpage
-      if (!isActive && path.startsWith("/etiquette/") && href === "/etiquette.html") {
-        isActive = true;
+    // rules: first true wins
+    const rules = [
+      { test: p === "/", sel: 'nav .nav-link[href="/"], nav .nav-link[href="/index.html"]' },
+      { test: /^\/about\.html$/.test(p), sel: 'nav .nav-link[href="/about.html"]' },
+      { test: /^\/services\.html$/.test(p), sel: 'nav .nav-link[href="/services.html"]' },
+      { test: /^\/calendar\.html$/.test(p), sel: 'nav .nav-link[href="/calendar.html"]' },
+      { test: /^\/news\.html$/.test(p), sel: 'nav .nav-link[href="/news.html"]' },
+      { test: /^\/donations\.html$/.test(p), sel: 'nav .nav-link[href="/donations.html"]' },
+      { test: /^\/gallery\.html$/.test(p), sel: 'nav .nav-link[href="/gallery.html"]' },
+      // Any etiquette page or directory highlights the Etiquette link
+      {
+        test: /^\/etiquette(\/|$)/.test(p),
+        sel: 'nav .nav-link[href="/etiquette/index.html"], nav .nav-link[href="/etiquette/"], nav .nav-link[href="/etiquette.html"]',
+      },
+      { test: /^\/contact\.html$/.test(p), sel: 'nav .nav-link[href="/contact.html"]' },
+    ];
+
+    for (let i = 0; i < rules.length; i++) {
+      if (rules[i].test) {
+        const target = document.querySelector(rules[i].sel);
+        if (target) {
+          target.classList.add("active");
+          target.setAttribute("aria-current", "page");
+        }
+        break;
       }
-
-      if (isActive) a.classList.add("active");
-    } catch (_) {}
-  });
+    }
+  } catch (_) {
+    // no-op
+  }
 }
 
-// Language helpers
+// --- Language helpers ---
 async function applyLang(lang) {
   const code = (lang || "").toLowerCase() || "sv";
   localStorage.setItem("lang", code);
@@ -93,6 +115,7 @@ function bindLangClicks() {
   });
 }
 
+// --- Boot ---
 document.addEventListener("DOMContentLoaded", async () => {
   // 1) Inject header & footer (with cache-buster)
   await inject("#include-header", "/partials/header.html");
