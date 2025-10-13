@@ -1,0 +1,15 @@
+name: PR Prettier Check
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npx --yes prettier@3.3.3 --check .
