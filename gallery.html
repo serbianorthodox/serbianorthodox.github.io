@@ -1,14 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="sv">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Gallery</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <style>
-      .gallery-img { object-fit: cover; width: 100%; height: 220px; }
+      .gallery-img {
+        object-fit: cover;
+        width: 100%;
+        height: 220px;
+      }
     </style>
   </head>
+
   <body>
     <div id="include-header"></div>
 
@@ -18,134 +26,675 @@
 
       <!-- Replace sample images with your own files in /assets/img/gallery/ -->
       <div class="row g-3" id="gallery-grid">
-        <!-- Example placeholders (delete once you add real photos) -->
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="/assets/img/gallery/11-1200.jpg" class="d-block" target="_blank" rel="noopener">
             <picture>
-  <source srcset="/assets/img/gallery/Fathers.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/Fathers.jpg" alt="Parish photo 1" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/11-600.webp   600w,
+                  /assets/img/gallery/11-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="/assets/img/gallery/11-600.jpg 600w, /assets/img/gallery/11-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/11-1200.jpg"
+                alt="11"
+              />
+            </picture>
+          </a>
         </div>
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="/assets/img/gallery/12-1200.jpg" class="d-block" target="_blank" rel="noopener">
             <picture>
-  <source srcset="/assets/img/gallery/fat55.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/fat55.jpg" alt="Parish photo 2" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/12-600.webp   600w,
+                  /assets/img/gallery/12-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="/assets/img/gallery/12-600.jpg 600w, /assets/img/gallery/12-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/12-1200.jpg"
+                alt="12"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="/assets/img/gallery/14-1200.jpg" class="d-block" target="_blank" rel="noopener">
             <picture>
-  <source srcset="/assets/img/gallery/14.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/14.jpg" alt="Parish photo 3" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/14-600.webp   600w,
+                  /assets/img/gallery/14-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="/assets/img/gallery/14-600.jpg 600w, /assets/img/gallery/14-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/14-1200.jpg"
+                alt="14"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="/assets/img/gallery/15-1200.jpg" class="d-block" target="_blank" rel="noopener">
             <picture>
-  <source srcset="/assets/img/gallery/pic7.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/pic7.jpg" alt="Parish photo 4" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/15-600.webp   600w,
+                  /assets/img/gallery/15-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="/assets/img/gallery/15-600.jpg 600w, /assets/img/gallery/15-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/15-1200.jpg"
+                alt="15"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="/assets/img/gallery/16-1200.jpg" class="d-block" target="_blank" rel="noopener">
             <picture>
-  <source srcset="/assets/img/gallery/pic9.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/pic9.jpg" alt="Parish photo 5" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/16-600.webp   600w,
+                  /assets/img/gallery/16-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="/assets/img/gallery/16-600.jpg 600w, /assets/img/gallery/16-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/16-1200.jpg"
+                alt="16"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="/assets/img/gallery/17-1200.jpg" class="d-block" target="_blank" rel="noopener">
             <picture>
-  <source srcset="/assets/img/gallery/pic1.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/pic1.jpg" alt="Parish photo 6" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/17-600.webp   600w,
+                  /assets/img/gallery/17-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="/assets/img/gallery/17-600.jpg 600w, /assets/img/gallery/17-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/17-1200.jpg"
+                alt="17"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/Fathers-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/pic2.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/pic2.jpg" alt="Parish photo 7" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/Fathers-600.webp   600w,
+                  /assets/img/gallery/Fathers-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/Fathers-600.jpg   600w,
+                  /assets/img/gallery/Fathers-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/Fathers-1200.jpg"
+                alt="Fathers"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/Jesus-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/pic3.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/pic3.jpg" alt="Parish photo 8" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/Jesus-600.webp   600w,
+                  /assets/img/gallery/Jesus-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/Jesus-600.jpg   600w,
+                  /assets/img/gallery/Jesus-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/Jesus-1200.jpg"
+                alt="Jesus"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/fat2-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/kids.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/kids.jpg" alt="Parish photo 9" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/fat2-600.webp   600w,
+                  /assets/img/gallery/fat2-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/fat2-600.jpg   600w,
+                  /assets/img/gallery/fat2-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/fat2-1200.jpg"
+                alt="fat2"
+              />
+            </picture>
+          </a>
         </div>
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/fat5-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/pic5.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/pic5.jpg" alt="Parish photo 10" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/fat5-600.webp   600w,
+                  /assets/img/gallery/fat5-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/fat5-600.jpg   600w,
+                  /assets/img/gallery/fat5-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/fat5-1200.jpg"
+                alt="fat5"
+              />
+            </picture>
+          </a>
         </div>
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/fat55-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/12.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/12.jpg" alt="Parish photo 11" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/fat55-600.webp   600w,
+                  /assets/img/gallery/fat55-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/fat55-600.jpg   600w,
+                  /assets/img/gallery/fat55-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/fat55-1200.jpg"
+                alt="fat55"
+              />
+            </picture>
+          </a>
         </div>
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/kids-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/15.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/15.jpg" alt="Parish photo 12" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/kids-600.webp   600w,
+                  /assets/img/gallery/kids-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/kids-600.jpg   600w,
+                  /assets/img/gallery/kids-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/kids-1200.jpg"
+                alt="kids"
+              />
+            </picture>
+          </a>
         </div>
-
-        
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic1-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/fat2.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/fat2.jpg" alt="Parish photo 13" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic1-600.webp   600w,
+                  /assets/img/gallery/pic1-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic1-600.jpg   600w,
+                  /assets/img/gallery/pic1-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic1-1200.jpg"
+                alt="pic1"
+              />
+            </picture>
+          </a>
         </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-          <div class="card h-100">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic2-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
             <picture>
-  <source srcset="/assets/img/gallery/fat5.webp" type="image/webp">
-  <img class="gallery-img" src="/assets/img/gallery/fat5.jpg" alt="Parish photo 14" loading="lazy">
-</picture>
-          </div>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic2-600.webp   600w,
+                  /assets/img/gallery/pic2-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic2-600.jpg   600w,
+                  /assets/img/gallery/pic2-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic2-1200.jpg"
+                alt="pic2"
+              />
+            </picture>
+          </a>
         </div>
-        
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic3-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic3-600.webp   600w,
+                  /assets/img/gallery/pic3-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic3-600.jpg   600w,
+                  /assets/img/gallery/pic3-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic3-1200.jpg"
+                alt="pic3"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic4-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic4-600.webp   600w,
+                  /assets/img/gallery/pic4-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic4-600.jpg   600w,
+                  /assets/img/gallery/pic4-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic4-1200.jpg"
+                alt="pic4"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic5-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic5-600.webp   600w,
+                  /assets/img/gallery/pic5-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic5-600.jpg   600w,
+                  /assets/img/gallery/pic5-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic5-1200.jpg"
+                alt="pic5"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic6-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic6-600.webp   600w,
+                  /assets/img/gallery/pic6-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic6-600.jpg   600w,
+                  /assets/img/gallery/pic6-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic6-1200.jpg"
+                alt="pic6"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic7-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic7-600.webp   600w,
+                  /assets/img/gallery/pic7-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic7-600.jpg   600w,
+                  /assets/img/gallery/pic7-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic7-1200.jpg"
+                alt="pic7"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/pic9-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/pic9-600.webp   600w,
+                  /assets/img/gallery/pic9-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/pic9-600.jpg   600w,
+                  /assets/img/gallery/pic9-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/pic9-1200.jpg"
+                alt="pic9"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a
+            href="/assets/img/gallery/profile-1200.jpg"
+            class="d-block"
+            target="_blank"
+            rel="noopener"
+          >
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  /assets/img/gallery/profile-600.webp   600w,
+                  /assets/img/gallery/profile-1200.webp 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <source
+                type="image/jpeg"
+                srcset="
+                  /assets/img/gallery/profile-600.jpg   600w,
+                  /assets/img/gallery/profile-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+              />
+              <img
+                class="gallery-img"
+                loading="lazy"
+                decoding="async"
+                src="/assets/img/gallery/profile-1200.jpg"
+                alt="profile"
+              />
+            </picture>
+          </a>
+        </div>
       </div>
 
-      <p id="gallery-empty" class="text-muted" data-i18n="gallery.empty" style="display:none;">
+      <p id="gallery-empty" class="text-muted" data-i18n="gallery.empty" style="display: none">
         No photos yet—check back soon.
       </p>
     </main>
@@ -158,14 +707,18 @@
     <script>
       // After header/footer injection, ensure translations apply and empty note toggles
       (function () {
-        const lang = (localStorage.getItem('lang') || document.documentElement.lang || 'sv').toLowerCase();
+        const lang = (
+          localStorage.getItem("lang") ||
+          document.documentElement.lang ||
+          "sv"
+        ).toLowerCase();
         if (window.__setLang) window.__setLang(lang);
 
         // Show "empty" note if there are NO real images (i.e., you removed samples and added none)
-        const imgs = document.querySelectorAll('#gallery-grid img');
+        const imgs = document.querySelectorAll("#gallery-grid img");
         if (!imgs || imgs.length === 0) {
-          const empty = document.getElementById('gallery-empty');
-          if (empty) empty.style.display = 'block';
+          const empty = document.getElementById("gallery-empty");
+          if (empty) empty.style.display = "block";
         }
       })();
     </script>
