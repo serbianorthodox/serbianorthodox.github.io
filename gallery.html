@@ -8,7 +8,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/site.css?v=20251014">
+    <link rel="stylesheet" href="/assets/css/site.css?v=20251014" />
     <style>
       .gallery-img {
         object-fit: cover;
@@ -25,7 +25,6 @@
       <h1 class="mb-3" data-i18n="gallery.title">Parish Gallery</h1>
       <p class="lead mb-4" data-i18n="gallery.intro">Photos and moments from parish life.</p>
 
-      <!-- Replace sample images with your own files in /assets/img/gallery/ -->
       <div class="row g-3" id="gallery-grid">
         <div class="col-12 col-sm-6 col-lg-4">
           <a
@@ -53,12 +52,16 @@
                 class="gallery-img"
                 loading="lazy"
                 decoding="async"
+                fetchpriority="high"
                 src="/assets/img/gallery/11-1200.jpg"
-                alt=""
+                srcset="/assets/img/gallery/11-600.jpg 600w, /assets/img/gallery/11-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 11"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/12-1200.jpg"
@@ -86,11 +89,14 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/12-1200.jpg"
-                alt=""
+                srcset="/assets/img/gallery/12-600.jpg 600w, /assets/img/gallery/12-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 12"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/14-1200.jpg"
@@ -118,11 +124,14 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/14-1200.jpg"
-                alt=""
+                srcset="/assets/img/gallery/14-600.jpg 600w, /assets/img/gallery/14-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 14"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/15-1200.jpg"
@@ -150,11 +159,14 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/15-1200.jpg"
-                alt=""
+                srcset="/assets/img/gallery/15-600.jpg 600w, /assets/img/gallery/15-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 15"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/16-1200.jpg"
@@ -182,11 +194,14 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/16-1200.jpg"
-                alt=""
+                srcset="/assets/img/gallery/16-600.jpg 600w, /assets/img/gallery/16-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 16"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/17-1200.jpg"
@@ -214,11 +229,14 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/17-1200.jpg"
-                alt=""
+                srcset="/assets/img/gallery/17-600.jpg 600w, /assets/img/gallery/17-1200.jpg 1200w"
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 17"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/Fathers-1200.jpg"
@@ -249,11 +267,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/Fathers-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/Fathers-600.jpg   600w,
+                  /assets/img/gallery/Fathers-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Fäder i församlingen"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/Jesus-1200.jpg"
@@ -284,11 +308,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/Jesus-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/Jesus-600.jpg   600w,
+                  /assets/img/gallery/Jesus-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Ikon av Herren Jesus"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/fat2-1200.jpg"
@@ -319,11 +349,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/fat2-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/fat2-600.jpg   600w,
+                  /assets/img/gallery/fat2-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto fat2"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/fat5-1200.jpg"
@@ -354,11 +390,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/fat5-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/fat5-600.jpg   600w,
+                  /assets/img/gallery/fat5-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto fat5"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/fat55-1200.jpg"
@@ -389,11 +431,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/fat55-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/fat55-600.jpg   600w,
+                  /assets/img/gallery/fat55-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto fat55"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/kids-1200.jpg"
@@ -424,11 +472,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/kids-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/kids-600.jpg   600w,
+                  /assets/img/gallery/kids-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Barn i församlingen"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic1-1200.jpg"
@@ -459,11 +513,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic1-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic1-600.jpg   600w,
+                  /assets/img/gallery/pic1-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 1"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic2-1200.jpg"
@@ -494,11 +554,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic2-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic2-600.jpg   600w,
+                  /assets/img/gallery/pic2-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 2"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic3-1200.jpg"
@@ -529,11 +595,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic3-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic3-600.jpg   600w,
+                  /assets/img/gallery/pic3-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 3"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic4-1200.jpg"
@@ -564,11 +636,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic4-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic4-600.jpg   600w,
+                  /assets/img/gallery/pic4-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 4"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic5-1200.jpg"
@@ -599,11 +677,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic5-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic5-600.jpg   600w,
+                  /assets/img/gallery/pic5-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 5"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic6-1200.jpg"
@@ -634,11 +718,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic6-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic6-600.jpg   600w,
+                  /assets/img/gallery/pic6-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 6"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic7-1200.jpg"
@@ -669,11 +759,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic7-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic7-600.jpg   600w,
+                  /assets/img/gallery/pic7-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 7"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/pic9-1200.jpg"
@@ -704,11 +800,17 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/pic9-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/pic9-600.jpg   600w,
+                  /assets/img/gallery/pic9-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Församlingsfoto 9"
               />
             </picture>
           </a>
         </div>
+
         <div class="col-12 col-sm-6 col-lg-4">
           <a
             href="/assets/img/gallery/profile-1200.jpg"
@@ -739,7 +841,12 @@
                 loading="lazy"
                 decoding="async"
                 src="/assets/img/gallery/profile-1200.jpg"
-                alt=""
+                srcset="
+                  /assets/img/gallery/profile-600.jpg   600w,
+                  /assets/img/gallery/profile-1200.jpg 1200w
+                "
+                sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
+                alt="Profilbild"
               />
             </picture>
           </a>
@@ -757,7 +864,6 @@
     <script src="/assets/js/i18n.js"></script>
     <script src="/assets/js/include.js"></script>
     <script>
-      // After header/footer injection, ensure translations apply and empty note toggles
       (function () {
         const lang = (
           localStorage.getItem("lang") ||
@@ -766,7 +872,6 @@
         ).toLowerCase();
         if (window.__setLang) window.__setLang(lang);
 
-        // Show "empty" note if there are NO real images (i.e., you removed samples and added none)
         const imgs = document.querySelectorAll("#gallery-grid img");
         if (!imgs || imgs.length === 0) {
           const empty = document.getElementById("gallery-empty");
