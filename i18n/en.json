@@ -63,9 +63,8 @@
   "contact.open.google": "Open in Google Maps",
   "contact.open.apple": "Open in Apple Maps",
   "contact.clergy.title": "Clergy & Contact",
- "contact.role.archpriest": "Archpriest",
- "contact.role.deputyArchpriest": "Deputy Archpriest(Protonamjesnik)",
-
+  "contact.role.archpriest": "Archpriest",
+  "contact.role.deputyArchpriest": "Deputy Archpriest(Protonamjesnik)",
 
   "404.title": "Page not found",
   "404.body": "Sorry, we can’t find that page.",
@@ -266,9 +265,6 @@
   "etiquette.candles.when.bullets.4": "Great and Holy Thursday: during the reading of the Twelve Gospels.",
   "etiquette.candles.when.bullets.5": "Pascha: from the procession until the end of the First Hour; also at funerals.",
 
-  
-  
-
   "etiquette.topic.bowsLent.title": "Bows during the Great Lent",
   "etiquette.topic.bowsLent.intro": "During Great Lent, bows to the ground are common on weekdays. This page lists the exceptions and the exact order for key Lenten services.",
   "etiquette.topic.bowsLent.bullets.0": "Weekdays of Lent: bows to the ground are made throughout.",
@@ -308,6 +304,4 @@
 
   "etiquette.bowsLent.other.title": "Other services during Lent",
   "etiquette.bowsLent.other.text": "All bows at services performed during Great Lent — funerals, molebens (prayer services), anointing of the sick, and at the beginning of confession — are from the waist."
-
-
 }
