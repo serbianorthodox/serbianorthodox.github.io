@@ -1,29 +1,65 @@
-<link rel="stylesheet" href="/assets/css/site.css">
+<!-- /partials/header.html -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm">
+  <style>
+    /* tiny polish, no external files */
+    .navbar .nav-link{padding:.8rem .7rem}
+    .navbar .nav-link:hover{opacity:.8}
+    .navbar .nav-link.active{font-weight:600;border-bottom:2px solid #0d6efd}
+    .lang-btn{min-width:3.2rem}
+  </style>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light border-bottom">
   <div class="container">
-    <a class="navbar-brand brand-title" href="/" data-i18n="site.name">Serbian Orthodox Church in Sweden</a>
+    <!-- Brand (centered on mobile, left on desktop) -->
+    <a class="navbar-brand fw-semibold order-1 order-lg-0 mx-auto mx-lg-0 text-truncate"
+       href="/" data-i18n="site.title" style="max-width:70vw">
+      Serbian Orthodox Church in Sweden
+    </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler order-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" style="outline:none">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+    <!-- Language dropdown (compact) -->
+    <div class="dropdown order-2 ms-2">
+      <button class="btn btn-sm btn-outline-secondary dropdown-toggle lang-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        EN
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><button class="dropdown-item" data-lang="en">EN · English</button></li>
+        <li><button class="dropdown-item" data-lang="sv">SV · Svenska</button></li>
+        <li><button class="dropdown-item" data-lang="sr">SR · Српски</button></li>
+      </ul>
+    </div>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse order-3" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
         <li class="nav-item"><a class="nav-link" href="/" data-i18n="nav.home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/about.html" data-i18n="nav.about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="/services.html" data-i18n="nav.services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="/calendar.html" data-i18n="nav.calendar">Calendar</a></li>
         <li class="nav-item"><a class="nav-link" href="/news.html" data-i18n="nav.news">News</a></li>
-        <li class="nav-item"><a class="nav-link" href="/donations.html" data-i18n="nav.donations">Donations</a></li>
+        <li class="nav-item"><a class="nav-link" href="/donations.html" data-i18n="nav.donations">Donations2</a></li>
+
+        <!-- Etiquette right after Donations -->
+        <li class="nav-item"><a class="nav-link" href="/etiquette.html" data-i18n="nav.etiquette">Orthodox Etiquette</a></li>
+
         <li class="nav-item"><a class="nav-link" href="/gallery.html" data-i18n="nav.gallery">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="/contact.html" data-i18n="nav.contact">Contact</a></li>
       </ul>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-secondary btn-sm" href="?lang=sr" data-lang="sr" title="Srpski">🇷🇸</a>
-        <a class="btn btn-outline-secondary btn-sm" href="?lang=sv" data-lang="sv" title="Svenska">🇸🇪</a>
-        <a class="btn btn-outline-secondary btn-sm" href="?lang=en" data-lang="en" title="English">🇬🇧</a>
-      </div>
     </div>
   </div>
 </nav>
+
+<script>
+  // Keep the language button label in sync
+  document.addEventListener('click', e=>{
+    const btn = e.target.closest('[data-lang]');
+    if(!btn) return;
+    const code = btn.getAttribute('data-lang');
+    const trigger = document.querySelector('.lang-btn');
+    if(trigger) trigger.textContent = code.toUpperCase();
+  });
+</script>
