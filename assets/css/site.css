@@ -3,10 +3,8 @@
 @media (max-width: 992px) { #include-header { min-height: 56px; } }
 
 /* ===== Stop horizontal layout shift between pages ===== */
-/* Reserve scrollbar space everywhere (works in all browsers) */
-body { overflow-y: scroll; }
-/* Ask modern browsers to keep the gutter stable */
-html { scrollbar-gutter: stable both-edges; }
+body { overflow-y: scroll; }                 /* reserve scrollbar slot (works everywhere) */
+html { scrollbar-gutter: stable both-edges; }/* hint for modern browsers */
 
 /* ===== Page titles / lead text (consistent across pages) ===== */
 :root { --page-title-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); }
@@ -16,28 +14,19 @@ main h1, h1.page-title, h1[data-i18n] {
   line-height: 1.2;
   margin-bottom: 0.75rem;
 }
-main .lead {
-  font-size: 1.125rem;
-  line-height: 1.5;
-}
+main .lead { font-size: 1.125rem; line-height: 1.5; }
 
 /* ===== Navbar active state (bold without layout shift) ===== */
-.navbar .nav-link {
-  font-weight: 500;
-  border-bottom: 2px solid transparent; /* reserve space so height doesn't change */
-}
-.navbar .nav-link.active {
-  font-weight: 700;
-  border-bottom-color: currentColor;
-}
+.navbar .nav-link { font-weight: 500; border-bottom: 2px solid transparent; }
+.navbar .nav-link.active { font-weight: 700; border-bottom-color: currentColor; }
 
-/* ===== Brand title (kept from your file) ===== */
-.navbar-brand.brand-title { font-weight: 500; } /* medium */
+/* ===== Brand title ===== */
+.navbar-brand.brand-title { font-weight: 500; }
 @media (prefers-reduced-motion: no-preference) {
   .navbar-brand.brand-title { transition: color .15s ease-in-out; }
 }
 
-/* ===== Home hero image (~30% smaller on desktop, full on mobile) ===== */
+/* ===== Home hero image (~30% smaller on desktop) ===== */
 .home-hero-img {
   width: 100%;
   max-width: 100%;
@@ -49,39 +38,31 @@ main .lead {
   .home-hero-img { width: 70%; max-width: 70%; }
 }
 
-/* ===== Normalize top spacing under header, reduce tiny vertical shifts ===== */
+/* ===== Normalize top spacing under header ===== */
 main { margin-top: 12px; }
 @media (min-width: 992px) { main { margin-top: 16px; } }
 
-/* ===== Reserve space for hero/banner wrapper so image load doesn't move layout ===== */
-.hero-image { aspect-ratio: 16 / 9; }  /* adjust if your hero photo isn’t 16:9 */
+/* ===== Reserve space for hero/banner wrapper ===== */
+.hero-image { aspect-ratio: 16 / 9; }
 .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* ===== Gallery / card thumbnails: stable aspect with cover ===== */
+/* ===== Gallery / card thumbnails ===== */
 .card-img-top { aspect-ratio: 16 / 9; object-fit: cover; display: block; }
 
-/* ===== Gallery tile image (safe default) ===== */
-.gallery-img {
-  object-fit: cover;
-  width: 100%;
-  height: 220px;
-}
+/* ===== Gallery tile image (legacy) ===== */
+.gallery-img { object-fit: cover; width: 100%; height: 220px; }
 
-/* ===== NEW: Consistent spacing when a hero section comes right after the header ===== */
+/* ===== Consistent spacing when a hero follows header ===== */
 #include-header + .contact-hero,
 #include-header + .hero,
-#include-header + section.hero {
-  margin-top: 12px;   /* same top gap as pages starting with <main> */
-}
+#include-header + section.hero { margin-top: 12px; }
 @media (min-width: 992px) {
   #include-header + .contact-hero,
   #include-header + .hero,
-  #include-header + section.hero {
-    margin-top: 16px;
-  }
+  #include-header + section.hero { margin-top: 16px; }
 }
 
-/* ===== NEW: Normalize the Contact hero size and overlay ===== */
+/* ===== Contact hero size/overlay ===== */
 .contact-hero {
   min-height: 380px;
   position: relative;
@@ -91,9 +72,28 @@ main { margin-top: 12px; }
 @media (min-width: 992px) {
   .contact-hero { min-height: 440px; background-position: center 28%; }
 }
-.contact-hero::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: rgba(0,0,0,.35);
-}
+.contact-hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
 .contact-hero .inner { position: relative; z-index: 1; padding: 3rem 1rem; }
+
+/* ===== Constrain hero contents/images to container width (About/Services/Contact etc.) ===== */
+:root {
+  /* mirrors Bootstrap container widths (lg≈960, xl≈1140, xxl≈1320); we cap at 1140 for consistency */
+  --hero-max: 1140px;
+}
+.contact-hero .inner,
+.hero .inner,
+section.hero .inner,
+main .hero-image {
+  max-width: var(--hero-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Pages that start with a naked IMG in <main>: constrain it too */
+main > img:first-of-type {
+  display: block;
+  margin: 0 auto 1rem;
+  width: 100%;
+  max-width: var(--hero-max);
+  height: auto;
+}
