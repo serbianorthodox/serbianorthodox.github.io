@@ -3,8 +3,8 @@
 @media (max-width: 992px) { #include-header { min-height: 56px; } }
 
 /* ===== Stop horizontal layout shift between pages ===== */
-body { overflow-y: scroll; }                 /* reserve scrollbar slot (works everywhere) */
-html { scrollbar-gutter: stable both-edges; }/* hint for modern browsers */
+body { overflow-y: scroll; }
+html { scrollbar-gutter: stable both-edges; }
 
 /* ===== Page titles / lead text (consistent across pages) ===== */
 :root { --page-title-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); }
@@ -16,11 +16,11 @@ main h1, h1.page-title, h1[data-i18n] {
 }
 main .lead { font-size: 1.125rem; line-height: 1.5; }
 
-/* ===== Navbar active state (bold without layout shift) ===== */
+/* ===== Navbar (base) ===== */
 .navbar .nav-link { font-weight: 500; border-bottom: 2px solid transparent; }
-.navbar .nav-link.active { font-weight: 700; border-bottom-color: currentColor; }
+.navbar .nav-link.active { border-bottom-color: currentColor; }
 
-/* ===== Brand title ===== */
+/* Brand title */
 .navbar-brand.brand-title { font-weight: 500; }
 @media (prefers-reduced-motion: no-preference) {
   .navbar-brand.brand-title { transition: color .15s ease-in-out; }
@@ -62,24 +62,8 @@ main { margin-top: 12px; }
   #include-header + section.hero { margin-top: 16px; }
 }
 
-/* ===== Contact hero size/overlay ===== */
-.contact-hero {
-  min-height: 380px;
-  position: relative;
-  background-position: center 20%;
-  background-size: cover;
-}
-@media (min-width: 992px) {
-  .contact-hero { min-height: 440px; background-position: center 28%; }
-}
-.contact-hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
-.contact-hero .inner { position: relative; z-index: 1; padding: 3rem 1rem; }
-
-/* ===== Constrain hero contents/images to container width (About/Services/Contact etc.) ===== */
-:root {
-  /* mirrors Bootstrap container widths (lg≈960, xl≈1140, xxl≈1320); we cap at 1140 for consistency */
-  --hero-max: 1140px;
-}
+/* ===== Constrain hero contents/images to container width ===== */
+:root { --hero-max: 1140px; } /* container-ish cap */
 .contact-hero .inner,
 .hero .inner,
 section.hero .inner,
@@ -97,3 +81,43 @@ main > img:first-of-type {
   max-width: var(--hero-max);
   height: auto;
 }
+
+/* ===== Contact hero: show the image, match page width, align with text ===== */
+.contact-hero {
+  position: relative;
+  min-height: 380px;
+  /* ensure the background actually shows */
+  background-image: url('/assets/img/gallery/Fathers.jpg');
+  background-position: center 20%;
+  background-size: cover;
+}
+@media (min-width: 992px) {
+  .contact-hero {
+    min-height: 440px;
+    background-position: center 28%;
+    /* same width as content; centering aligns the left edge with the container’s left edge */
+    max-width: var(--hero-max);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+}
+.contact-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35);
+}
+.contact-hero .inner { position: relative; z-index: 1; padding: 3rem 1rem; }
+
+/* --- FORCE navbar active style: no bold, underline only (wins over injected header styles if needed) --- */
+#include-header .navbar :is(.nav-link, .nav-item > a) {
+  font-weight: 500 !important;
+  border-bottom: 2px solid transparent !important;
+  white-space: nowrap;
+}
+#include-header .navbar :is(.nav-link.active, .nav-item > a.active, a[aria-current="page"]) {
+  font-weight: 500 !important;
+  border-bottom-color: currentColor !important;
+}
+#include-header .navbar .fw-bold { font-weight: 500 !important; }
