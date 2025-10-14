@@ -1,5 +1,54 @@
-/* Brand title weight — pick one */
-.navbar-brand.brand-title { font-weight: 500; }  /* medium */
+/* ===== Header spacing (prevents jump when navbar injects) ===== */
+#include-header { min-height: 64px; }
+@media (max-width: 992px) { #include-header { min-height: 56px; } }
+
+/* Prevent left/right jiggle when scrollbar appears */
+html { scrollbar-gutter: stable; }
+
+/* ===== Page titles / lead text (consistent across pages) ===== */
+:root { --page-title-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); }
+main h1, h1.page-title, h1[data-i18n] {
+  font-size: var(--page-title-size);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+main .lead {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+/* ===== Navbar active state (bold without layout shift) ===== */
+.navbar .nav-link { 
+  font-weight: 500;
+  border-bottom: 2px solid transparent; /* reserve space so height doesn't change */
+}
+.navbar .nav-link.active {
+  font-weight: 700;
+  border-bottom-color: currentColor;
+}
+
+/* ===== Brand title (kept from your file) ===== */
+.navbar-brand.brand-title { font-weight: 500; } /* medium */
 @media (prefers-reduced-motion: no-preference) {
   .navbar-brand.brand-title { transition: color .15s ease-in-out; }
+}
+
+/* ===== Home hero image (~30% smaller on desktop, full on mobile) ===== */
+.home-hero-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .home-hero-img { width: 70%; max-width: 70%; }
+}
+
+/* ===== Gallery tile image (keep your existing behavior; safe default) ===== */
+.gallery-img {
+  object-fit: cover;
+  width: 100%;
+  height: 220px;
 }

@@ -4,3 +4,7 @@
 Icon?
 ._*Thumbs.db
 Desktop.ini
+# local env and backups
+.venv/
+*.bak
+.DS_Store
