@@ -2,8 +2,11 @@
 #include-header { min-height: 64px; }
 @media (max-width: 992px) { #include-header { min-height: 56px; } }
 
-/* Prevent left/right jiggle when scrollbar appears */
-html { scrollbar-gutter: stable; }
+/* ===== Stop horizontal layout shift between pages ===== */
+/* Reserve scrollbar space everywhere (works in all browsers) */
+body { overflow-y: scroll; }
+/* Ask modern browsers to keep the gutter stable */
+html { scrollbar-gutter: stable both-edges; }
 
 /* ===== Page titles / lead text (consistent across pages) ===== */
 :root { --page-title-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); }
@@ -19,7 +22,7 @@ main .lead {
 }
 
 /* ===== Navbar active state (bold without layout shift) ===== */
-.navbar .nav-link { 
+.navbar .nav-link {
   font-weight: 500;
   border-bottom: 2px solid transparent; /* reserve space so height doesn't change */
 }
@@ -46,7 +49,18 @@ main .lead {
   .home-hero-img { width: 70%; max-width: 70%; }
 }
 
-/* ===== Gallery tile image (keep your existing behavior; safe default) ===== */
+/* ===== Normalize top spacing under header, reduce tiny vertical shifts ===== */
+main { margin-top: 12px; }
+@media (min-width: 992px) { main { margin-top: 16px; } }
+
+/* ===== Reserve space for hero/banner wrapper so image load doesn't move layout ===== */
+.hero-image { aspect-ratio: 16 / 9; }  /* adjust if your hero photo isn’t 16:9 */
+.hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ===== Gallery / card thumbnails: stable aspect with cover ===== */
+.card-img-top { aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+
+/* ===== Gallery tile image (safe default if used elsewhere) ===== */
 .gallery-img {
   object-fit: cover;
   width: 100%;
