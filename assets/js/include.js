@@ -118,8 +118,8 @@ function bindLangClicks() {
 // --- Boot ---
 document.addEventListener("DOMContentLoaded", async () => {
   // 1) Inject header & footer (with cache-buster)
-  await inject("#include-header", "/partials/header.html");
-  await inject("#include-footer", "/partials/footer.html");
+  await inject("#include-header", "/partials/header.html?v=20251014");
+  await inject("#include-footer", "/partials/footer.html?v=20251014");
 
   // 2) Determine language: saved -> URL -> <html lang> -> 'sv'
   const stored = (localStorage.getItem("lang") || "").toLowerCase();
