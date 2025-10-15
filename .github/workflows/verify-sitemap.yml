@@ -1,0 +1,22 @@
+name: Verify sitemap
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Regenerate sitemap
+        run: |
+          chmod +x scripts/gen-sitemap.sh
+          ./scripts/gen-sitemap.sh
+      - name: Ensure sitemap is committed and up to date
+        run: |
+          if [ ! -s sitemap.xml ]; then
+            echo "sitemap.xml missing or empty"
+            exit 1
+          fi
+          git diff --exit-code sitemap.xml || (echo "sitemap.xml out of date. Run scripts/gen-sitemap.sh and commit."; exit 1)
