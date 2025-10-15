@@ -87,7 +87,6 @@ main > img:first-of-type {
   position: relative;
   min-height: 380px;
   /* ensure the background actually shows */
-  background-image: url('/assets/img/gallery/Fathers.jpg');
   background-position: center 20%;
   background-size: cover;
 }
