@@ -1,5 +1,4 @@
-name: Build etiquette thumbnails
-
+name: etiquette-thumbs
 on:
   push:
     branches:
@@ -8,3 +7,8 @@ on:
       - 'assets/img/etiquette/**'
       - '.github/workflows/etiquette-thumbs.yml'
   workflow_dispatch:
+jobs:
+  thumbs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "etiquette-thumbs workflow active only on main pushes and manual dispatch"
