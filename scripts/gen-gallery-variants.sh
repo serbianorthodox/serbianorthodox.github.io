@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
+set -euo pipefail
+
+SRC_DIR="assets/img/gallery/originals"
+OUT_DIR="assets/img/gallery"
+
+JPG_Q=0.82   # 0..1 for sips
+WEBP_Q=82    # 0..100 for cwebp
+
 shopt -s nullglob
-cd "$(git rev-parse --show-toplevel)/assets/img/gallery"
-for f in *.jpg *.jpeg *.png; do
-  base="${f%.*}"
-  ext="${f##*.}"
-  [[ "$base" =~ -[0-9]{3,4}$ ]] && continue
-  magick "$f" -resize 600x600\> -strip -interlace Plane -quality 85 "${base}-600.jpg"
-  magick "$f" -resize 1200x1200\> -strip -interlace Plane -quality 85 "${base}-1200.jpg"
-  magick "$f" -resize 600x600\> -strip "${base}-600.webp"
-  magick "$f" -resize 1200x1200\> -strip "${base}-1200.webp"
+for f in "$SRC_DIR"/*.jpg "$SRC_DIR"/*.jpeg; do
+  base="$(basename "$f")"
+  name="${base%.*}"
+
+  # 1200px wide JPG
+  sips -s format jpeg -s formatOptions $JPG_Q --resampleWidth 1200 "$f" --out "$OUT_DIR/${name}-1200.jpg" >/dev/null
+  # 600px wide JPG
+  sips -s format jpeg -s formatOptions $JPG_Q --resampleWidth 600 "$f" --out "$OUT_DIR/${name}-600.jpg"   >/dev/null
+
+  # WebP from the resized JPGs
+  cwebp -q $WEBP_Q "$OUT_DIR/${name}-1200.jpg" -o "$OUT_DIR/${name}-1200.webp" >/dev/null
+  cwebp -q $WEBP_Q "$OUT_DIR/${name}-600.jpg"   -o "$OUT_DIR/${name}-600.webp"  >/dev/null
+
+  echo "Generated: ${name}-{600,1200}.{jpg,webp}"
 done
