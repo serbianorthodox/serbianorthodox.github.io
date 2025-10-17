@@ -47,9 +47,9 @@
 
   "donations.autogiro.title": "Monthly donation (Autogiro)",
   "donations.bank.name.label": "Bank:",
-  "donations.bank.name.value": "Swedbank",
+  "donations.bank.name.value": "Ask: the parish",
   "donations.bank.account.label": "Account number:",
-  "donations.bank.account.value": "83139-5142191286",
+  "donations.bank.account.value": "send email to: svestenik@crkva.se for the info ",
   "donations.bank.ocr.label": "Reference:",
   "donations.bank.ocr.value": "Your name",
   "donations.bank.amount": "Choose your payment amount.",
@@ -57,8 +57,8 @@
 
   "donations.note": "Thank you for supporting the life of the Church.",
 
-  "contact.title": "Contact",
-  "contact.intro": "Get in touch with the parish.",
+  "contact.title": "",
+  "contact.intro": "",
   "contact.address.title": "Address",
   "contact.open.google": "Open in Google Maps",
   "contact.open.apple": "Open in Apple Maps",
