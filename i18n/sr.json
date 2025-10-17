@@ -28,7 +28,7 @@
   "donations.bank.account.value": "email: svestenik@crkva.se ",
   "donations.bank.amount": "Изаберите износ уплате.",
   "donations.bank.name.label": "Банка:",
-  "donations.bank.name.value": "Swedbank",
+  "donations.bank.name.value": " ",
   "donations.bank.note": "За редовна плаћања, подесите Autogiro у својој банци користећи горње податке.",
   "donations.bank.ocr.label": "Референца:",
   "donations.bank.ocr.value": "Ваше име",
