@@ -44,6 +44,8 @@
   "donations.swish.number.label": "Swish number:",
   "donations.swish.number.value": "123 446 7320",
   "donations.swish.note": "Enter your name in the message field.",
+  "swish_qr_title": "Swish via QR",
+  "swish_qr_hint": "Open Swish on your phone, tap \"Scan\", and point it at this QR.",
 
   "donations.autogiro.title": "Monthly donation (Autogiro)",
   "donations.bank.name.label": "Bank:",
