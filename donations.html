@@ -19,14 +19,31 @@
         <div class="col-md-6">
           <div class="card h-100">
             <div class="card-body">
-              <h5 class="card-title" data-i18n="donations.swish.title">Swish(one-time)</h5>
-              <p class="card-text mb-1">
-                <strong data-i18n="donations.swish.number.label">Swish number:</strong>
-                <span class="ms-1" data-i18n="donations.swish.number.value">123 446 7320</span>
-                <button type="button" class="btn btn-sm btn-outline-secondary ms-2"
-                        data-copy="123 446 7320" data-i18n="common.copy">Copy</button>
-              </p>
-              <p class="card-text" data-i18n="donations.swish.note">Enter your name in the message field.</p>
+              <div class="row g-3 align-items-start">
+                <!-- Left: Swish text/info -->
+                <div class="col-12 col-md-7" id="swish-info">
+                  <h5 class="card-title" data-i18n="donations.swish.title">Swish (one-time)</h5>
+                  <p class="card-text mb-1">
+                    <strong data-i18n="donations.swish.number.label">Swish number:</strong>
+                    <span class="ms-1" data-i18n="donations.swish.number.value">123 446 7320</span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary ms-2"
+                            data-copy="123 446 7320" data-i18n="common.copy">Copy</button>
+                  </p>
+                  <p class="card-text" data-i18n="donations.swish.note">Enter your name in the message field.</p>
+                </div>
+
+                <!-- Right: QR (desktop/tablet only) -->
+                <div class="col-12 col-md-5 d-none d-md-block">
+                  <section class="p-3 border rounded-3 bg-white h-100">
+                    <h6 class="mb-2" data-i18n="donations.swish_qr_title">Swish via QR</h6>
+                    <p class="text-muted mb-3 small" data-i18n="donations.swish_qr_hint">
+                      Open Swish on your phone, tap “Skanna”, and point it at this QR.
+                    </p>
+                    <div id="swish-qr" aria-label="Swish QR"></div>
+                    <noscript><p class="text-danger">Enable JavaScript to see the Swish QR code.</p></noscript>
+                  </section>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -50,7 +67,6 @@
               <p class="card-text mb-1">
                 <strong data-i18n="donations.bank.ocr.label">Reference:</strong>
                 <span class="ms-1" data-i18n="donations.bank.ocr.value">Your name</span>
-                <!-- no copy button here -->
               </p>
               <p class="card-text" data-i18n="donations.bank.amount">Choose your payment amount.</p>
 
@@ -77,6 +93,36 @@
     <span id="i18n-copy" class="d-none" data-i18n="common.copy">Copy</span>
     <span id="i18n-copied" class="d-none" data-i18n="common.copied">Copied!</span>
     <span id="i18n-failed" class="d-none" data-i18n="common.failed">Failed</span>
+
+    <!-- Swish QR generator (SVG) -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Digits only for Swish payload, strip any spaces
+        var payeeRaw = "123 446 7320";
+        var payee = payeeRaw.replace(/\s+/g, "");
+        var amount = "";   // donor chooses
+        var message = "";  // optional preset
+        var lockMask = "6";// amount+message editable, payee fixed
+
+        // Swish QR payload: C<payee>;<amount>;<message>;<lock_mask>
+        var payload = "C" + payee + ";" + amount + ";" + encodeURIComponent(message) + ";" + lockMask;
+
+        var target = document.getElementById("swish-qr");
+        if (!target) return;
+        QRCode.toString(payload, { type: "svg", margin: 1, width: 240 }, function (err, svg) {
+          if (err) return console.error(err);
+          target.innerHTML = svg;
+          var svgEl = target.querySelector('svg');
+          if (svgEl) {
+            svgEl.setAttribute('role', 'img');
+            svgEl.setAttribute('aria-label', 'Swish QR code');
+            svgEl.setAttribute('height', '240');
+            svgEl.setAttribute('width', '240');
+          }
+        });
+      });
+    </script>
 
     <!-- Re-apply active language after header/footer injection -->
     <script>
