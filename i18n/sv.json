@@ -38,6 +38,8 @@
   "donations.swish.number.label": "Swish-nummer:",
   "donations.swish.number.value": "123 446 7320",
   "donations.swish.title": "Swish (engångsgåva)",
+  "swish_qr_title": "Swish via QR",
+  "swish_qr_hint": "Öppna Swish i mobilen, tryck på \"Skanna\" och rikta kameran mot QR-koden.",
   "donations.title": "Gåvor",
   "etiquette.bows.ground.kinds.list.0": "Enkel bugning till bröstet eller naveln",
   "etiquette.bows.ground.kinds.list.1": "Mellanbugning från midjan",

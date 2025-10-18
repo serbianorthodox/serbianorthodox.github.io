@@ -38,6 +38,9 @@
   "donations.swish.number.label": "Swish број:",
   "donations.swish.number.value": "123 446 7320",
   "donations.swish.title": "Swish (једнократно)",
+  "swish_qr_title": "Swish преко QR-а",
+  "swish_qr_hint": "Отворите Swish на телефону, тапните „Скенирај“ и усмерите камеру ка овом QR коду.",
+
   "donations.title": "Донације",
   "etiquette.bows.ground.kinds.list.0": "Обичан поклон до груди или пупка",
   "etiquette.bows.ground.kinds.list.1": "Средњи поклон од појаса",
