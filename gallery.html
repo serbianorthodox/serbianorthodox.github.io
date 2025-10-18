@@ -10,11 +10,18 @@
     />
     <link rel="stylesheet" href="/assets/css/site.f3c51a6396.css" />
     <style>
+      /* Stop fixed-height cropping. Keep a consistent tile shape and bias focus upward */
       .gallery-img {
-        object-fit: cover;
+        display: block;
         width: 100%;
-        height: 220px;
+        aspect-ratio: 4 / 3;     /* change to 3/2 if you prefer taller tiles */
+        object-fit: cover;
+        object-position: 50% 40%; /* nudge up so heads are safer */
       }
+      /* Per-image overrides if a photo still crops badly */
+      .gallery-img[data-focus="top"]    { object-position: 50% 15%; }
+      .gallery-img[data-focus="center"] { object-position: 50% 50%; }
+      .gallery-img[data-focus="bottom"] { object-position: 50% 85%; }
     </style>
   </head>
 
@@ -62,6 +69,7 @@
                 "
                 sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
                 alt="Församlingsfoto fat2"
+                data-focus="top"
               />
             </picture>
           </a>
@@ -103,6 +111,7 @@
                 "
                 sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
                 alt="Församlingsfoto fat5"
+                data-focus="top"
               />
             </picture>
           </a>
@@ -144,6 +153,7 @@
                 "
                 sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 33vw"
                 alt="Församlingsfoto fat55"
+                data-focus="top"
               />
             </picture>
           </a>
