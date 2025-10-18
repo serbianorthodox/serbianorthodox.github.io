@@ -110,15 +110,15 @@
 
         var target = document.getElementById("swish-qr");
         if (!target) return;
-        QRCode.toString(payload, { type: "svg", margin: 1, width: 240 }, function (err, svg) {
+        QRCode.toString(payload, { type: "svg", margin: 1, width: 170 }, function (err, svg) {
           if (err) return console.error(err);
           target.innerHTML = svg;
           var svgEl = target.querySelector('svg');
           if (svgEl) {
             svgEl.setAttribute('role', 'img');
             svgEl.setAttribute('aria-label', 'Swish QR code');
-            svgEl.setAttribute('height', '240');
-            svgEl.setAttribute('width', '240');
+            svgEl.setAttribute('height', '170');
+            svgEl.setAttribute('width', '170');
           }
         });
       });
