@@ -10,9 +10,36 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/site.f3c51a6396.css" />
+
+    <!-- Final forced fix: remove fixed heights via JS -->
+    <style>
+      /* fallback for no-JS case */
+      .card picture img.card-img-top {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+        object-position: 50% 60% !important;
+      }
+    </style>
+
     <script defer src="/assets/js/include.js"></script>
     <script defer src="/assets/js/i18n.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".card-img-top").forEach(img => {
+          img.style.removeProperty("height");
+          img.style.height = "auto";
+          img.style.maxHeight = "none";
+          img.style.minHeight = "0";
+          img.style.aspectRatio = "4 / 3";
+          img.style.objectFit = "cover";
+          img.style.objectPosition = "50% 60%"; // lower the framing a bit
+        });
+      });
+    </script>
   </head>
+
   <body>
     <div id="include-header"></div>
 
@@ -22,22 +49,20 @@
         Simple guidance for reverence and good order in church.
       </p>
 
-      <!-- Grid -->
       <div class="row g-3">
         <div class="col-12 col-md-6 col-lg-4">
           <a class="text-decoration-none" href="/etiquette/bows.html">
             <div class="card h-100">
               <picture>
-  <source srcset="/assets/img/etiquette/thumbs/bows.webp" type="image/webp">
-  <img
-                src="/assets/img/etiquette/thumbs/bows.jpg"
-                class="card-img-top"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                style="aspect-ratio: 16 / 9; object-fit: cover"
-              />
-</picture>
+                <source srcset="/assets/img/etiquette/thumbs/bows.webp" type="image/webp" />
+                <img
+                  src="/assets/img/etiquette/thumbs/bows.jpg"
+                  class="card-img-top"
+                  alt="Bows"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h5 class="card-title" data-i18n="etiquette.cards.bows.title">
                   Rules about the bows
@@ -54,16 +79,15 @@
           <a class="text-decoration-none" href="/etiquette/liturgy-bows.html">
             <div class="card h-100">
               <picture>
-  <source srcset="/assets/img/etiquette/thumbs/liturgy-bows.webp" type="image/webp">
-  <img
-                src="/assets/img/etiquette/thumbs/liturgy-bows.jpg"
-                class="card-img-top"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                style="aspect-ratio: 16 / 9; object-fit: cover"
-              />
-</picture>
+                <source srcset="/assets/img/etiquette/thumbs/liturgy-bows.webp" type="image/webp" />
+                <img
+                  src="/assets/img/etiquette/thumbs/liturgy-bows.jpg"
+                  class="card-img-top"
+                  alt="Liturgy bows"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h5 class="card-title" data-i18n="etiquette.cards.liturgyBows.title">
                   Bows at the Holy Liturgy
@@ -80,16 +104,15 @@
           <a class="text-decoration-none" href="/etiquette/bows-ground.html">
             <div class="card h-100">
               <picture>
-  <source srcset="/assets/img/etiquette/thumbs/bows-ground.webp" type="image/webp">
-  <img
-                src="/assets/img/etiquette/thumbs/bows-ground.jpg"
-                class="card-img-top"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                style="aspect-ratio: 16 / 9; object-fit: cover"
-              />
-</picture>
+                <source srcset="/assets/img/etiquette/thumbs/bows-ground.webp" type="image/webp" />
+                <img
+                  src="/assets/img/etiquette/thumbs/bows-ground.jpg"
+                  class="card-img-top"
+                  alt="Bows to the ground"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h5 class="card-title" data-i18n="etiquette.cards.bowsGround.title">
                   Bows down to the ground/from the waist
@@ -106,16 +129,15 @@
           <a class="text-decoration-none" href="/etiquette/clothing.html">
             <div class="card h-100">
               <picture>
-  <source srcset="/assets/img/etiquette/thumbs/clothing.webp" type="image/webp">
-  <img
-                src="/assets/img/etiquette/thumbs/clothing.jpg"
-                class="card-img-top"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                style="aspect-ratio: 16 / 9; object-fit: cover"
-              />
-</picture>
+                <source srcset="/assets/img/etiquette/thumbs/clothing.webp" type="image/webp" />
+                <img
+                  src="/assets/img/etiquette/thumbs/clothing.jpg"
+                  class="card-img-top"
+                  alt="Clothing"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h5 class="card-title" data-i18n="etiquette.cards.clothing.title">
                   Christian clothing
@@ -132,16 +154,15 @@
           <a class="text-decoration-none" href="/etiquette/candles.html">
             <div class="card h-100">
               <picture>
-  <source srcset="/assets/img/etiquette/thumbs/candles.webp" type="image/webp">
-  <img
-                src="/assets/img/etiquette/thumbs/candles.jpg"
-                class="card-img-top"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                style="aspect-ratio: 16 / 9; object-fit: cover"
-              />
-</picture>
+                <source srcset="/assets/img/etiquette/thumbs/candles.webp" type="image/webp" />
+                <img
+                  src="/assets/img/etiquette/thumbs/candles.jpg"
+                  class="card-img-top"
+                  alt="Candles"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h5 class="card-title" data-i18n="etiquette.cards.candles.title">
                   How to light candles (and prayers)
@@ -158,16 +179,15 @@
           <a class="text-decoration-none" href="/etiquette/bows-lent.html">
             <div class="card h-100">
               <picture>
-  <source srcset="/assets/img/etiquette/thumbs/lent-bows.webp" type="image/webp">
-  <img
-                src="/assets/img/etiquette/thumbs/lent-bows.jpg"
-                class="card-img-top"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                style="aspect-ratio: 16 / 9; object-fit: cover"
-              />
-</picture>
+                <source srcset="/assets/img/etiquette/thumbs/lent-bows.webp" type="image/webp" />
+                <img
+                  src="/assets/img/etiquette/thumbs/lent-bows.jpg"
+                  class="card-img-top"
+                  alt="Lent bows"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div class="card-body">
                 <h5 class="card-title" data-i18n="etiquette.cards.bowsLent.title">
                   Bows during the Great Lent
@@ -180,7 +200,6 @@
           </a>
         </div>
       </div>
-      <!-- /Grid -->
 
       <div class="alert alert-secondary mt-4 small" data-i18n="etiquette.disclaimer">
         When unsure, ask the priest or deacon.
