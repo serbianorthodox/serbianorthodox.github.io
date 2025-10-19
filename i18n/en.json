@@ -8,45 +8,35 @@
   "nav.news": "News",
   "nav.donations": "Donations",
   "nav.gallery": "Gallery",
-
   "hero.title": "Welcome",
-  "hero.lead": "Parish website in progress.",
   "footer.copyright": "Serbian Orthodox Church in Sweden",
   "footer.lastUpdated": "Last updated",
-
   "about.title": "About the Parish",
   "about.intro": "Brief history and mission.",
   "about.body.1": "A beautiful little church where the Orthodox faith is alive. Here, Christ is truly present in the sacraments, the Scriptures are proclaimed without compromise, and the worship of God is offered in the same way the Apostles handed down.",
   "about.body.2": "In a time when many churches bend to politics and fashion, this parish stands firm in the unchanging truth of Christ.",
   "about.calendar.cta": "See the parish calendar for upcoming events (in Swedish).",
-
   "services.title": "Services & Schedule",
   "services.intro": "Divine Liturgy times, Vespers, confession.",
-
   "calendar.title": "Parish Calendar",
   "calendar.intro": "Upcoming liturgies and events.",
   "calendar.subscribe.ics": "Subscribe via iCal (.ics)",
   "calendar.subscribe.help": "Apple Calendar: copy the iCal link. On iPhone/iPad go to Settings → Calendar → Accounts → Add Subscribed Calendar.",
-
   "news.title": "News & Announcements",
   "news.intro": "Latest updates from the parish.",
   "news.sample.title": "Sample announcement",
   "news.sample.body": "Replace this text with your latest parish news.",
-
   "gallery.title": "Parish Gallery",
   "gallery.intro": "Photos and moments from parish life.",
   "gallery.empty": "No photos yet—check back soon.",
-
   "donations.title": "Donations",
   "donations.intro": "Support the parish with a one-time or monthly gift.",
-
   "donations.swish.title": "Swish (one-time)",
   "donations.swish.number.label": "Swish number:",
   "donations.swish.number.value": "123 446 7320",
   "donations.swish.note": "Enter your name in the message field.",
   "swish_qr_title": "Swish via QR",
   "swish_qr_hint": "Open Swish on your phone, tap \"Scan\", and point it at this QR.",
-
   "donations.autogiro.title": "Monthly donation (Autogiro)",
   "donations.bank.name.label": "Bank:",
   "donations.bank.name.value": "Ask: the parish",
@@ -56,9 +46,7 @@
   "donations.bank.ocr.value": "Your name",
   "donations.bank.amount": "Choose your payment amount.",
   "donations.bank.note": "For recurring payments, set up an Autogiro with your bank using the details above.",
-
   "donations.note": "Thank you for supporting the life of the Church.",
-
   "contact.title": "",
   "contact.intro": "",
   "contact.address.title": "Address",
@@ -67,20 +55,15 @@
   "contact.clergy.title": "Clergy & Contact",
   "contact.role.archpriest": "Archpriest",
   "contact.role.deputyArchpriest": "Deputy Archpriest(Protonamjesnik)",
-
   "404.title": "Page not found",
   "404.body": "Sorry, we can’t find that page.",
   "404.back": "Go to the home page",
-
   "common.copy": "Copy",
   "common.copied": "Copied!",
   "common.failed": "Failed",
-
   "nav.etiquette": "Orthodox Etiquette",
-
   "etiquette.title": "Orthodox Etiquette",
   "etiquette.intro": "Simple guidance for reverence and good order in church.",
-
   "etiquette.cards.bows.title": "Rules about the bows",
   "etiquette.cards.bows.desc": "When, why, and how we bow in church.",
   "etiquette.cards.liturgyBows.title": "Bows at the Holy Liturgy",
@@ -93,28 +76,22 @@
   "etiquette.cards.candles.desc": "Step-by-step with a short prayer.",
   "etiquette.cards.bowsLent.title": "Bows during the Great Lent",
   "etiquette.cards.bowsLent.desc": "Exact rules for bows in Lent: when to bow to the ground or from the waist.",
-
   "etiquette.cards.all": "All topics…",
-
   "common.ataglance": "At a glance",
-
   "etiquette.topic.bows.title": "Rules about the bows",
   "etiquette.topic.bows.intro": "Bows express worship and reverence. Make the sign of the Cross calmly, without drawing attention to yourself.",
   "etiquette.topic.bows.bullets.0": "Small bows (from the waist) are most common; deeper bows are for certain moments or seasons.",
   "etiquette.topic.bows.bullets.1": "",
   "etiquette.topic.bows.bullets.2": "When unsure, pray simply and bow modestly.",
   "etiquette.topic.bows.bullets.3": "Avoid rushing, noise, or blocking others.",
-
   "etiquette.topic.liturgyBows.title": "Bows at the Holy Liturgy",
   "etiquette.topic.liturgyBows.intro": "Clear, prescribed bows are made at specific moments during the Liturgy.",
   "etiquette.topic.liturgyBows.bullets.0": "At “Peace to all”: bow from the waist without the sign of the Cross, inwardly respond “And to your spirit.”",
   "etiquette.topic.liturgyBows.bullets.1": "During readings and key prayers, keep movements gentle; avoid walking around.",
   "etiquette.topic.liturgyBows.bullets.2": "At the dismissal and veneration of the Cross: bow from the waist; those who received Holy Communion do not kiss the priest’s hand.",
   "etiquette.topic.liturgyBows.bullets.3": "When in doubt, follow what the priest and regular faithful do.",
-
   "etiquette.liturgy.bows.general.title": "General",
   "etiquette.liturgy.bows.general.text": "At “Peace to all”: bow from the waist without the sign of the Cross, inwardly responding “And to your spirit.”",
-
   "etiquette.liturgy.bows.transfer.title": "Transfer of the Holy Gifts (after the first part of the Cherubic Hymn)",
   "etiquette.liturgy.bows.transfer.intro": "After the first part of the Cherubic Hymn, while the Holy Gifts are being transferred, make the following bows:",
   "etiquette.liturgy.bows.transfer.list.0": "First exclamation — waist bow; Prayer of the Thief: “Remember me, O Lord, when You come in Your Kingdom.”",
@@ -122,103 +99,85 @@
   "etiquette.liturgy.bows.transfer.list.2": "Third exclamation — full prostration; Prayer of the Thief (extended): “Remember me, O Holy One, when You come in Your Kingdom.”",
   "etiquette.liturgy.bows.transfer.notePriestDeacon": "When a priest and deacon serve together, bow at the priest’s exclamations.",
   "etiquette.liturgy.bows.transfer.noteBishop": "When a bishop serves, make the third bow at his final exclamation.",
-
   "etiquette.liturgy.bows.eucharist.title": "Eucharistic exclamations",
   "etiquette.liturgy.bows.eucharist.intro": "At each proclamation of the Lord’s words, make a waist bow and say the Jesus Prayer:",
   "etiquette.liturgy.bows.eucharist.list.0": "“Take, eat, this is My Body…” — “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
   "etiquette.liturgy.bows.eucharist.list.1": "“Drink of it, all of you, this is My Blood…” — “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
   "etiquette.liturgy.bows.eucharist.list.2": "“Offering You what is Yours, from what is Yours…” — “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
-
   "etiquette.liturgy.bows.other.title": "Other liturgical moments",
   "etiquette.liturgy.bows.other.list.0": "“Especially about the Most Holy, Most Pure…” — full prostration; Theotokos Prayer: “Most Holy Lady Mother of God, save us.”",
   "etiquette.liturgy.bows.other.list.1": "“Approach with the fear of God and faith” — waist bow; Jesus Prayer: “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
   "etiquette.liturgy.bows.other.list.2": "“Always, now and ever, and unto the ages of ages” — waist bow; Hymn of Glory: “Glory, O Lord, to Your Ascension.”",
   "etiquette.liturgy.bows.other.list.3": "Before the Prayer behind the Ambo at “Let us pray to the Lord” — waist bow; “Lord, have mercy.”",
   "etiquette.liturgy.bows.other.list.4": "“Let the Lord’s name be blessed from this time forth and forevermore” — three bows from the waist.",
-
   "etiquette.liturgy.bows.dismissal.title": "Dismissal and veneration of the Cross",
   "etiquette.liturgy.bows.dismissal.list.0": "At the end of the Liturgy when the Cross is presented — waist bow; Cross Hymn: “Glory, O Lord, to Your honorable Cross.”",
   "etiquette.liturgy.bows.dismissal.noteCommuned": "Those who have received Holy Communion do not kiss the priest’s hand.",
-
   "etiquette.topic.bowsGround.title": "Bows to the Ground and from the Waist",
   "etiquette.topic.bowsGround.intro": "Bows during Divine services express worship to the Lord, reverence toward the Theotokos, and veneration of the saints. Orthodox practice uses both full prostrations to the ground and smaller bows from the waist.",
   "etiquette.topic.bowsGround.bullets.0": "Great bows are more common in fasting seasons, especially Great Lent, and at certain prayers.",
   "etiquette.topic.bowsGround.bullets.1": "Waist bows are typical for most of the year and at ordinary parish services.",
   "etiquette.topic.bowsGround.bullets.2": "If health or space is limited, make a reverent waist bow. God sees the intention.",
   "etiquette.topic.bowsGround.bullets.3": "Children and the elderly may always use the waist bow.",
-
   "etiquette.bows.ground.kinds.title": "The three types of bows",
   "etiquette.bows.ground.kinds.list.0": "Ordinary bow to the chest or navel",
   "etiquette.bows.ground.kinds.list.1": "Middle bow from the waist",
   "etiquette.bows.ground.kinds.list.2": "Great bow to the ground — full prostration",
-
   "etiquette.bows.ground.technique.title": "Technique for a great bow",
   "etiquette.bows.ground.technique.text": "Do not strike or press your head to the floor. Bend the knees, lower the head gently, and if customary, touch the prayer rug lightly. Bring the hands from the heart together, place them on the rug, and keep elbows close. In services, bow and rise together with the people at the rector’s direction.",
-
   "etiquette.bows.ground.throwing.title": "About the quick throwing bow",
   "etiquette.bows.ground.throwing.text": "A rapid form sometimes called a throwing bow is done in quick succession without lowering the head fully to the rug.",
-
   "etiquette.bows.ground.notes.title": "Practical notes",
   "etiquette.bows.ground.notes.list.0": "Follow the local typikon and the priest’s cues. Bow with the congregation.",
   "etiquette.bows.ground.notes.list.1": "Keep movements calm and modest. Use a prayer rug where customary.",
   "etiquette.bows.ground.notes.list.2": "If movement is limited, a simple head inclination is sufficient.",
-
   "etiquette.bows.ground.timing.title": "When bows are made or omitted",
   "etiquette.bows.ground.timing.intro": "The Church’s order for bowing follows the rhythm of feasts and fasts. Full prostrations are not permitted on Sundays or from Pascha until Pentecost, because every Sunday is a celebration of the Resurrection.",
   "etiquette.bows.ground.timing.list.0": "Full prostrations are made on weekdays of Great Lent and other fasting seasons.",
   "etiquette.bows.ground.timing.list.1": "On Saturdays and Sundays, only waist bows are made, never to the ground.",
   "etiquette.bows.ground.timing.list.2": "From Pascha until Pentecost, no full prostrations are made at all.",
   "etiquette.bows.ground.timing.list.3": "At major feasts and during the Divine Liturgy after \"Christ is Risen,\" bows from the waist replace prostrations.",
-
   "etiquette.topic.clothing.title": "Christian clothing",
   "etiquette.topic.clothing.intro": "Dress simply and modestly. In daily life wear ordinary, clean clothing; in prayer and at church, let your clothing reflect reverence before God.",
   "etiquette.topic.clothing.bullets.0": "Ordinary clothes are fine day to day if they are clean and decent.",
   "etiquette.topic.clothing.bullets.1": "For church and prayer, choose modest clothing that supports reverence.",
   "etiquette.topic.clothing.bullets.2": "Jeans are acceptable if modest — not torn or tight; avoid shorts or sleeveless tops.",
   "etiquette.topic.clothing.bullets.3": "Aim for simplicity; avoid flashy styles that draw attention.",
-
   "etiquette.clothing.context.title": "Clothing for church and everyday life",
   "etiquette.clothing.context.p1": "Christians are called to dress with modesty and self-respect at all times.",
   "etiquette.clothing.context.p2": "In daily life, ordinary clothing is fine as long as it is clean and decent.",
   "etiquette.clothing.context.p3": "When coming to church or standing for prayer, clothing should reflect reverence before God and respect for the holy place.",
   "etiquette.clothing.context.p4": "In earlier centuries some believers kept simple garments reserved for prayer. Today we keep the same spirit by choosing modest, comfortable clothing in calm colors.",
-
   "etiquette.clothing.traditional.title": "Traditional attire for men and women",
   "etiquette.clothing.traditional.list.0": "Men: a long shirt or kaftan, untucked, fastened with a belt.",
   "etiquette.clothing.traditional.list.1": "Women: long, modest garments with a headscarf that covers the hair completely.",
   "etiquette.clothing.traditional.list.2": "Regional customs differ: in northern areas the scarf is fastened under the chin; in southern areas it is tied behind the neck.",
   "etiquette.clothing.traditional.list.3": "Lighter scarves are common on Sundays and feast days; darker ones during fasting periods.",
   "etiquette.clothing.traditional.list.4": "Older Russian custom: married women sometimes wore a povoinik (cloth cap) under the scarf; not required today.",
-
   "etiquette.clothing.practical.title": "Footwear and practical modesty",
   "etiquette.clothing.practical.list.0": "Shoes should be quiet and practical; avoid high heels or loud footwear in church.",
   "etiquette.clothing.practical.list.1": "Keep clothing neat and clean. Ordinary trousers or jeans are fine if they are not torn or overly tight.",
   "etiquette.clothing.practical.list.2": "Avoid shorts, sleeveless tops, or clothing that looks flashy or careless.",
   "etiquette.clothing.practical.list.3": "Men remove hats in church. Women wear a simple head covering that allows easy movement and bows.",
   "etiquette.clothing.practical.list.4": "The goal is respect for where we are — especially in public worship.",
-
   "etiquette.clothing.modesty.title": "Modesty and avoiding vanity",
   "etiquette.clothing.modesty.list.0": "Christians worship God in church and at home; in both, appearance should reflect reverence, not neglect or vanity.",
   "etiquette.clothing.modesty.list.1": "At home, private prayer calls for simplicity and attention — no special garments needed, but not carelessness.",
   "etiquette.clothing.modesty.list.2": "In public worship, clothing should be especially modest and respectful, as we stand before God in His house.",
   "etiquette.clothing.modesty.list.3": "The ancient canons forbid imitating the opposite sex in dress or wearing clothing meant to show off wealth or pride.",
   "etiquette.clothing.modesty.list.4": "Simplicity guards the soul from distraction and helps others pray without disturbance.",
-
   "etiquette.clothing.belt.title": "The meaning of the belt",
   "etiquette.clothing.belt.p1": "The belt symbolizes chastity, readiness, and self-control.",
   "etiquette.clothing.belt.p2": "In some early Orthodox traditions — especially among Russian Old Believers and monastics — a belt was blessed at baptism as a sign of discipline; this is not universal today.",
   "etiquette.clothing.belt.p3": "To be \"girded with a belt\" means living with readiness for prayer and service. Many saints — including the Prophet Elijah and the Apostle Peter — are described as wearing belts, showing vigilance and strength in faith.",
-
   "etiquette.candles.why.title": "Why we light candles",
   "etiquette.candles.why.text": "Candles are an offering to God and His saints, a sign of prayer, joy, and reverence. Light them before icons with a simple prayer to the one depicted, asking God’s help and the saints’ intercession. Handle candles carefully and respectfully.",
-
   "etiquette.topic.candles.title": "How to light candles (and prayers)",
   "etiquette.topic.candles.intro": "A candle is an offering and a visible prayer before God and His saints.",
   "etiquette.topic.candles.bullets.0": "Light the candle calmly and place it upright before the appropriate icon.",
   "etiquette.topic.candles.bullets.1": "Short prayers: “Lord Jesus Christ, Son of God, have mercy on me,” “Most Holy Theotokos, save us,” “Saint N., pray to God for us.”",
   "etiquette.topic.candles.bullets.2": "During services, candles on stands follow the set order; do not interfere with them.",
   "etiquette.topic.candles.bullets.3": "Holding candles: Great Feasts, Great and Holy Thursday, Pascha, and funerals.",
-
   "etiquette.candles.usecases.title": "When to light a candle",
   "etiquette.candles.prayers.title": "Short prayers to say",
   "etiquette.candles.prayers.christ": "Before Christ: “Lord Jesus Christ, Son of God, have mercy on me, a sinner.”",
@@ -227,7 +186,6 @@
   "etiquette.candles.prayers.angel": "Before a Guardian Angel: “Angel of Christ, my holy guardian, save me.”",
   "etiquette.candles.prayers.saint": "Before a Saint: “Saint N., pray to God for us.”",
   "etiquette.candles.prayers.memorial": "At the memorial table: “Grant rest, O Lord, to Your departed servants.”",
-
   "etiquette.candles.usecases.christ.label": "Before the icon of Christ",
   "etiquette.candles.usecases.christ.prayer": "Lord Jesus Christ, Son of God, have mercy on me, a sinner.",
   "etiquette.candles.usecases.cross.label": "Before the Cross",
@@ -240,25 +198,20 @@
   "etiquette.candles.usecases.saint.prayer": "Saint N., pray to God for us.",
   "etiquette.candles.usecases.memorial.label": "At the memorial (for the departed)",
   "etiquette.candles.usecases.memorial.prayer": "Grant rest, O Lord, to the souls of Your departed servants.",
-
   "etiquette.candles.where.title": "Where and how",
   "etiquette.candles.where.steps.0": "Approach the icon stand calmly.",
   "etiquette.candles.where.steps.1": "Make the sign of the Cross, bow, and light the candle from an existing flame if possible.",
   "etiquette.candles.where.steps.2": "Place it upright before the icon of Christ, the Mother of God, or the saint you are addressing.",
   "etiquette.candles.where.steps.3": "Do not block others, jostle, or rearrange others’ candles. Keep wax drips to a minimum.",
-
   "etiquette.candles.stands.title": "When candles on stands are lit during services",
   "etiquette.candles.stands.text": "At Vespers, candles are lit before censing at “Lord, I have cried,” then follow the set pattern of being extinguished and relit at specific moments, remaining lit through the Great Doxology. At the morning service and the Divine Liturgy, candles are lit after the Ninth Hour and remain lit until the end. Don’t wander around tending candles in a way that disrupts the service or decorum.",
-
   "etiquette.candles.holding.title": "Holding candles during services (when customary)",
   "etiquette.candles.holding.bullets.0": "At the Twelve Great Feasts and parish feast day: from the Polyeleos until the 3rd Ode, then again after the 8th Ode until the end of the Great Doxology.",
   "etiquette.candles.holding.bullets.1": "On Great and Holy Thursday: during the reading of the Twelve Gospels.",
   "etiquette.candles.holding.bullets.2": "At Pascha: from the procession until the end of the First Hour.",
   "etiquette.candles.holding.bullets.3": "At funerals and memorial services.",
-
   "etiquette.candles.conduct.title": "Conduct",
   "etiquette.candles.conduct.text": "Offer your candle without disrupting worship. Respect the order of the service and the people around you so that a simple offering becomes a fitting prayer.",
-
   "etiquette.candles.when.title": "When to light a candle",
   "etiquette.candles.when.bullets.0": "Before an icon of Christ, the Mother of God, or a saint — with a short prayer.",
   "etiquette.candles.when.bullets.1": "At Vespers: all candles are lit before censing at “Lord, I have cried”; later relit after the 8th Ode and kept until the Great Doxology.",
@@ -266,31 +219,26 @@
   "etiquette.candles.when.bullets.3": "The faithful may hold candles on Great Feasts: from the Polyeleos to the 3rd Ode; relight after the 8th Ode until the end of the Great Doxology.",
   "etiquette.candles.when.bullets.4": "Great and Holy Thursday: during the reading of the Twelve Gospels.",
   "etiquette.candles.when.bullets.5": "Pascha: from the procession until the end of the First Hour; also at funerals.",
-
   "etiquette.topic.bowsLent.title": "Bows during the Great Lent",
   "etiquette.topic.bowsLent.intro": "During Great Lent, bows to the ground are common on weekdays. This page lists the exceptions and the exact order for key Lenten services.",
   "etiquette.topic.bowsLent.bullets.0": "Weekdays of Lent: bows to the ground are made throughout.",
   "etiquette.topic.bowsLent.bullets.1": "Exceptions: certain openings of Sunday evening/night services and at the first “Glory” of weekday kathismas — these are bows from the waist.",
   "etiquette.topic.bowsLent.bullets.2": "Prayer of St Ephraim: normally 17 bows to the ground; at some services only 3 or 4.",
   "etiquette.topic.bowsLent.bullets.3": "Saturdays and Sundays of Lent: bows from the waist only.",
-
   "etiquette.bowsLent.ephraim.title": "The Prayer of St Ephraim the Syrian",
   "etiquette.bowsLent.ephraim.text": "“Lord and Sovereign of my life…” — at the end of every church service during Lent, 17 bows to the ground are made with this prayer.",
   "etiquette.bowsLent.ephraim.var.0": "On Sunday evenings (services for Monday): 4 bows to the ground.",
   "etiquette.bowsLent.ephraim.var.1": "At festive (polyeleos) services in Lent: 4 bows to the ground.",
   "etiquette.bowsLent.ephraim.var.2": "At the end of a festive Lenten morning service: 3 bows to the ground.",
-
   "etiquette.bowsLent.greatNight.title": "Great Night Service during Lent",
   "etiquette.bowsLent.greatNight.text.0": "After the Creed (“I believe in one God…”), the refrain is sung: “O Most Holy Lady Mother of God All-Merciful, pray to God for us sinners.” At each refrain, one bow to the ground is made — alternating halves of the church.",
   "etiquette.bowsLent.greatNight.list.0": "During the Trisagion (“Holy God…”): three bows from the waist.",
   "etiquette.bowsLent.greatNight.list.1": "At Lenten polyeleos services: bows from the waist.",
   "etiquette.bowsLent.greatNight.list.2": "At the Great Night Service on Nativity, Theophany, or Annunciation: bows from the waist.",
-
   "etiquette.bowsLent.weekends.title": "Saturdays, Sundays, and special times",
   "etiquette.bowsLent.weekends.list.0": "Monday midnight service of the first week of Lent: bows from the waist.",
   "etiquette.bowsLent.weekends.list.1": "All Saturdays and Sundays of Lent: bows from the waist only.",
   "etiquette.bowsLent.weekends.list.2": "From Friday evening onward (for Saturday): no bows to the ground, except where specifically prescribed; use waist bows.",
-
   "etiquette.bowsLent.presanctified.title": "Liturgy of the Presanctified Gifts",
   "etiquette.bowsLent.presanctified.text.0": "At “Let my prayer be set aright before You, the lifting up of my hands, the evening sacrifice”:",
   "etiquette.bowsLent.presanctified.steps.0": "First chanting: the whole church bows to the ground without the sign of the Cross and remains bowed for the entire verse.",
@@ -299,11 +247,9 @@
   "etiquette.bowsLent.presanctified.steps.3": "After this: three bows to the ground with the Prayer of St Ephraim.",
   "etiquette.bowsLent.presanctified.after": "All other bows during the Presanctified Liturgy are to the ground.",
   "etiquette.bowsLent.presanctified.other": "Presanctified is served on Wednesdays and Fridays and on some weekday feasts in Lent.",
-
   "etiquette.bowsLent.presanctified.exceptions.title": "Presanctified: exceptions",
   "etiquette.bowsLent.presanctified.exceptions.0": "Fridays (evening belongs to Saturday): the evening service uses waist bows; the Presanctified part (“Let my prayer…”) keeps bows to the ground.",
   "etiquette.bowsLent.presanctified.exceptions.1": "On the eve of certain feasts during Lent (e.g., Annunciation) when bows to the ground are forbidden: evening service uses waist bows; the Presanctified part retains bows to the ground where prescribed.",
-
   "etiquette.bowsLent.other.title": "Other services during Lent",
   "etiquette.bowsLent.other.text": "All bows at services performed during Great Lent — funerals, molebens (prayer services), anointing of the sick, and at the beginning of confession — are from the waist."
 }

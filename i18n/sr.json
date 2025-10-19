@@ -40,7 +40,6 @@
   "donations.swish.title": "Swish (једнократно)",
   "swish_qr_title": "Swish преко QR-а",
   "swish_qr_hint": "Отворите Swish на телефону, тапните „Скенирај“ и усмерите камеру ка овом QR коду.",
-
   "donations.title": "Донације",
   "etiquette.bows.ground.kinds.list.0": "Обичан поклон до груди или пупка",
   "etiquette.bows.ground.kinds.list.1": "Средњи поклон од појаса",
@@ -282,7 +281,6 @@
   "gallery.empty": "Још нема фотографија — свратите ускоро поново.",
   "gallery.intro": "Фотографије и тренуци из парохијског живота.",
   "gallery.title": "Галерија",
-  "hero.lead": "Парахијски сајт је у изради.",
   "hero.title": "Добро дошли",
   "nav.about": "О нама",
   "nav.calendar": "Календар",
