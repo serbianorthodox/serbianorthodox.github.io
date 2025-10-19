@@ -10,7 +10,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/site.f3c51a6396.css" />
-
+<style>
+/* Disable hover zoom for home hero */
+@media (hover:hover){
+  .hero-image img{transition:none !important;}
+  .hero-image img:hover{transform:none !important;}
+}
+/* Desktop/laptop: reduce hero image width */
+@media (min-width: 992px){
+  .hero-image img{max-width: 720px;}
+}
+</style>
     <style>
       /* Force non-bold nav + underline for active */
       #include-header .navbar .nav-link {
@@ -51,7 +61,6 @@
     <main class="container hero">
       <div class="text-center">
         <h1 class="mb-3" data-i18n="hero.title">Welcome</h1>
-        <p class="lead mb-4" data-i18n="hero.lead">Parish website in progress.</p>
       </div>
 
       <!-- Church image -->
@@ -62,7 +71,7 @@
   <img
           src="/assets/img/gallery/profile.jpg"
           alt="Serbian Orthodox Church in Malmö"
-          class="img-fluid"
+          class="img-fluid d-block mx-auto"
         />
 </picture>
       </div>
