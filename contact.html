@@ -16,7 +16,8 @@
     <style>
       .contact-hero { position: relative; overflow: hidden; }
       .contact-hero .hero-picture, .contact-hero .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-      .contact-hero .hero-img { object-fit: cover; object-position: center; }
+      /* nudged up so the full face is visible */
+      .contact-hero .hero-img { object-fit: cover; object-position: 50% 25%; }
       .contact-hero .contact-hero-box { position: relative; padding: 3rem 0; }
     </style>
 
@@ -25,7 +26,8 @@
     <div id="include-header"></div>
 
     <!-- Hero now uses the same container/gutters as text -->
-    <section class="contact-hero">      <picture class="hero-picture">
+    <section class="contact-hero">
+      <picture class="hero-picture">
         <source type="image/webp" srcset="/assets/img/gallery/fathers-1200.webp">
         <img class="hero-img" src="/assets/img/gallery/fathers-1200.jpg" alt="Parish priest" loading="eager" decoding="async" fetchpriority="high">
       </picture>
