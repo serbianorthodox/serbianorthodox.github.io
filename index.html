@@ -1,108 +1,113 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Serbian Orthodox Church in Sweden</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Home — Serbian Orthodox Church in Malmö</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/site.f3c51a6396.css" />
-<style>
-.social-links a{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none}
-.social-links svg{width:28px;height:28px}
-.social-links a:hover{text-decoration:underline}
-</style>
-<style>
-/* Disable hover zoom for home hero */
-@media (hover:hover){
-  .hero-image img{transition:none !important;}
-  .hero-image img:hover{transform:none !important;}
-}
-/* Desktop/laptop: reduce hero image width */
-@media (min-width: 992px){
-  .hero-image img{max-width: 720px;}
-}
-</style>
+
     <style>
-      /* Force non-bold nav + underline for active */
-      #include-header .navbar .nav-link {
-        font-weight: 500 !important;
-        border-bottom: 2px solid transparent;
-        white-space: nowrap;
+      /* Base */
+      body { overflow-x: hidden; }
+
+      /* HERO */
+      .hero { margin: 0; }
+      .hero-media {
+        position: relative;
+        min-height: 45vh;            /* space even if image is late */
+        background: #f2f2f2;         /* neutral backdrop */
       }
-      #include-header .navbar .nav-link.active {
-        font-weight: 500 !important;
-        border-bottom-color: currentColor;
+      .hero-img {
+        display: block;
+        width: 100%;
+        height: auto;                /* mobile/tablet: full image, no crop */
+      }
+
+      /* Overlay */
+      .hero-overlay {
+        position: absolute;
+        left: 1rem; right: 1rem; bottom: 1rem;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        line-height: 1.35;
+        z-index: 10;
+      }
+      .hero-overlay h1 { margin: 0 0 0.35rem; }
+      .hero-verse { margin: 0; }
+      .hero-verse-ref { margin-left: 0.35rem; opacity: 0.9; }
+      .hero-text--light { color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.45); }
+      .hero-text--dark  { color: #111; text-shadow: 0 1px 3px rgba(255,255,255,.35); }
+      .hero-overlay.backdrop { background: rgba(0,0,0,.28); border-radius: 8px; }
+
+      /* Desktop/laptop: full-bleed with comfortable, bounded height */
+      @media (min-width: 992px) {
+        .hero-media {
+          width: 100vw;
+          margin-left: 50%;
+          transform: translateX(-50%);
+        }
+        .hero-img {
+          width: 100%;
+          height: clamp(360px, 45vh, 440px); /* <-- back to the stable setting */
+          object-fit: cover;                  /* safe crop */
+          object-position: 50% 60%;           /* previous framing you had */
+        }
+        .hero-overlay {
+          left: 2rem; right: 2rem; bottom: 2rem;
+          padding: 1rem 1.25rem;
+          font-size: 1.05rem;
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+        .hero-overlay h1 { font-size: clamp(1.6rem, 2.2vw, 2.4rem); }
+        .hero-verse      { font-size: clamp(1rem, 1.2vw, 1.25rem); }
+      }
+
+      /* Ultra-wide: small bump if needed */
+      @media (min-width: 1600px) {
+        .hero-img { height: clamp(400px, 50vh, 480px); }
       }
     </style>
 
-    <style>
-      body {
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-          "Noto Sans", "Liberation Sans", sans-serif;
-      }
-      .hero {
-        padding: 3rem 0;
-      }
-      .hero-image img {
-        width: 100%;
-        max-height: 600px;
-        object-fit: cover;
-        border-radius: 12px;
-        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease-in-out;
-      }
-      .hero-image img:hover {
-        transform: scale(1.01);
-      }
-    </style>
+    <script defer src="/assets/js/include.js"></script>
+    <script defer src="/assets/js/i18n.js"></script>
   </head>
+
   <body>
     <div id="include-header"></div>
 
-    <main class="container hero">
-      <div class="text-center">
-        <h1 class="mb-3" data-i18n="hero.title">Welcome</h1>
-      </div>
-
-      <!-- Church image -->
-      <div class="hero-image mb-4">
-        <!-- Put the file at: /assets/img/gallery/profile.jpg -->
+    <!-- HERO -->
+    <section class="hero" aria-label="Welcome">
+      <div class="hero-media">
         <picture>
-  <source type="image/webp" srcset="/assets/img/gallery/profile.webp">
-  <img
-          src="/assets/img/gallery/profile.jpg"
-          alt="Serbian Orthodox Church in Malmö"
-          class="img-fluid d-block mx-auto"
-        />
-</picture>
+          <!-- Using an image that exists to avoid 404s; swap to /assets/img/hero/welcome.* later -->
+          <source srcset="/assets/img/etiquette/thumbs/bows.webp" type="image/webp" />
+          <img
+            src="/assets/img/etiquette/thumbs/bows.jpg"
+            alt="Welcome"
+            class="hero-img"
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
+
+        <div class="hero-overlay hero-text--light backdrop" id="hero-overlay">
+          <h1>Serbian Orthodox Church in Malmö</h1>
+          <p class="hero-verse">
+            <span>"You shall love the Lord your God with all your heart, and with all your soul, and with all your mind."</span>
+            <span class="hero-verse-ref">Matthew 22:37</span>
+          </p>
+        </div>
       </div>
-  <section class="social-links text-center my-4">
-    <a href="https://www.facebook.com/parohijamalme/?locale=sv_SE" target="_blank" rel="noopener" aria-label="Facebook">
-      <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.01 3.66 9.17 8.44 9.94v-7.03H7.9v-2.91h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.46h-1.25c-1.23 0-1.61.77-1.61 1.56v1.87h2.74l-.44 2.91h-2.3V22c4.78-.77 8.44-4.93 8.44-9.94Z"/></svg>
-      <span>Facebook</span>
-    </a>
-    <a href="https://www.instagram.com/spc_malmo/" target="_blank" rel="noopener" aria-label="Instagram" class="ms-3">
-      <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zm5.75-3.25a1.25 1.25 0 1 1-1.25 1.25 1.25 1.25 0 0 1 1.25-1.25z"/></svg>
-      <span>Instagram</span>
-    </a>
-  </section>    </main>
+    </section>
+    <!-- /HERO -->
+
+    <main class="container py-4"></main>
 
     <div id="include-footer"></div>
 
-    <!-- Keep this order -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/i18n.js"></script>
-    <script src="/assets/js/include.js"></script>
-    <script>
-      // Re-apply active language after header/footer injection
-      window.__setLang &&
-        window.__setLang(
-          (localStorage.getItem("lang") || document.documentElement.lang || "sv").toLowerCase()
-        );
-    </script>
   </body>
 </html>
