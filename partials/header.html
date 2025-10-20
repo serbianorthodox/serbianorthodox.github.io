@@ -1,14 +1,26 @@
 <link rel="stylesheet" href="/assets/css/site.f3c51a6396.css">
 
-<nav class="navbar navbar-expand-md navbar-light bg-light border-bottom">
-  <div class="container">
-    <a class="navbar-brand brand-title" href="/" data-i18n="site.name">Serbian Orthodox Church in Sweden</a>
+<nav class="navbar navbar-expand-md navbar-light bg-light border-bottom px-0">
+  <div class="container-fluid align-items-center ps-0">
+    <!-- DESKTOP FLAGS: far left, never shrink -->
+    <div class="d-none d-md-flex align-items-center gap-2 flex-shrink-0">
+      <a class="btn btn-outline-secondary btn-sm" href="?lang=sr" data-lang="sr" title="Srpski" aria-label="Srpski">🇷🇸</a>
+      <a class="btn btn-outline-secondary btn-sm" href="?lang=sv" data-lang="sv" title="Svenska" aria-label="Svenska">🇸🇪</a>
+      <a class="btn btn-outline-secondary btn-sm" href="?lang=en" data-lang="en" title="English" aria-label="English">🇬🇧</a>
+    </div>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Brand -->
+    <a class="navbar-brand brand-title ms-1 ms-md-2" href="/" data-i18n="site.name">Serbian Orthodox Church in Malmö</a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Collapsed content -->
     <div class="collapse navbar-collapse" id="mainNav">
+      <!-- Nav links -->
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item"><a class="nav-link" href="/" data-i18n="nav.home">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/about.html" data-i18n="nav.about">About</a></li>
@@ -21,14 +33,7 @@
         <li class="nav-item"><a class="nav-link" href="/contact.html" data-i18n="nav.contact">Contact</a></li>
       </ul>
 
-      <!-- Desktop: flags top-right -->
-      <div class="ms-auto d-none d-md-flex gap-2 align-items-center">
-        <a class="btn btn-outline-secondary btn-sm" href="?lang=sr" data-lang="sr" title="Srpski" aria-label="Srpski">🇷🇸</a>
-        <a class="btn btn-outline-secondary btn-sm" href="?lang=sv" data-lang="sv" title="Svenska" aria-label="Svenska">🇸🇪</a>
-        <a class="btn btn-outline-secondary btn-sm" href="?lang=en" data-lang="en" title="English" aria-label="English">🇬🇧</a>
-      </div>
-
-      <!-- Mobile: same flags inside the collapsed menu -->
+      <!-- MOBILE FLAGS: visible only below md -->
       <div class="d-md-none mt-2 d-flex gap-2">
         <a class="btn btn-outline-secondary btn-sm" href="?lang=sr" data-lang="sr" title="Srpski" aria-label="Srpski">🇷🇸</a>
         <a class="btn btn-outline-secondary btn-sm" href="?lang=sv" data-lang="sv" title="Svenska" aria-label="Svenska">🇸🇪</a>
