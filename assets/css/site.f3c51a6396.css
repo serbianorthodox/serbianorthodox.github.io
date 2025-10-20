@@ -20,21 +20,6 @@ main .lead { font-size: 1.125rem; line-height: 1.5; }
 .navbar .nav-link { font-weight: 500; border-bottom: 2px solid transparent; }
 .navbar .nav-link.active { border-bottom-color: currentColor; }
 
-/* NAV: long menu scrolls; flags stay visible */
-.navbar .navbar-nav {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
-  min-width: max-content;            /* Safari overflow width calc */
-  -webkit-overflow-scrolling: touch; /* smooth swipe on iOS */
-  touch-action: pan-x;               /* ensure horizontal swipe */
-}
-.navbar .navbar-collapse > .ms-auto {
-  flex-shrink: 0;                    /* keep the flags block from shrinking */
-}
-/* Optional: slim WebKit scrollbar for nav list */
-.navbar .navbar-nav::-webkit-scrollbar { height: 6px; }
-
 /* Brand title */
 .navbar-brand.brand-title { font-weight: 500; }
 @media (prefers-reduced-motion: no-preference) {
