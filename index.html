@@ -10,7 +10,19 @@
 
     <style>
       /* Base */
-      body { overflow-x: hidden; }
+      @media (min-width: 992px) {
+  .hero-media {
+    width: 100%;        /* was 100vw */
+    margin-left: 0;     /* was 50% */
+    transform: none;    /* was translateX(-50%) */
+  }
+  .hero-img {
+    width: 100%;
+    height: clamp(420px, 55vh, 560px);
+    object-fit: cover;
+    object-position: 50% 68%; /* your current focus tweak */
+  }
+}
 
       /* HERO */
       .hero { margin: 0; }
