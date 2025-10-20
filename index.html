@@ -50,9 +50,9 @@
         }
         .hero-img {
           width: 100%;
-          height: clamp(360px, 45vh, 440px); /* stable setting */
-          object-fit: cover;                  /* safe crop */
-          object-position: 50% 60%;           /* framing */
+          height: clamp(420px, 55vh, 560px);
+          object-fit: cover;
+          object-position: 50% 45%; /* move focus down to show more faces */
         }
         .hero-overlay {
           left: 2rem; right: 2rem; bottom: 2rem;
@@ -82,15 +82,22 @@
     <section class="hero" aria-label="Welcome">
       <div class="hero-media">
         <picture>
-          <!-- Using an image that exists to avoid 404s; swap to /assets/img/hero/welcome.* later -->
-          <source srcset="/assets/img/etiquette/thumbs/bows.webp" type="image/webp" />
-          <img
-            src="/assets/img/etiquette/thumbs/bows.jpg"
-            alt="Welcome"
-            class="hero-img"
-            loading="eager"
-            decoding="async"
-          />
+          <source
+    srcset="/assets/img/gallery/home-hero-600.webp 600w,
+            /assets/img/gallery/home-hero-1200.webp 1200w"
+    type="image/webp" />
+  <img
+    class="hero-img"
+    src="/assets/img/gallery/home-hero-1200.jpg"
+    srcset="/assets/img/gallery/home-hero-600.jpg 600w,
+            /assets/img/gallery/home-hero-1200.jpg 1200w"
+    sizes="(max-width: 576px) 100vw,
+           (max-width: 992px) 100vw,
+           1200px"
+    alt="Serbian Orthodox Church in Malmö"
+    loading="eager"
+    decoding="async"
+  />
         </picture>
 
         <div class="hero-overlay hero-text--light backdrop" id="hero-overlay">
