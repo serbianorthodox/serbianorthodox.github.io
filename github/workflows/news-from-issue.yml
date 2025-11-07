@@ -1,0 +1,208 @@
+name: "News from Issue"
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+
+jobs:
+  build-news:
+    if: >
+      contains(github.event.issue.labels.*.name, 'news') &&
+      startsWith(github.event.issue.title, 'News:')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Parse issue form
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+
+            function get(field){
+              const re = new RegExp(`###\\s+${field}\\s+\\n+([\\s\\S]*?)\\n(?=###|$)`);
+              const m = body.match(re);
+              return (m ? m[1].trim() : "");
+            }
+
+            const dateStr = get("Date");          // dd-mm-yyyy
+            const slug    = get("Slug").toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').replace(/^-|-$|/g,'');
+            const lang    = get("Language") || "sv";
+            const title   = get("Title");
+            const summary = get("Summary (1–2 sentences)") || "";
+            const tagsRaw = get("Tags (comma separated)") || "";
+            const cover   = get("Cover image URL (optional)") || "";
+            const bodyMd  = get("Body");
+
+            if(!dateStr || !slug || !lang || !title || !bodyMd){
+              core.setFailed("Missing one of required fields: Date, Slug, Language, Title, Body");
+            }
+
+            // dd-mm-yyyy -> yyyy, mm, dd
+            const [dd, mm, yyyy] = dateStr.split("-").map(s => s.padStart(2,"0"));
+            if(!yyyy || !mm || !dd){ core.setFailed("Date must be dd-mm-yyyy"); }
+
+            const year = yyyy;
+            const month = mm;
+            const day = dd;
+
+            const basePath = `i18n/news/${year}/${month}/${day}-${slug}`;
+            const imgDir   = `assets/img/news/${year}/${month}/${day}-${slug}`;
+
+            // pick user-images links to download
+            const imgUrls = Array.from(bodyMd.matchAll(/https:\/\/user-images\.githubusercontent\.com\/[^\s)\]]+/g)).map(x=>x[0]);
+
+            core.setOutput("year", year);
+            core.setOutput("month", month);
+            core.setOutput("day", day);
+            core.setOutput("slug", slug);
+            core.setOutput("lang", lang);
+            core.setOutput("title", title);
+            core.setOutput("summary", summary);
+            core.setOutput("tags", tagsRaw);
+            core.setOutput("cover", cover);
+            core.setOutput("basePath", basePath);
+            core.setOutput("imgDir", imgDir);
+            core.setOutput("bodyMd", bodyMd);
+            core.setOutput("imgUrls", JSON.stringify(imgUrls));
+            core.setOutput("branch", `feat/news-${year}-${month}-${day}-${slug}`);
+
+      - name: Create branch
+        run: |
+          git switch -c "${{ steps.parse.outputs.branch }}"
+
+      - name: Ensure folders
+        run: |
+          mkdir -p "${{ steps.parse.outputs.imgDir }}"
+          mkdir -p "$(dirname "${{ steps.parse.outputs.basePath }}")"
+
+      - name: Install image tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick webp
+
+      - name: Download attached images (if any)
+        if: ${{ fromJSON(steps.parse.outputs.imgUrls).length > 0 }}
+        run: |
+          set -e
+          cd "${{ steps.parse.outputs.imgDir }}"
+          echo '${{ steps.parse.outputs.imgUrls }}' | jq -r '.[]' | while read -r URL; do
+            NAME="$(basename "$URL" | cut -d'?' -f1)"
+            curl -L "$URL" -o "$NAME"
+          done
+
+      - name: Generate 600/1200 JPG + WebP variants
+        if: ${{ fromJSON(steps.parse.outputs.imgUrls).length > 0 }}
+        run: |
+          set -e
+          cd "${{ steps.parse.outputs.imgDir }}"
+          shopt -s nullglob
+          for f in *; do
+            # skip already-generated variants
+            [[ "$f" == *-600.* || "$f" == *-1200.* ]] && continue
+            # create 1200 jpg
+            convert "$f" -auto-orient -resize 1200x1200\> "${f%.*}-1200.jpg"
+            # create 600 jpg
+            convert "$f" -auto-orient -resize 600x600\>   "${f%.*}-600.jpg"
+            # make webp
+            cwebp -q 85 "${f%.*}-1200.jpg" -o "${f%.*}-1200.webp" >/dev/null 2>&1
+            cwebp -q 85 "${f%.*}-600.jpg"  -o "${f%.*}-600.webp"  >/dev/null 2>&1
+          done
+
+      - name: Write language JSON
+        run: |
+          TITLE='${{ steps.parse.outputs.title }}'
+          BODY='${{ steps.parse.outputs.bodyMd }}'
+          LANG='${{ steps.parse.outputs.lang }}'
+          BASE='${{ steps.parse.outputs.basePath }}'
+          # Write i18n file
+          mkdir -p "$(dirname "$BASE")"
+          printf '{\n  "title": %s,\n  "body": %s\n}\n' \
+            "$(jq -Rsa . <<<"$TITLE")" \
+            "$(jq -Rsa . <<<"$BODY")" \
+            > "${BASE}.${LANG}.json"
+
+      - name: Update metadata list
+        run: |
+          YEAR='${{ steps.parse.outputs.year }}'
+          MONTH='${{ steps.parse.outputs.month }}'
+          DAY='${{ steps.parse.outputs.day }}'
+          SLUG='${{ steps.parse.outputs.slug }}'
+          BASE='${{ steps.parse.outputs.basePath }}'
+          SUMMARY='${{ steps.parse.outputs.summary }}'
+          TAGS='${{ steps.parse.outputs.tags }}'
+          COVER='${{ steps.parse.outputs.cover }}'
+          META_FILE="data/news/index.json"
+
+          mkdir -p "$(dirname "$META_FILE")"
+          if [ ! -f "$META_FILE" ]; then
+            echo "[]" > "$META_FILE"
+          fi
+
+          # Build one metadata object
+          DATE_ISO="${YEAR}-${MONTH}-${DAY}"
+          # tags -> array
+          TAG_ARRAY=$(jq -R 'split(",") | map(. | strip | select(length>0))' <<<"$TAGS")
+
+          # choose cover: provided or first 1200 webp if exists
+          AUTO_COVER=""
+          if compgen -G "${{ steps.parse.outputs.imgDir }}/*-1200.webp" > /dev/null; then
+            FIRST=$(ls -1 "${{ steps.parse.outputs.imgDir }}"/*-1200.webp | head -n1)
+            AUTO_COVER="/${FIRST}"
+          fi
+          if [ -n "$COVER" ]; then
+            FINAL_COVER="$COVER"
+          else
+            FINAL_COVER="$AUTO_COVER"
+          fi
+
+          NEW_OBJ=$(jq -n \
+            --arg date "$DATE_ISO" \
+            --arg slug "$SLUG" \
+            --arg i18nPath "$BASE" \
+            --arg summary "$SUMMARY" \
+            --arg cover "$FINAL_COVER" \
+            --argjson tags "$TAG_ARRAY" \
+            '{date:$date, slug:$slug, i18nPath:$i18nPath, summary:$summary, tags:$tags, cover: ( ($cover|length>0) ? $cover : null ) }')
+
+          # upsert: remove existing with same date+slug then append
+          TMP=$(mktemp)
+          jq --arg d "$DATE_ISO" --arg s "$SLUG" \
+             'map(select(.date != $d or .slug != $s))' "$META_FILE" > "$TMP" && mv "$TMP" "$META_FILE"
+          jq --argjson obj "$NEW_OBJ" '. += [$obj]' "$META_FILE" > "$TMP" && mv "$TMP" "$META_FILE"
+
+      - name: Commit
+        run: |
+          git add -A
+          git commit -m "news: add ${{ steps.parse.outputs.year }}-${{ steps.parse.outputs.month }}-${{ steps.parse.outputs.day }} ${{ steps.parse.outputs.slug }} (${{ steps.parse.outputs.lang }}) from issue #${{ github.event.issue.number }}"
+
+      - name: Push branch
+        run: |
+          git push -u origin "${{ steps.parse.outputs.branch }}"
+
+      - name: Open PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `News: ${context.payload.issue.title}`,
+              head: '${{ steps.parse.outputs.branch }}',
+              base: 'main',
+              body: `Automated PR for news post from issue #${context.payload.issue.number}.`
+            });
+            core.info(`PR opened: ${pr.html_url}`)
