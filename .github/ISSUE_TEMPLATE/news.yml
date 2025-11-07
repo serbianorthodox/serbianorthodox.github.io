@@ -1,4 +1,5 @@
 name: "New news post"
+title: "Add Title"
 description: "Create a news post"
 title: ""
 labels: ["news"]
