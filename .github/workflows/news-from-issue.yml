@@ -148,7 +148,7 @@ jobs:
             const { data: pr } = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `News: ${context.payload.issue.title}`,
+              title: context.payload.issue.title,
               head: '${{ steps.parse.outputs.branch }}',
               base: 'main',
               body: `Automated PR for news post from issue #${context.payload.issue.number}.`
