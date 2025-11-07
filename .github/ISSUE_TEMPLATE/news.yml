@@ -1,6 +1,6 @@
 name: "New news post"
 description: "Create a news post"
-title: "News: <date>-<slug> (<lang>)"
+title: ""
 labels: ["news"]
 body:
   - type: input
