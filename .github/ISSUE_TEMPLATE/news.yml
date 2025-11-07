@@ -1,5 +1,5 @@
 name: "New news post"
-description: "Create a news post in one language"
+description: "Create a news post"
 title: "News: <date>-<slug> (<lang>)"
 labels: ["news"]
 body:
@@ -8,19 +8,17 @@ body:
     attributes:
       label: "Date"
       description: "Format: dd-mm-yyyy"
-      placeholder: "07-11-2025"
+      placeholder: "29-08-2025"
     validations:
       required: true
-
   - type: input
     id: slug
     attributes:
       label: "Slug"
-      description: "Lowercase, hyphens only"
-      placeholder: "feast-of-archangels"
+      description: "Lowercase, hyphens only, ASCII"
+      placeholder: "beheading-of-saint-john-the-baptist"
     validations:
       required: true
-
   - type: dropdown
     id: lang
     attributes:
@@ -28,43 +26,22 @@ body:
       options: ["sv", "en", "sr"]
     validations:
       required: true
-
   - type: input
     id: title
     attributes:
       label: "Title"
-      placeholder: "Ärkeänglarnas fest"
+      placeholder: "The Beheading of Saint John the Baptist"
     validations:
       required: true
-
-  - type: textarea
-    id: summary
-    attributes:
-      label: "Summary (1–2 sentences)"
-      placeholder: "Kort sammanfattning…"
-
   - type: textarea
     id: body
     attributes:
       label: "Body"
-      description: "Markdown allowed. Paste images directly here."
+      description: "Markdown allowed. Drag or paste one or more images below."
       placeholder: "Full text…"
     validations:
       required: true
-
-  - type: input
-    id: tags
-    attributes:
-      label: "Tags (comma separated)"
-      placeholder: "högtid, ärkeänglar"
-
-  - type: input
-    id: cover
-    attributes:
-      label: "Cover image URL (optional)"
-      placeholder: "https://… or leave blank"
-
   - type: markdown
     attributes:
       value: |
-        **Images:** You can drag or paste pictures below the body field. They will be uploaded automatically.
+        Images: drag or paste below the Body field. They will be handled automatically.
