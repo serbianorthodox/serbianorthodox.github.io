@@ -1,0 +1,5 @@
+Date: 2025-11-08
+Lang: en
+
+Body:
+Final trigger test after conflict-free YAML fix.
