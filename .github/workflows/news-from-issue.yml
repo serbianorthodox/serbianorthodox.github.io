@@ -10,7 +10,6 @@ permissions:
   pull-requests: write
   issues: read
 
-# Force bash so () and arrays are safe everywhere
 defaults:
   run:
     shell: bash
@@ -44,11 +43,11 @@ jobs:
             if (!rawTitle) { core.setFailed("Missing Issue Title"); return; }
             if (!rawBody)  { core.setFailed("Missing Issue Body");  return; }
 
-            // Language: "Language: en|sv|sr" anywhere. Default en.
+            // Language: first line "Language: en|sv|sr" (case-insensitive). Default en.
             const langMatch = rawBody.match(/^\s*Language:\s*(en|sv|sr)\s*$/im);
             const lang = (langMatch ? langMatch[1].toLowerCase() : "en");
 
-            // Clean body: drop scaffolding lines/sections
+            // Strip scaffolding (keep pure body to store)
             const bodyClean = rawBody
               .replace(/^\s*Language:\s*(en|sv|sr)\s*$/gim, "")
               .replace(/^###\s*Date[\s\S]*?(\r?\n){2}/im, "")
@@ -60,13 +59,13 @@ jobs:
               core.setFailed("Body too short (min 20 chars)"); return;
             }
 
-            // Title: strip leading dd-mm-yyyy and optional "News:"
+            // Title: drop leading date and "News:" if present
             const title = rawTitle
               .replace(/^\s*\d{2}-\d{2}-\d{4}\s*[:–-]\s*/,"")
               .replace(/^News:\s*/,"")
               .trim();
 
-            // Date handling: prefer ### Date; else today Europe/Stockholm. Always dd-mm-yyyy.
+            // Date rules: use ### Date (if valid), else today in Europe/Stockholm. Always dd-mm-yyyy.
             function todaySE() {
               const parts = new Intl.DateTimeFormat('sv-SE', {
                 timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
@@ -85,20 +84,20 @@ jobs:
               if (m) return `${m[3]}-${m[2]}-${m[1]}`;
               const d = new Date(t);
               if (!isNaN(d)) {
-                const p = new Intl.DateTimeFormat('sv-SE', {
+                const parts = new Intl.DateTimeFormat('sv-SE', {
                   timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
                 }).formatToParts(d);
-                return `${p.find(x=>x.type==='day').value}-${p.find(x=>x.type==='month').value}-${p.find(x=>x.type==='year').value}`;
+                return `${parts.find(p=>p.type==='day').value}-${parts.find(p=>p.type==='month').value}-${parts.find(p=>p.type==='year').value}`;
               }
               return todaySE();
             }
-            // Extract ### Date (blank-line delimited)
+            // Extract ### Date value (blank-line delimited). We DO NOT strip it if provided.
             let dateField = "";
             { const m = /###\s*Date\s*[\r\n]+([\s\S]*?)(?:\r?\n){2}/i.exec(rawBody); if (m) dateField = (m[1]||"").trim(); }
-            const date_display = normDate(dateField); // dd-mm-yyyy
+            const date_display = normDate(dateField);              // dd-mm-yyyy
             const [dd, mm, yyyy] = date_display.split("-");
 
-            // Slugify (ASCII kebab). Mint once per date.
+            // Slugify ASCII-kebab (deterministic)
             function slugify(s){
               return (s || "news")
                 .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
@@ -107,7 +106,7 @@ jobs:
             }
             const computedSlug = slugify(title);
 
-            // Slug/date locking via index.json (single entry per dd-mm-yyyy)
+            // Slug locking via index.json: single entry per date (dd-mm-yyyy) so all languages share one slug
             const metaPath = "data/news/index.json";
             let index = [];
             if (fs.existsSync(metaPath)) {
@@ -132,8 +131,7 @@ jobs:
             core.setOutput("branch", `feat/news-${yyyy}-${mm}-${dd}-${slug}`);
 
       - name: Create branch
-        run: |
-          git switch -c "${{ steps.parse.outputs.branch }}"
+        run: git switch -c "${{ steps.parse.outputs.branch }}"
 
       - name: Ensure folders
         run: |
@@ -146,25 +144,26 @@ jobs:
           sudo apt-get install -y imagemagick webp jq
 
       - name: Download attached images (if any)
-        shell: bash
         run: |
           set -e
           cd "${{ steps.parse.outputs.imgDir }}"
           BODY='${{ github.event.issue.body }}'
-
           tmpdir="$(mktemp -d)"
           printf "%s" "$BODY" > "$tmpdir/body.txt"
 
-          # Extract URLs without regex alternation that can confuse /bin/sh
+          # Extract URLs from both user-images and user-attachments, dedupe
           grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+' "$tmpdir/body.txt" > "$tmpdir/u1.txt" || true
           grep -Eo 'https://github\.com/user-attachments/[^ )]+'      "$tmpdir/body.txt" > "$tmpdir/u2.txt" || true
-
-          cat "$tmpdir/u1.txt" "$tmpdir/u2.txt" 2>/dev/null \
-            | awk 'NF && !seen[$0]++' > "$tmpdir/urls.txt"
+          cat "$tmpdir/u1.txt" "$tmpdir/u2.txt" 2>/dev/null | awk 'NF && !seen[$0]++' > "$tmpdir/urls.txt"
 
           while IFS= read -r URL; do
             [ -n "$URL" ] || continue
             NAME="$(basename "$URL" | cut -d'?' -f1)"
+            # Skip if a file with same base already exists to avoid triplicating across translations
+            if ls "${NAME%.*}"* >/dev/null 2>&1; then
+              echo "Skip existing images for ${NAME%.*}"
+              continue
+            fi
             curl -fsSL "$URL" -o "$NAME" || true
           done < "$tmpdir/urls.txt"
 
@@ -223,6 +222,7 @@ jobs:
               index.push({ date: date_display, slug, i18nPath: basePath });
             }
 
+            // Sort by dd-mm-yyyy desc
             index.sort((a,b) => {
               const [ad,am,ay] = String(a.date).split("-").map(Number);
               const [bd,bm,by] = String(b.date).split("-").map(Number);
@@ -239,29 +239,30 @@ jobs:
 
       - name: Push branch
         run: |
-          git push -u origin "${{ steps.parse.outputs.branch }}"
+          set -e
+          # Always push; if nothing changed after commit it's a no-op.
+          git push -u origin "${{ steps.parse.outputs.branch }}" || true
 
       - name: Open PR
-        if: ${{ !cancelled() && !failure() }}
         uses: actions/github-script@v7
         with:
           script: |
-            const branch = '${{ steps.parse.outputs.branch }}';
-            const { data: heads } = await github.rest.repos.listBranches({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              protected: false,
-            });
-            if (!heads.find(b => b.name === branch)) {
-              core.info("No branch pushed; skipping PR.");
-              return;
+            const head = '${{ steps.parse.outputs.branch }}';
+            const title = `news: ${'${{ steps.parse.outputs.date_display }}'} ${'${{ steps.parse.outputs.slug }}'} (${'${{ steps.parse.outputs.lang }}'})`;
+            const body  = `Automated PR from issue #${context.payload.issue.number}\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`;
+
+            try {
+              const { data: pr } = await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                title, head, base: 'main', body
+              });
+              core.info(`PR opened: ${pr.html_url}`);
+            } catch (e) {
+              if (e.status === 422 && /pull request already exists/i.test(e.message)) {
+                core.info('PR already exists, skipping.');
+              } else {
+                throw e;
+              }
             }
-            const { data: pr } = await github.rest.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `news: ${'${{ steps.parse.outputs.date_display }}'} ${'${{ steps.parse.outputs.slug }}'} (${'${{ steps.parse.outputs.lang }}'})`,
-              head: branch,
-              base: "main",
-              body: `Automated PR from issue #${context.payload.issue.number}\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`
-            });
-            core.info(`PR opened: ${pr.html_url}`);
+
