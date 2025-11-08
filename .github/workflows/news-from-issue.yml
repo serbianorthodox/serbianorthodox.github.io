@@ -2,7 +2,7 @@ name: "News from Issue"
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 permissions:
   contents: write
@@ -11,9 +11,11 @@ permissions:
 
 jobs:
   build-news:
+    # Run only for our issue form (checks for required headings in the body)
     if: >
-      contains(github.event.issue.labels.*.name, 'news') &&
-      startsWith(github.event.issue.title, 'News:')
+      contains(github.event.issue.body, "### Date") &&
+      contains(github.event.issue.body, "### Language") &&
+      contains(github.event.issue.body, "### Body")
     runs-on: ubuntu-latest
 
     steps:
@@ -30,20 +32,41 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const body = context.payload.issue.body || "";
+            const issue = context.payload.issue;
+            const body = issue.body || "";
+
             function get(field){
               const re = new RegExp(`###\\s+${field}\\s+\\n+([\\s\\S]*?)\\n(?=###|$)`);
               const m = body.match(re);
               return (m ? m[1].trim() : "");
             }
+
+            // Required inputs (Title comes from Issue Title, not the form)
             const dateStr = get("Date");   // dd-mm-yyyy
-            const slug    = get("Slug").toLowerCase().replace(/[^a-z0-9-]/g,'-').replace(/-+/g,'-').replace(/(^-)|(-$)/g,'');
-            const lang    = get("Language") || "sv";
-            const title   = get("Title");
+            const lang    = (get("Language") || "sv").trim().toLowerCase();
             const bodyMd  = get("Body");
-            if(!dateStr || !slug || !lang || !title || !bodyMd){
-              core.setFailed("Missing required fields: Date, Slug, Language, Title, Body");
+
+            // Title from Issue Title only, strip optional "News: " prefix
+            const title = (issue.title || "").replace(/^News:\s*/,"").trim();
+
+            // Slug optional; auto-generate from title if missing
+            function slugify(s){
+              return (s || "news")
+                .normalize("NFKD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/&/g, " and ")
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "");
             }
+            const rawSlug = get("Slug"); // may be empty
+            const slug = slugify(rawSlug || title);
+
+            if(!dateStr || !lang || !bodyMd){
+              core.setFailed("Missing required fields: Date, Language, Body");
+              return;
+            }
+
             const [dd, mm, yyyy] = dateStr.split("-").map(s => s.padStart(2,"0"));
             const year = yyyy, month = mm, day = dd;
 
@@ -145,10 +168,11 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const issue = context.payload.issue;
             const { data: pr } = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: context.payload.issue.title,
+              title: issue.title,
               head: '${{ steps.parse.outputs.branch }}',
               base: 'main',
               body: `Automated PR for news post from issue #${context.payload.issue.number}.`
