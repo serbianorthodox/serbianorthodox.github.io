@@ -10,8 +10,9 @@ permissions:
   pull-requests: write
   issues: read
 
+# Force bash so () and arrays are safe everywhere
 defaults:
-  run: |
+  run:
     shell: bash
 
 jobs:
@@ -43,11 +44,11 @@ jobs:
             if (!rawTitle) { core.setFailed("Missing Issue Title"); return; }
             if (!rawBody)  { core.setFailed("Missing Issue Body");  return; }
 
-            // Language: first line "Language: en|sv|sr" (case-insensitive). Default en.
+            // Language: "Language: en|sv|sr" anywhere. Default en.
             const langMatch = rawBody.match(/^\s*Language:\s*(en|sv|sr)\s*$/im);
             const lang = (langMatch ? langMatch[1].toLowerCase() : "en");
 
-            // Strip scaffolding (keep pure body to store)
+            // Clean body: drop scaffolding lines/sections
             const bodyClean = rawBody
               .replace(/^\s*Language:\s*(en|sv|sr)\s*$/gim, "")
               .replace(/^###\s*Date[\s\S]*?(\r?\n){2}/im, "")
@@ -59,13 +60,13 @@ jobs:
               core.setFailed("Body too short (min 20 chars)"); return;
             }
 
-            // Title: drop leading date and "News:" if present
+            // Title: strip leading dd-mm-yyyy and optional "News:"
             const title = rawTitle
               .replace(/^\s*\d{2}-\d{2}-\d{4}\s*[:–-]\s*/,"")
               .replace(/^News:\s*/,"")
               .trim();
 
-            // Date rules: use ### Date (if valid), else today in Europe/Stockholm. Always dd-mm-yyyy.
+            // Date handling: prefer ### Date; else today Europe/Stockholm. Always dd-mm-yyyy.
             function todaySE() {
               const parts = new Intl.DateTimeFormat('sv-SE', {
                 timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
@@ -84,20 +85,20 @@ jobs:
               if (m) return `${m[3]}-${m[2]}-${m[1]}`;
               const d = new Date(t);
               if (!isNaN(d)) {
-                const parts = new Intl.DateTimeFormat('sv-SE', {
+                const p = new Intl.DateTimeFormat('sv-SE', {
                   timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
                 }).formatToParts(d);
-                return `${parts.find(p=>p.type==='day').value}-${parts.find(p=>p.type==='month').value}-${parts.find(p=>p.type==='year').value}`;
+                return `${p.find(x=>x.type==='day').value}-${p.find(x=>x.type==='month').value}-${p.find(x=>x.type==='year').value}`;
               }
               return todaySE();
             }
-            // Extract ### Date value (blank-line delimited)
+            // Extract ### Date (blank-line delimited)
             let dateField = "";
             { const m = /###\s*Date\s*[\r\n]+([\s\S]*?)(?:\r?\n){2}/i.exec(rawBody); if (m) dateField = (m[1]||"").trim(); }
-            const date_display = normDate(dateField);              // dd-mm-yyyy
+            const date_display = normDate(dateField); // dd-mm-yyyy
             const [dd, mm, yyyy] = date_display.split("-");
 
-            // Slugify ASCII-kebab (deterministic). We mint once per date.
+            // Slugify (ASCII kebab). Mint once per date.
             function slugify(s){
               return (s || "news")
                 .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
@@ -106,7 +107,7 @@ jobs:
             }
             const computedSlug = slugify(title);
 
-            // Slug locking via index.json: single entry per date (dd-mm-yyyy)
+            // Slug/date locking via index.json (single entry per dd-mm-yyyy)
             const metaPath = "data/news/index.json";
             let index = [];
             if (fs.existsSync(metaPath)) {
@@ -131,7 +132,8 @@ jobs:
             core.setOutput("branch", `feat/news-${yyyy}-${mm}-${dd}-${slug}`);
 
       - name: Create branch
-        run: git switch -c "${{ steps.parse.outputs.branch }}"
+        run: |
+          git switch -c "${{ steps.parse.outputs.branch }}"
 
       - name: Ensure folders
         run: |
@@ -143,23 +145,28 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick webp jq
 
-       - name: Download attached images (if any)
+      - name: Download attached images (if any)
+        shell: bash
         run: |
           set -e
           cd "${{ steps.parse.outputs.imgDir }}"
           BODY='${{ github.event.issue.body }}'
 
-          # Extract GitHub-hosted image URLs without regex alternation that confuses /bin/sh
-          urls_user_images=$(printf "%s" "$BODY" | grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+')
-          urls_user_attachments=$(printf "%s" "$BODY" | grep -Eo 'https://github\.com/user-attachments/[^ )]+')
+          tmpdir="$(mktemp -d)"
+          printf "%s" "$BODY" > "$tmpdir/body.txt"
 
-          printf "%s\n%s\n" "$urls_user_images" "$urls_user_attachments" \
-          | awk 'NF && !seen[$0]++' \
-          | while read -r URL; do
-              NAME="$(basename "$URL" | cut -d'?' -f1)"
-              curl -fsSL "$URL" -o "$NAME" || true
-            done
+          # Extract URLs without regex alternation that can confuse /bin/sh
+          grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+' "$tmpdir/body.txt" > "$tmpdir/u1.txt" || true
+          grep -Eo 'https://github\.com/user-attachments/[^ )]+'      "$tmpdir/body.txt" > "$tmpdir/u2.txt" || true
 
+          cat "$tmpdir/u1.txt" "$tmpdir/u2.txt" 2>/dev/null \
+            | awk 'NF && !seen[$0]++' > "$tmpdir/urls.txt"
+
+          while IFS= read -r URL; do
+            [ -n "$URL" ] || continue
+            NAME="$(basename "$URL" | cut -d'?' -f1)"
+            curl -fsSL "$URL" -o "$NAME" || true
+          done < "$tmpdir/urls.txt"
 
       - name: Generate 600/1200 JPG + WebP variants (skip if too small)
         run: |
@@ -169,7 +176,6 @@ jobs:
           for f in *; do
             [[ -f "$f" ]] || continue
             [[ "$f" == *-600.* || "$f" == *-1200.* ]] && continue
-            # Create 1200 and 600 JPG, then WebP; without enlarging
             magick "$f" -auto-orient -resize 1200x1200\> "${f%.*}-1200.jpg" || true
             magick "$f" -auto-orient -resize 600x600\>   "${f%.*}-600.jpg"  || true
             [ -f "${f%.*}-1200.jpg" ] && cwebp -q 85 "${f%.*}-1200.jpg" -o "${f%.*}-1200.webp" >/dev/null 2>&1 || true
@@ -208,7 +214,7 @@ jobs:
               try { index = JSON.parse(fs.readFileSync(metaPath, "utf8")); } catch { index = []; }
             }
 
-            // Upsert single entry per date
+            // Upsert one row per date; newest on top
             const existing = index.find(e => e.date === date_display);
             if (existing) {
               if (!existing.slug) existing.slug = slug;
@@ -217,7 +223,6 @@ jobs:
               index.push({ date: date_display, slug, i18nPath: basePath });
             }
 
-            // Sort by dd-mm-yyyy descending (latest on top)
             index.sort((a,b) => {
               const [ad,am,ay] = String(a.date).split("-").map(Number);
               const [bd,bm,by] = String(b.date).split("-").map(Number);
@@ -234,7 +239,6 @@ jobs:
 
       - name: Push branch
         run: |
-          # Only push if there were changes
           if git diff --cached --quiet; then
             echo "Nothing to push."
           else
@@ -247,7 +251,6 @@ jobs:
         with:
           script: |
             const branch = '${{ steps.parse.outputs.branch }}';
-            // If nothing was pushed (no changes), skip PR.
             const { data: heads } = await github.rest.repos.listBranches({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -266,4 +269,3 @@ jobs:
               body: `Automated PR from issue #${context.payload.issue.number}\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`
             });
             core.info(`PR opened: ${pr.html_url}`);
-# reindex3
