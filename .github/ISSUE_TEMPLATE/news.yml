@@ -1,6 +1,6 @@
 name: "New news post"
 description: "Add a news article in any language. Title + Body only."
-title: ""
+title: "Add Title"
 labels: []
 body:
   - type: input
