@@ -1,5 +1,6 @@
 name: "Issue event debug"
 on:
+  workflow_dispatch: {}
   issues:
     types: [opened, edited, labeled]
 jobs:
