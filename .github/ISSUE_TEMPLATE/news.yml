@@ -1,47 +1,30 @@
 name: "New news post"
-title: "Add Title"
-description: "Create a news post"
-labels: ["News"]
+description: "Add a news article in any language. Title + Body only."
+title: ""
+labels: []
 body:
   - type: input
     id: date
     attributes:
       label: "Date"
-      description: "Format: dd-mm-yyyy"
-      placeholder: "29-08-2025"
-    validations:
-      required: true
-  - type: input
-    id: slug
-    attributes:
-      label: "Slug"
-      description: "Lowercase, hyphens only, ASCII"
-      placeholder: "beheading-of-saint-john-the-baptist"
-    validations:
-      required: true
+      description: "Optional. dd-mm-yyyy (leave empty to use today)."
+      placeholder: "08-11-2025"
   - type: dropdown
-    id: lang
+    id: language
     attributes:
       label: "Language"
-      options: ["sv", "en", "sr"]
-    validations:
-      required: true
-  - type: input
-    id: title
-    attributes:
-      label: "Title"
-      placeholder: "The Beheading of Saint John the Baptist"
+      description: "Choose the language for this post."
+      options:
+        - en
+        - sv
+        - sr
     validations:
       required: true
   - type: textarea
     id: body
     attributes:
       label: "Body"
-      description: "Markdown allowed. Drag or paste your images below."
-      placeholder: "Full text…"
+      description: "Paste the article text here. You can attach images below; the system will handle variants."
+      placeholder: "Write your article text here…"
     validations:
       required: true
-  - type: markdown
-    attributes:
-      value: |
-        Images: drag or paste below the Body field. They will be handled automatically.
