@@ -10,7 +10,6 @@ permissions:
   pull-requests: write
   issues: read
 
-# Force bash so () and arrays are safe everywhere
 defaults:
   run:
     shell: bash
@@ -44,11 +43,9 @@ jobs:
             if (!rawTitle) { core.setFailed("Missing Issue Title"); return; }
             if (!rawBody)  { core.setFailed("Missing Issue Body");  return; }
 
-            // Language: "Language: en|sv|sr" anywhere. Default en.
             const langMatch = rawBody.match(/^\s*Language:\s*(en|sv|sr)\s*$/im);
             const lang = (langMatch ? langMatch[1].toLowerCase() : "en");
 
-            // Clean body: drop scaffolding lines/sections
             const bodyClean = rawBody
               .replace(/^\s*Language:\s*(en|sv|sr)\s*$/gim, "")
               .replace(/^###\s*Date[\s\S]*?(\r?\n){2}/im, "")
@@ -57,16 +54,15 @@ jobs:
               .trim();
 
             if (bodyClean.length < 20) {
-              core.setFailed("Body too short (min 20 chars)"); return;
+              core.setFailed("Body too short (min 20 chars)");
+              return;
             }
 
-            // Title: strip leading dd-mm-yyyy and optional "News:"
             const title = rawTitle
               .replace(/^\s*\d{2}-\d{2}-\d{4}\s*[:–-]\s*/,"")
               .replace(/^News:\s*/,"")
               .trim();
 
-            // Date handling: prefer ### Date; else today Europe/Stockholm. Always dd-mm-yyyy.
             function todaySE() {
               const parts = new Intl.DateTimeFormat('sv-SE', {
                 timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
@@ -76,6 +72,7 @@ jobs:
               const yyyy = parts.find(p=>p.type==='year').value;
               return `${dd}-${mm}-${yyyy}`;
             }
+
             function normDate(s) {
               if (!s || /^no response$/i.test(String(s).trim())) return todaySE();
               const t = String(s).trim();
@@ -85,20 +82,19 @@ jobs:
               if (m) return `${m[3]}-${m[2]}-${m[1]}`;
               const d = new Date(t);
               if (!isNaN(d)) {
-                const p = new Intl.DateTimeFormat('sv-SE', {
+                const parts = new Intl.DateTimeFormat('sv-SE', {
                   timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
                 }).formatToParts(d);
-                return `${p.find(x=>x.type==='day').value}-${p.find(x=>x.type==='month').value}-${p.find(x=>x.type==='year').value}`;
+                return `${parts.find(p=>p.type==='day').value}-${parts.find(p=>p.type==='month').value}-${parts.find(p=>p.type==='year').value}`;
               }
               return todaySE();
             }
-            // Extract ### Date (blank-line delimited)
+
             let dateField = "";
             { const m = /###\s*Date\s*[\r\n]+([\s\S]*?)(?:\r?\n){2}/i.exec(rawBody); if (m) dateField = (m[1]||"").trim(); }
-            const date_display = normDate(dateField); // dd-mm-yyyy
+            const date_display = normDate(dateField);
             const [dd, mm, yyyy] = date_display.split("-");
 
-            // Slugify (ASCII kebab). Mint once per date.
             function slugify(s){
               return (s || "news")
                 .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
@@ -107,7 +103,6 @@ jobs:
             }
             const computedSlug = slugify(title);
 
-            // Slug/date locking via index.json (single entry per dd-mm-yyyy)
             const metaPath = "data/news/index.json";
             let index = [];
             if (fs.existsSync(metaPath)) {
@@ -131,9 +126,15 @@ jobs:
             core.setOutput("bodyMd", bodyClean);
             core.setOutput("branch", `feat/news-${yyyy}-${mm}-${dd}-${slug}`);
 
-      - name: Create branch
+      - name: Save cleaned body to file (verbatim)
         run: |
-          git switch -c "${{ steps.parse.outputs.branch }}"
+          mkdir -p .news_tmp
+          cat > .news_tmp/body.txt <<'EOF'
+${{ steps.parse.outputs.bodyMd }}
+EOF
+
+      - name: Create branch
+        run: git switch -c "${{ steps.parse.outputs.branch }}"
 
       - name: Ensure folders
         run: |
@@ -146,22 +147,14 @@ jobs:
           sudo apt-get install -y imagemagick webp jq
 
       - name: Download attached images (if any)
-        shell: bash
         run: |
           set -e
           cd "${{ steps.parse.outputs.imgDir }}"
-          BODY='${{ github.event.issue.body }}'
-
+          BODY_FILE="../../../../.news_tmp/body.txt"
           tmpdir="$(mktemp -d)"
-          printf "%s" "$BODY" > "$tmpdir/body.txt"
-
-          # Extract URLs without regex alternation that can confuse /bin/sh
-          grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+' "$tmpdir/body.txt" > "$tmpdir/u1.txt" || true
-          grep -Eo 'https://github\.com/user-attachments/[^ )]+'      "$tmpdir/body.txt" > "$tmpdir/u2.txt" || true
-
-          cat "$tmpdir/u1.txt" "$tmpdir/u2.txt" 2>/dev/null \
-            | awk 'NF && !seen[$0]++' > "$tmpdir/urls.txt"
-
+          grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+' "$BODY_FILE" > "$tmpdir/u1.txt" || true
+          grep -Eo 'https://github\.com/user-attachments/[^ )]+' "$BODY_FILE" > "$tmpdir/u2.txt" || true
+          awk 'NF && !seen[$0]++' "$tmpdir/u1.txt" "$tmpdir/u2.txt" 2>/dev/null > "$tmpdir/urls.txt"
           while IFS= read -r URL; do
             [ -n "$URL" ] || continue
             NAME="$(basename "$URL" | cut -d'?' -f1)"
@@ -185,18 +178,20 @@ jobs:
       - name: Write language JSON
         run: |
           TITLE='${{ steps.parse.outputs.title }}'
-          BODY='${{ steps.parse.outputs.bodyMd }}'
           LANG='${{ steps.parse.outputs.lang }}'
           BASE='${{ steps.parse.outputs.basePath }}'
-          if [ -z "$TITLE" ] || [ -z "$BODY" ]; then
+          BODY_FILE=".news_tmp/body.txt"
+
+          if [ -z "$TITLE" ] || [ ! -s "$BODY_FILE" ]; then
             echo "Empty title/body. Aborting." >&2
             exit 1
           fi
+
           mkdir -p "$(dirname "$BASE")"
-          printf '{\n  "title": %s,\n  "body": %s\n}\n' \
-            "$(jq -Rsa . <<<"$TITLE")" \
-            "$(jq -Rsa . <<<"$BODY")" \
-            > "${BASE}.${LANG}.json"
+          jq -n \
+            --arg title "$TITLE" \
+            --rawfile body "$BODY_FILE" \
+            '{title:$title, body:$body}' > "${BASE}.${LANG}.json"
 
       - name: Update metadata list (stack newest on top, lock slug per date)
         uses: actions/github-script@v7
@@ -214,7 +209,6 @@ jobs:
               try { index = JSON.parse(fs.readFileSync(metaPath, "utf8")); } catch { index = []; }
             }
 
-            // Upsert one row per date; newest on top
             const existing = index.find(e => e.date === date_display);
             if (existing) {
               if (!existing.slug) existing.slug = slug;
@@ -247,15 +241,6 @@ jobs:
         with:
           script: |
             const branch = '${{ steps.parse.outputs.branch }}';
-            const { data: heads } = await github.rest.repos.listBranches({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              protected: false,
-            });
-            if (!heads.find(b => b.name === branch)) {
-              core.info("No branch pushed; skipping PR.");
-              return;
-            }
             const { data: pr } = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
