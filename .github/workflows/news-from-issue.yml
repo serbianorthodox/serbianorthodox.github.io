@@ -11,7 +11,6 @@ permissions:
 
 jobs:
   build-news:
-    # Run only for our issue form (checks for required headings in the body)
     runs-on: ubuntu-latest
 
     steps:
@@ -23,29 +22,50 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Parse issue form
+      - name: Parse issue (title, date, lang, slug, body)
         id: parse
         uses: actions/github-script@v7
         with:
           script: |
-            const issue = context.payload.issue;
-            const body = issue.body || "";
+            const issue = context.payload.issue || {};
+            const rawTitle = (issue.title || "").trim();
+            const rawBody  = (issue.body  || "").trim();
 
-            function get(field){
-              const re = new RegExp(`###\\s+${field}\\s+\\n+([\\s\\S]*?)\\n(?=###|$)`);
-              const m = body.match(re);
-              return (m ? m[1].trim() : "");
+            if(!rawTitle){
+              core.setFailed("Missing Issue Title"); return;
+            }
+            if(!rawBody){
+              core.setFailed("Missing Issue Body (write the article text)"); return;
             }
 
-            // Required inputs (Title comes from Issue Title, not the form)
-            const dateStr = get("Date");   // dd-mm-yyyy
-            const lang    = (get("Language") || "sv").trim().toLowerCase();
-            const bodyMd  = get("Body");
+            // Language: from a simple line like "Language: en|sv|sr" (anywhere), else 'en'
+            const langMatch = rawBody.match(/^\s*Language:\s*(en|sv|sr)\s*$/im);
+            const lang = (langMatch ? langMatch[1].toLowerCase() : "en");
 
-            // Title from Issue Title only, strip optional "News: " prefix
-            const title = (issue.title || "").replace(/^News:\s*/,"").trim();
+            // Remove the Language line from the stored body
+            const bodyClean = rawBody.replace(/^\s*Language:\s*(en|sv|sr)\s*$/gim, "").trim();
 
-            // Slug optional; auto-generate from title if missing
+            // Date: search dd-mm-yyyy in Title first, then Body; else today (runner date)
+            function pad(n){ return String(n).padStart(2, "0"); }
+            function findDate(s){
+              const m = s.match(/\b(\d{2})-(\d{2})-(\d{4})\b/);
+              if(!m) return null;
+              return { dd:m[1], mm:m[2], yyyy:m[3] };
+            }
+            let d = findDate(rawTitle) || findDate(bodyClean);
+            if(!d){
+              const now = new Date();
+              d = { dd: pad(now.getDate()), mm: pad(now.getMonth()+1), yyyy: String(now.getFullYear()) };
+            }
+            const year=d.yyyy, month=d.mm, day=d.dd;
+
+            // Title: use Issue Title only (strip leading date and optional "News: ")
+            const title = rawTitle
+              .replace(/^\s*\d{2}-\d{2}-\d{4}\s*[:–-]\s*/,"")
+              .replace(/^News:\s*/,"")
+              .trim();
+
+            // Slug: auto-generate from Title
             function slugify(s){
               return (s || "news")
                 .normalize("NFKD")
@@ -55,22 +75,16 @@ jobs:
                 .replace(/[^a-z0-9]+/g, "-")
                 .replace(/^-+|-+$/g, "");
             }
-            const rawSlug = get("Slug"); // may be empty
-            const slug = slugify(rawSlug || title);
+            const slug = slugify(title);
 
-            if(!dateStr || !lang || !bodyMd){
-              core.setFailed("Missing required fields: Date, Language, Body");
-              return;
-            }
-
-            const [dd, mm, yyyy] = dateStr.split("-").map(s => s.padStart(2,"0"));
-            const year = yyyy, month = mm, day = dd;
-
+            // Paths
             const basePath = `i18n/news/${year}/${month}/${day}-${slug}`;
             const imgDir   = `assets/img/news/${year}/${month}/${day}-${slug}`;
 
-            const imgUrls = Array.from(bodyMd.matchAll(/https:\/\/user-images\.githubusercontent\.com\/[^\s)\]]+/g)).map(x=>x[0]);
+            // Attached images (GitHub auto-inlines user-images URLs)
+            const imgUrls = Array.from(bodyClean.matchAll(/https:\/\/user-images\.githubusercontent\.com\/[^\s)\]]+/g)).map(x=>x[0]);
 
+            core.info(`Parsed -> date=${day}-${month}-${year}, lang=${lang}, slug=${slug}`);
             core.setOutput("year", year);
             core.setOutput("month", month);
             core.setOutput("day", day);
@@ -79,7 +93,7 @@ jobs:
             core.setOutput("title", title);
             core.setOutput("basePath", basePath);
             core.setOutput("imgDir", imgDir);
-            core.setOutput("bodyMd", bodyMd);
+            core.setOutput("bodyMd", bodyClean);
             core.setOutput("imgUrls", JSON.stringify(imgUrls));
             core.setOutput("branch", `feat/news-${year}-${month}-${day}-${slug}`);
 
@@ -132,7 +146,7 @@ jobs:
             "$(jq -Rsa . <<<"$BODY")" \
             > "${BASE}.${LANG}.json"
 
-      - name: Update metadata list (minimal)
+      - name: Update metadata list
         run: |
           YEAR='${{ steps.parse.outputs.year }}'
           MONTH='${{ steps.parse.outputs.month }}'
