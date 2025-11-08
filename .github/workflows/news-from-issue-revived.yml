@@ -128,10 +128,11 @@ jobs:
             core.setOutput("branch", `feat/news-${yyyy}-${mm}-${dd}-${slug}`);
 
       - name: Save cleaned body to file (verbatim)
+        env:
+          BODY: ${{ steps.parse.outputs.bodyMd }}
         run: |
           mkdir -p .news_tmp
-          cat > .news_tmp/body.txt <<'EOF'
-      - name: Save cleaned body to file (verbatim)n        env:n          BODY: ${{ steps.parse.outputs.bodyMd }}n        run: |n          mkdir -p .news_tmpn          printf "%s" "$BODY" > .news_tmp/body.txt
+          printf "%s" "$BODY" > .news_tmp/body.txt
       - name: Create branch
         run: git switch -c "${{ steps.parse.outputs.branch }}"
 
