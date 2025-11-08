@@ -10,6 +10,10 @@ permissions:
   pull-requests: write
   issues: read
 
+defaults:
+  run: |
+    shell: bash
+
 jobs:
   build-news:
     runs-on: ubuntu-latest
@@ -139,20 +143,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick webp jq
 
-      - name: Download attached images (if any)
+       - name: Download attached images (if any)
         run: |
           set -e
           cd "${{ steps.parse.outputs.imgDir }}"
           BODY='${{ github.event.issue.body }}'
-          # Extract unique GitHub-hosted image URLs and download them
-          printf "%s" "$BODY" \
-            | grep -Eo 'https://(user-images\.githubusercontent\.com|github\.com/user-attachments)/[^ )]+' \
-            | awk '!seen[$0]++' \
-            | while read -r URL; do
-                [ -n "$URL" ] || continue
-                NAME="$(basename "$URL" | cut -d'?' -f1)"
-                curl -fsSL "$URL" -o "$NAME" || true
-              done
+
+          # Extract GitHub-hosted image URLs without regex alternation that confuses /bin/sh
+          urls_user_images=$(printf "%s" "$BODY" | grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+')
+          urls_user_attachments=$(printf "%s" "$BODY" | grep -Eo 'https://github\.com/user-attachments/[^ )]+')
+
+          printf "%s\n%s\n" "$urls_user_images" "$urls_user_attachments" \
+          | awk 'NF && !seen[$0]++' \
+          | while read -r URL; do
+              NAME="$(basename "$URL" | cut -d'?' -f1)"
+              curl -fsSL "$URL" -o "$NAME" || true
+            done
+
 
       - name: Generate 600/1200 JPG + WebP variants (skip if too small)
         run: |
