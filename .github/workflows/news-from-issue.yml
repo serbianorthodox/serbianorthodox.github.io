@@ -43,11 +43,9 @@ jobs:
             if (!rawTitle) { core.setFailed("Missing Issue Title"); return; }
             if (!rawBody)  { core.setFailed("Missing Issue Body");  return; }
 
-            // Language: first line "Language: en|sv|sr" (case-insensitive). Default en.
             const langMatch = rawBody.match(/^\s*Language:\s*(en|sv|sr)\s*$/im);
             const lang = (langMatch ? langMatch[1].toLowerCase() : "en");
 
-            // Strip scaffolding (keep pure body to store)
             const bodyClean = rawBody
               .replace(/^\s*Language:\s*(en|sv|sr)\s*$/gim, "")
               .replace(/^###\s*Date[\s\S]*?(\r?\n){2}/im, "")
@@ -56,16 +54,15 @@ jobs:
               .trim();
 
             if (bodyClean.length < 20) {
-              core.setFailed("Body too short (min 20 chars)"); return;
+              core.setFailed("Body too short (min 20 chars)");
+              return;
             }
 
-            // Title: drop leading date and "News:" if present
             const title = rawTitle
               .replace(/^\s*\d{2}-\d{2}-\d{4}\s*[:–-]\s*/,"")
               .replace(/^News:\s*/,"")
               .trim();
 
-            // Date rules: use ### Date (if valid), else today in Europe/Stockholm. Always dd-mm-yyyy.
             function todaySE() {
               const parts = new Intl.DateTimeFormat('sv-SE', {
                 timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
@@ -75,6 +72,7 @@ jobs:
               const yyyy = parts.find(p=>p.type==='year').value;
               return `${dd}-${mm}-${yyyy}`;
             }
+
             function normDate(s) {
               if (!s || /^no response$/i.test(String(s).trim())) return todaySE();
               const t = String(s).trim();
@@ -91,13 +89,12 @@ jobs:
               }
               return todaySE();
             }
-            // Extract ### Date value (blank-line delimited). We DO NOT strip it if provided.
+
             let dateField = "";
             { const m = /###\s*Date\s*[\r\n]+([\s\S]*?)(?:\r?\n){2}/i.exec(rawBody); if (m) dateField = (m[1]||"").trim(); }
-            const date_display = normDate(dateField);              // dd-mm-yyyy
+            const date_display = normDate(dateField);
             const [dd, mm, yyyy] = date_display.split("-");
 
-            // Slugify ASCII-kebab (deterministic)
             function slugify(s){
               return (s || "news")
                 .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
@@ -106,7 +103,6 @@ jobs:
             }
             const computedSlug = slugify(title);
 
-            // Slug locking via index.json: single entry per date (dd-mm-yyyy) so all languages share one slug
             const metaPath = "data/news/index.json";
             let index = [];
             if (fs.existsSync(metaPath)) {
@@ -130,6 +126,13 @@ jobs:
             core.setOutput("bodyMd", bodyClean);
             core.setOutput("branch", `feat/news-${yyyy}-${mm}-${dd}-${slug}`);
 
+      - name: Save cleaned body to file (verbatim)
+        run: |
+          mkdir -p .news_tmp
+          cat > .news_tmp/body.txt <<'EOF'
+${{ steps.parse.outputs.bodyMd }}
+EOF
+
       - name: Create branch
         run: git switch -c "${{ steps.parse.outputs.branch }}"
 
@@ -147,23 +150,14 @@ jobs:
         run: |
           set -e
           cd "${{ steps.parse.outputs.imgDir }}"
-          BODY='${{ github.event.issue.body }}'
+          BODY_FILE="../../../../.news_tmp/body.txt"
           tmpdir="$(mktemp -d)"
-          printf "%s" "$BODY" > "$tmpdir/body.txt"
-
-          # Extract URLs from both user-images and user-attachments, dedupe
-          grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+' "$tmpdir/body.txt" > "$tmpdir/u1.txt" || true
-          grep -Eo 'https://github\.com/user-attachments/[^ )]+'      "$tmpdir/body.txt" > "$tmpdir/u2.txt" || true
-          cat "$tmpdir/u1.txt" "$tmpdir/u2.txt" 2>/dev/null | awk 'NF && !seen[$0]++' > "$tmpdir/urls.txt"
-
+          grep -Eo 'https://user-images\.githubusercontent\.com/[^ )]+' "$BODY_FILE" > "$tmpdir/u1.txt" || true
+          grep -Eo 'https://github\.com/user-attachments/[^ )]+' "$BODY_FILE" > "$tmpdir/u2.txt" || true
+          awk 'NF && !seen[$0]++' "$tmpdir/u1.txt" "$tmpdir/u2.txt" 2>/dev/null > "$tmpdir/urls.txt"
           while IFS= read -r URL; do
             [ -n "$URL" ] || continue
             NAME="$(basename "$URL" | cut -d'?' -f1)"
-            # Skip if a file with same base already exists to avoid triplicating across translations
-            if ls "${NAME%.*}"* >/dev/null 2>&1; then
-              echo "Skip existing images for ${NAME%.*}"
-              continue
-            fi
             curl -fsSL "$URL" -o "$NAME" || true
           done < "$tmpdir/urls.txt"
 
@@ -184,18 +178,20 @@ jobs:
       - name: Write language JSON
         run: |
           TITLE='${{ steps.parse.outputs.title }}'
-          BODY='${{ steps.parse.outputs.bodyMd }}'
           LANG='${{ steps.parse.outputs.lang }}'
           BASE='${{ steps.parse.outputs.basePath }}'
-          if [ -z "$TITLE" ] || [ -z "$BODY" ]; then
+          BODY_FILE=".news_tmp/body.txt"
+
+          if [ -z "$TITLE" ] || [ ! -s "$BODY_FILE" ]; then
             echo "Empty title/body. Aborting." >&2
             exit 1
           fi
+
           mkdir -p "$(dirname "$BASE")"
-          printf '{\n  "title": %s,\n  "body": %s\n}\n' \
-            "$(jq -Rsa . <<<"$TITLE")" \
-            "$(jq -Rsa . <<<"$BODY")" \
-            > "${BASE}.${LANG}.json"
+          jq -n \
+            --arg title "$TITLE" \
+            --rawfile body "$BODY_FILE" \
+            '{title:$title, body:$body}' > "${BASE}.${LANG}.json"
 
       - name: Update metadata list (stack newest on top, lock slug per date)
         uses: actions/github-script@v7
@@ -213,7 +209,6 @@ jobs:
               try { index = JSON.parse(fs.readFileSync(metaPath, "utf8")); } catch { index = []; }
             }
 
-            // Upsert one row per date; newest on top
             const existing = index.find(e => e.date === date_display);
             if (existing) {
               if (!existing.slug) existing.slug = slug;
@@ -222,7 +217,6 @@ jobs:
               index.push({ date: date_display, slug, i18nPath: basePath });
             }
 
-            // Sort by dd-mm-yyyy desc
             index.sort((a,b) => {
               const [ad,am,ay] = String(a.date).split("-").map(Number);
               const [bd,bm,by] = String(b.date).split("-").map(Number);
@@ -239,29 +233,20 @@ jobs:
 
       - name: Push branch
         run: |
-          set -e
-          # Always push; if nothing changed after commit it's a no-op.
-          git push -u origin "${{ steps.parse.outputs.branch }}" || true
+          git push -u origin "${{ steps.parse.outputs.branch }}"
 
       - name: Open PR
+        if: ${{ !cancelled() && !failure() }}
         uses: actions/github-script@v7
         with:
           script: |
-            const head = '${{ steps.parse.outputs.branch }}';
-            const title = `news: ${'${{ steps.parse.outputs.date_display }}'} ${'${{ steps.parse.outputs.slug }}'} (${'${{ steps.parse.outputs.lang }}'})`;
-            const body  = `Automated PR from issue #${context.payload.issue.number}\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`;
-
-            try {
-              const { data: pr } = await github.rest.pulls.create({
-                owner: context.repo.owner,
-                repo:  context.repo.repo,
-                title, head, base: 'main', body
-              });
-              core.info(`PR opened: ${pr.html_url}`);
-            } catch (e) {
-              if (e.status === 422 && /pull request already exists/i.test(e.message)) {
-                core.info('PR already exists, skipping.');
-              } else {
-                throw e;
-              }
-            }
+            const branch = '${{ steps.parse.outputs.branch }}';
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `news: ${'${{ steps.parse.outputs.date_display }}'} ${'${{ steps.parse.outputs.slug }}'} (${'${{ steps.parse.outputs.lang }}'})`,
+              head: branch,
+              base: "main",
+              body: `Automated PR from issue #${context.payload.issue.number}\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`
+            });
+            core.info(`PR opened: ${pr.html_url}`);
