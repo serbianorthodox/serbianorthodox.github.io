@@ -3,12 +3,13 @@ name: "News from Issue"
 on:
   issues:
     types: [opened, edited]
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
   issues: read
-workflow_dispatch:
+
 jobs:
   build-news:
     runs-on: ubuntu-latest
@@ -24,25 +25,25 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Parse issue (title, date, lang, slug, body)
+      - name: Parse issue (title, date dd-mm-yyyy, lang, slug, body, paths)
         id: parse
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
+            const fs = require("fs");
 
             const issue = context.payload.issue || {};
-            const rawTitle = (issue.title || "").trim();
-            const rawBody  = (issue.body  || "").trim();
+            const rawTitle = String(issue.title || "").trim();
+            const rawBody  = String(issue.body  || "").trim();
 
             if (!rawTitle) { core.setFailed("Missing Issue Title"); return; }
-            if (!rawBody)  { core.setFailed("Missing Issue Body (write the article text)"); return; }
+            if (!rawBody)  { core.setFailed("Missing Issue Body");  return; }
 
-            // Language: "Language: en|sv|sr" anywhere, default en
+            // Language: first line "Language: en|sv|sr" (case-insensitive). Default en.
             const langMatch = rawBody.match(/^\s*Language:\s*(en|sv|sr)\s*$/im);
             const lang = (langMatch ? langMatch[1].toLowerCase() : "en");
 
-            // Clean body: drop the Language line and scaffold headings
+            // Strip scaffolding (keep pure body to store)
             const bodyClean = rawBody
               .replace(/^\s*Language:\s*(en|sv|sr)\s*$/gim, "")
               .replace(/^###\s*Date[\s\S]*?(\r?\n){2}/im, "")
@@ -54,13 +55,13 @@ jobs:
               core.setFailed("Body too short (min 20 chars)"); return;
             }
 
-            // Title: strip leading date and optional "News:"
+            // Title: drop leading date and "News:" if present
             const title = rawTitle
               .replace(/^\s*\d{2}-\d{2}-\d{4}\s*[:–-]\s*/,"")
               .replace(/^News:\s*/,"")
               .trim();
 
-            // --- Date handling: ALWAYS dd-mm-yyyy, Europe/Stockholm ---
+            // Date rules: use ### Date (if valid), else today in Europe/Stockholm. Always dd-mm-yyyy.
             function todaySE() {
               const parts = new Intl.DateTimeFormat('sv-SE', {
                 timeZone: 'Europe/Stockholm', day:'2-digit', month:'2-digit', year:'numeric'
@@ -86,48 +87,44 @@ jobs:
               }
               return todaySE();
             }
-            // Extract value under "### Date" (blank-line delimited)
+            // Extract ### Date value (blank-line delimited)
             let dateField = "";
             { const m = /###\s*Date\s*[\r\n]+([\s\S]*?)(?:\r?\n){2}/i.exec(rawBody); if (m) dateField = (m[1]||"").trim(); }
-            const date_display = normDate(dateField);
-            const [day, month, year] = date_display.split("-");
+            const date_display = normDate(dateField);              // dd-mm-yyyy
+            const [dd, mm, yyyy] = date_display.split("-");
 
-            // Slugify (ASCII, kebab)
+            // Slugify ASCII-kebab (deterministic). We mint once per date.
             function slugify(s){
               return (s || "news")
-                .normalize("NFKD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .toLowerCase()
-                .replace(/&/g, " and ")
-                .replace(/[^a-z0-9]+/g, "-")
-                .replace(/^-+|-+$/g, "");
+                .normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase().replace(/&/g," and ").replace(/[^a-z0-9]+/g,"-")
+                .replace(/^-+|-+$/g,"");
             }
             const computedSlug = slugify(title);
 
-            // --- Slug locking via index.json (one entry per date) ---
+            // Slug locking via index.json: single entry per date (dd-mm-yyyy)
             const metaPath = "data/news/index.json";
             let index = [];
             if (fs.existsSync(metaPath)) {
               try { index = JSON.parse(fs.readFileSync(metaPath, "utf8")); } catch { index = []; }
             }
-            // Reuse existing entry for same dd-mm-yyyy; else mint new
             let entry = index.find(e => e.date === date_display);
             const slug = entry ? entry.slug : computedSlug;
-            const basePath = entry ? entry.i18nPath : `i18n/news/${year}/${month}/${day}-${slug}`;
-            const imgDir   = `assets/img/news/${year}/${month}/${day}-${slug}`;
+            const basePath = entry ? entry.i18nPath : `i18n/news/${yyyy}/${mm}/${dd}-${slug}`;
+            const imgDir   = `assets/img/news/${yyyy}/${mm}/${dd}-${slug}`;
 
             core.info(`Parsed -> date=${date_display}, lang=${lang}, slug=${slug}`);
             core.setOutput("date_display", date_display);
-            core.setOutput("year", year);
-            core.setOutput("month", month);
-            core.setOutput("day", day);
+            core.setOutput("yyyy", yyyy);
+            core.setOutput("mm", mm);
+            core.setOutput("dd", dd);
             core.setOutput("slug", slug);
             core.setOutput("lang", lang);
             core.setOutput("title", title);
             core.setOutput("basePath", basePath);
             core.setOutput("imgDir", imgDir);
             core.setOutput("bodyMd", bodyClean);
-            core.setOutput("branch", `feat/news-${year}-${month}-${day}-${slug}`);
+            core.setOutput("branch", `feat/news-${yyyy}-${mm}-${dd}-${slug}`);
 
       - name: Create branch
         run: git switch -c "${{ steps.parse.outputs.branch }}"
@@ -137,41 +134,39 @@ jobs:
           mkdir -p "${{ steps.parse.outputs.imgDir }}"
           mkdir -p "$(dirname "${{ steps.parse.outputs.basePath }}")"
 
-      - name: Install image tools
+      - name: Install tools
         run: |
           sudo apt-get update
           sudo apt-get install -y imagemagick webp jq
 
       - name: Download attached images (if any)
-        if: ${{ contains(steps.parse.outputs.bodyMd, 'https://user-images.githubusercontent.com') || contains(steps.parse.outputs.bodyMd, 'https://user-images.githubusercontent') || contains(steps.parse.outputs.bodyMd, 'https://github.com/user-attachments') }}
         run: |
           set -e
           cd "${{ steps.parse.outputs.imgDir }}"
-          # extract image URLs from original body (GitHub-hosted)
           BODY='${{ github.event.issue.body }}'
-          python3 - << 'PY'
-import os, re, sys
-body = os.environ.get("BODY","")
-urls = re.findall(r'https://(?:user-images\.githubusercontent\.com|github\.com/user-attachments)/[^\s)\]]+', body)
-for u in dict.fromkeys(urls):
-    print(u)
-PY
-          | while read -r URL; do
-              NAME="$(basename "$URL" | cut -d'?' -f1)"
-              curl -L "$URL" -o "$NAME"
-            done
+          # Extract unique GitHub-hosted image URLs and download them
+          printf "%s" "$BODY" \
+            | grep -Eo 'https://(user-images\.githubusercontent\.com|github\.com/user-attachments)/[^ )]+' \
+            | awk '!seen[$0]++' \
+            | while read -r URL; do
+                [ -n "$URL" ] || continue
+                NAME="$(basename "$URL" | cut -d'?' -f1)"
+                curl -fsSL "$URL" -o "$NAME" || true
+              done
 
-      - name: Generate 600/1200 JPG + WebP variants
+      - name: Generate 600/1200 JPG + WebP variants (skip if too small)
         run: |
           set -e
           cd "${{ steps.parse.outputs.imgDir }}"
           shopt -s nullglob
           for f in *; do
+            [[ -f "$f" ]] || continue
             [[ "$f" == *-600.* || "$f" == *-1200.* ]] && continue
-            magick "$f" -auto-orient -resize 1200x1200\> "${f%.*}-1200.jpg"
-            magick "$f" -auto-orient -resize 600x600\>   "${f%.*}-600.jpg"
-            cwebp -q 85 "${f%.*}-1200.jpg" -o "${f%.*}-1200.webp" >/dev/null 2>&1 || true
-            cwebp -q 85 "${f%.*}-600.jpg"  -o "${f%.*}-600.webp"  >/dev/null 2>&1 || true
+            # Create 1200 and 600 JPG, then WebP; without enlarging
+            magick "$f" -auto-orient -resize 1200x1200\> "${f%.*}-1200.jpg" || true
+            magick "$f" -auto-orient -resize 600x600\>   "${f%.*}-600.jpg"  || true
+            [ -f "${f%.*}-1200.jpg" ] && cwebp -q 85 "${f%.*}-1200.jpg" -o "${f%.*}-1200.webp" >/dev/null 2>&1 || true
+            [ -f "${f%.*}-600.jpg"  ] && cwebp -q 85 "${f%.*}-600.jpg"  -o "${f%.*}-600.webp"  >/dev/null 2>&1 || true
           done
 
       - name: Write language JSON
@@ -194,8 +189,8 @@ PY
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
-            const path = require('path');
+            const fs = require("fs");
+            const path = require("path");
             const metaPath = "data/news/index.json";
             const date_display = '${{ steps.parse.outputs.date_display }}';
             const slug = '${{ steps.parse.outputs.slug }}';
@@ -206,7 +201,7 @@ PY
               try { index = JSON.parse(fs.readFileSync(metaPath, "utf8")); } catch { index = []; }
             }
 
-            // Upsert a single entry per date
+            // Upsert single entry per date
             const existing = index.find(e => e.date === date_display);
             if (existing) {
               if (!existing.slug) existing.slug = slug;
@@ -228,22 +223,39 @@ PY
       - name: Commit
         run: |
           git add -A
-          git commit -m "news: add ${{ steps.parse.outputs.date_display }} ${{ steps.parse.outputs.slug }} (${{ steps.parse.outputs.lang }}) from issue #${{ github.event.issue.number }}"
+          git commit -m "news: add ${{ steps.parse.outputs.date_display }} ${{ steps.parse.outputs.slug }} (${{ steps.parse.outputs.lang }}) from issue #${{ github.event.issue.number }}" || echo "No changes to commit"
 
       - name: Push branch
-        run: git push -u origin "${{ steps.parse.outputs.branch }}"
+        run: |
+          # Only push if there were changes
+          if git diff --cached --quiet; then
+            echo "Nothing to push."
+          else
+            git push -u origin "${{ steps.parse.outputs.branch }}"
+          fi
 
       - name: Open PR
+        if: ${{ !cancelled() && !failure() }}
         uses: actions/github-script@v7
         with:
           script: |
-            const issue = context.payload.issue;
+            const branch = '${{ steps.parse.outputs.branch }}';
+            // If nothing was pushed (no changes), skip PR.
+            const { data: heads } = await github.rest.repos.listBranches({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              protected: false,
+            });
+            if (!heads.find(b => b.name === branch)) {
+              core.info("No branch pushed; skipping PR.");
+              return;
+            }
             const { data: pr } = await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `news: ${'${{ steps.parse.outputs.date_display }}'} ${'${{ steps.parse.outputs.slug }}'} (${'${{ steps.parse.outputs.lang }}'})`,
-              head: '${{ steps.parse.outputs.branch }}',
-              base: 'main',
-              body: `Automated PR for news post from issue #${context.payload.issue.number}.\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`
+              head: branch,
+              base: "main",
+              body: `Automated PR from issue #${context.payload.issue.number}\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`
             });
-            core.info(`PR opened: ${pr.html_url}`)
+            core.info(`PR opened: ${pr.html_url}`);
