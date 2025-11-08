@@ -1,8 +1,7 @@
 name: "New news post"
 title: "Add Title"
 description: "Create a news post"
-title: ""
-labels: ["news"]
+labels: ["News"]
 body:
   - type: input
     id: date
@@ -38,7 +37,7 @@ body:
     id: body
     attributes:
       label: "Body"
-      description: "Markdown allowed. Drag or paste one or more images below."
+      description: "Markdown allowed. Drag or paste your images below."
       placeholder: "Full text…"
     validations:
       required: true
