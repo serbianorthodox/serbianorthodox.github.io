@@ -251,3 +251,7 @@ EOF
               body: `Automated PR from issue #${context.payload.issue.number}\n\nDate: ${'${{ steps.parse.outputs.date_display }}'}\nSlug: ${'${{ steps.parse.outputs.slug }}'}\nLang: ${'${{ steps.parse.outputs.lang }}'}\ni18nPath: ${'${{ steps.parse.outputs.basePath }}'}`
             });
             core.info(`PR opened: ${pr.html_url}`);
+
+# bump: force Actions to reindex workflow_dispatch
+
+# bump 2025-11-08T19:57:49Z
