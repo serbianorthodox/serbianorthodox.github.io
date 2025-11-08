@@ -3,7 +3,7 @@ name: "News Auto from Issue"
 on:
   issues:
     types: [opened, edited]
-workflow_dispatch:
+  workflow_dispatch:
 
 permissions:
   contents: write
