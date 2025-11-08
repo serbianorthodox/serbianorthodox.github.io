@@ -1,0 +1,12 @@
+name: "Issue event debug"
+on:
+  issues:
+    types: [opened, edited, labeled]
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show issue payload
+        run: |
+          echo "action=${{ github.event.action }}"
+          echo "issue=#${{ github.event.issue.number }}"
