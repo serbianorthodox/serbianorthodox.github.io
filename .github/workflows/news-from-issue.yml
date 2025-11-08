@@ -239,11 +239,7 @@ jobs:
 
       - name: Push branch
         run: |
-          if git diff --cached --quiet; then
-            echo "Nothing to push."
-          else
-            git push -u origin "${{ steps.parse.outputs.branch }}"
-          fi
+          git push -u origin "${{ steps.parse.outputs.branch }}"
 
       - name: Open PR
         if: ${{ !cancelled() && !failure() }}
