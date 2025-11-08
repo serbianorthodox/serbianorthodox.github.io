@@ -12,10 +12,6 @@ permissions:
 jobs:
   build-news:
     # Run only for our issue form (checks for required headings in the body)
-    if: >
-      contains(github.event.issue.body, "### Date") &&
-      contains(github.event.issue.body, "### Language") &&
-      contains(github.event.issue.body, "### Body")
     runs-on: ubuntu-latest
 
     steps:
