@@ -1,30 +1,15 @@
-name: "New news post"
-description: "Add a news article in any language. Title + Body only."
-title: "Add Title"
-labels: []
+name: News
+description: File a news post (English source; sv/sr come automatically as stubs)
+title: "Add Title Here"
+labels: ["news"]
+assignees: []
+
 body:
-  - type: input
-    id: date
-    attributes:
-      label: "Date"
-      description: "Optional. dd-mm-yyyy (leave empty to use today)."
-      placeholder: "08-11-2025"
-  - type: dropdown
-    id: language
-    attributes:
-      label: "Language"
-      description: "Choose the language for this post."
-      options:
-        - en
-        - sv
-        - sr
-    validations:
-      required: true
   - type: textarea
     id: body
     attributes:
-      label: "Body"
-      description: "Paste the article text here. You can attach images below; the system will handle variants."
-      placeholder: "Write your article text here…"
+      label: News body (English)
+      description: Paste the full text. Quotes, emojis, and line breaks are fine.
+      placeholder: Write your news text here...
     validations:
       required: true
