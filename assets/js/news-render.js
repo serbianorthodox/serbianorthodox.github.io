@@ -1,4 +1,4 @@
-(async function () {
+ (async function () {
   try {
     const qs = new URLSearchParams(location.search);
     const activeLang = (qs.get('lang') || (document.documentElement.lang || 'sv')).toLowerCase();
