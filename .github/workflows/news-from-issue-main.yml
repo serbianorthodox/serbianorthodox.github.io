@@ -5,7 +5,6 @@ on:
     types: [opened, edited]
   workflow_dispatch: {}
 
-
 permissions:
   contents: write
   pull-requests: write
@@ -130,9 +129,7 @@ jobs:
       - name: Save cleaned body to file (verbatim)
         run: |
           mkdir -p .news_tmp
-          cat > .news_tmp/body.txt <<'EOF'
-${{ steps.parse.outputs.bodyMd }}
-EOF
+          printf '%s' "${{ steps.parse.outputs.bodyMd }}" > .news_tmp/body.txt
 
       - name: Create branch
         run: git switch -c "${{ steps.parse.outputs.branch }}"
