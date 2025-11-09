@@ -4,6 +4,27 @@
     const activeLang = (qs.get('lang') || (document.documentElement.lang || 'sv')).toLowerCase();
     const bust = Date.now();
 
+    // 0) Layout prep: keep the first <h1> in <main>, remove other children (stubs)
+    const main = document.querySelector('main') || document.body;
+    const h1 = main.querySelector('h1');
+    Array.from(main.children).forEach(el => {
+      if (el !== h1) el.remove();
+    });
+
+    // Create/ensure render root right after H1
+    let root = document.querySelector('#news-list');
+    if (!root) {
+      root = document.createElement('div');
+      root.id = 'news-list';
+      if (h1 && h1.parentNode === main) {
+        h1.insertAdjacentElement('afterend', root);
+      } else {
+        main.prepend(root);
+      }
+    } else {
+      root.innerHTML = '';
+    }
+
     // 1) load index (cache-busted)
     const idxRes = await fetch(`data/news/index.json?v=${bust}`, { cache: 'no-store' });
     if (!idxRes.ok) throw new Error('index.json load failed');
@@ -20,18 +41,11 @@
       if (r.ok) return r.json();
       r = await fetch(tryUrl('en'), { cache: 'no-store' });
       if (r.ok) return r.json();
-      throw new Error('missing i18n json');
+      throw new Error('missing i18n json for ' + i18nPath);
     }
     const post = await loadPost(i18nPath, activeLang);
 
-    // 3) render into #news-list (create if missing)
-    let root = document.querySelector('#news-list');
-    if (!root) {
-      root = document.createElement('div');
-      root.id = 'news-list';
-      const main = document.querySelector('main') || document.body;
-      main.prepend(root);
-    }
+    // 3) render latest
     root.innerHTML = `
       <article class="card my-3">
         <div class="card-body">
