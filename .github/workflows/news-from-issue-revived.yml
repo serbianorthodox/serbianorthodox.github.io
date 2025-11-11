@@ -77,17 +77,17 @@ jobs:
         env:
           LANG_FILE: ${{ steps.meta.outputs.lang_file }}
           BASE_DIR: ${{ steps.meta.outputs.base_dir }}
-          TITLE_JSON: ${{ steps.meta.outputs.title_json }}
-          BODY_JSON: ${{ steps.meta.outputs.body_json }}
+          TITLE: ${{ steps.meta.outputs.title }}
+          BODY: ${{ github.event.issue.body }}
           ISO_DATE: ${{ steps.meta.outputs.isodate }}
         run: |
           set -euo pipefail
           mkdir -p "$BASE_DIR"
           jq -n \
-            --argjson title "$TITLE_JSON" \
-            --argjson body "$BODY_JSON" \
+            --arg title "$TITLE" \
+            --arg body "$BODY" \
             --arg date "$ISO_DATE" \
-            '{ "title": $title, "date": $date, "body": $body } | .title |= fromjson | .body |= fromjson' \
+            '{ "title": $title, "date": $date, "body": $body }' \
             > "$LANG_FILE"
           echo "Wrote $LANG_FILE"
 
