@@ -12,150 +12,129 @@ permissions:
 jobs:
   build-news:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Configure Git
+      - name: Setup tools
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          sudo apt-get update -y
+          sudo apt-get install -y jq
 
-      # 1) Extract issue fields safely (title/body)
-      - name: Read issue payload
-        id: issue
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const issue = context.payload.issue;
-            const title = (issue?.title ?? "Untitled").trim();
-            // Keep body literal; trim only ends
-            const body  = (issue?.body  ?? "").trim();
-            core.setOutput("title", title);
-            core.setOutput("body", body);
-
-      # 2) Build date + slug + paths
-      - name: Compute post paths
-        id: paths
-        shell: bash
+      - name: Derive language, clean title, slug
+        id: meta
+        env:
+          RAW_TITLE: ${{ github.event.issue.title }}
         run: |
           set -euo pipefail
+          T="$RAW_TITLE"
 
-          TITLE="${{ steps.issue.outputs.title }}"
-
-          # Date in UTC (dd-mm-yyyy and yyyy/mm/dd for paths)
-          DD=$(date -u +%d)
-          MM=$(date -u +%m)
-          YYYY=$(date -u +%Y)
-
-          # Slug from title (ascii, hyphens, lower)
-          SLUG="$(printf '%s' "$TITLE" \
-            | iconv -c -t ascii//TRANSLIT \
-            | tr '[:upper:]' '[:lower:]' \
-            | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g; s/-{2,}/-/g' \
-          )"
-          [ -n "$SLUG" ] || SLUG="post"
-
-          I18N_DIR="i18n/news/${YYYY}/${MM}"
-          I18N_BASE="${I18N_DIR}/${DD}-${YYYY}-${MM}-${DD}-${SLUG}"
-          EN_JSON="${I18N_BASE}.en.json"
-          SV_JSON="${I18N_BASE}.sv.json"
-          SR_JSON="${I18N_BASE}.sr.json"
-          YEAR_INDEX="data/news/index.json" # single-file index as you requested stays
-          IMG_DIR="assets/img/news/${YYYY}/${MM}/${DD}-${YYYY}-${MM}-${DD}-${SLUG}"
-
-          mkdir -p "$(dirname "$EN_JSON")" "$IMG_DIR" "data/news"
-
-          echo "I18N_BASE=$I18N_BASE"   >> $GITHUB_OUTPUT
-          echo "EN_JSON=$EN_JSON"       >> $GITHUB_OUTPUT
-          echo "SV_JSON=$SV_JSON"       >> $GITHUB_OUTPUT
-          echo "SR_JSON=$SR_JSON"       >> $GITHUB_OUTPUT
-          echo "YEAR_INDEX=$YEAR_INDEX" >> $GITHUB_OUTPUT
-          echo "IMG_DIR=$IMG_DIR"       >> $GITHUB_OUTPUT
-          echo "DATE_DDMMYYYY=${DD}-${MM}-${YYYY}" >> $GITHUB_OUTPUT
-
-      # 3) Write English JSON (title/body) safely (no heredocs)
-      - name: Write English JSON
-        shell: bash
-        run: |
-          set -euo pipefail
-          TITLE_JSON=$(jq -Rn --arg s "${{ steps.issue.outputs.title }}" '$s')
-          BODY_JSON=$(jq -Rn --arg s "${{ steps.issue.outputs.body }}"  '$s')
-          printf '{\n  "title": %s,\n  "body": %s\n}\n' "$TITLE_JSON" "$BODY_JSON" > "${{ steps.paths.outputs.EN_JSON }}"
-
-      # 4) Ensure sv/sr stubs (do not overwrite if translators added real files)
-      - name: Ensure sv/sr stubs
-        shell: bash
-        run: |
-          set -euo pipefail
-          EN="${{ steps.paths.outputs.EN_JSON }}"
-          SV="${{ steps.paths.outputs.SV_JSON }}"
-          SR="${{ steps.paths.outputs.SR_JSON }}"
-          [ -f "$EN" ] || { echo "Missing $EN"; exit 1; }
-          [ -f "$SV" ] || cp "$EN" "$SV"
-          [ -f "$SR" ] || cp "$EN" "$SR"
-          ls -l "$EN" "$SV" "$SR"
-
-      # 5) Update index.json (array of entries; newest first)
-      - name: Update data/news/index.json
-        shell: bash
-        run: |
-          set -euo pipefail
-          IDX="${{ steps.paths.outputs.YEAR_INDEX }}"
-          TMP="$(mktemp)"
-          DATE_STR="${{ steps.paths.outputs.DATE_DDMMYYYY }}"
-          I18N_BASE="${{ steps.paths.outputs.I18N_BASE }}"
-          SLUG="$(basename "$I18N_BASE" | sed -E 's/^[0-9]{2}-[0-9]{4}-[0-9]{2}-[0-9]{2}-//')"
-
-          jq_exist() { [ -f "$IDX" ] && jq empty "$IDX" >/dev/null 2>&1; }
-
-          if jq_exist; then
-            jq --arg date "$DATE_STR" --arg slug "$SLUG" --arg path "$I18N_BASE" '
-              # remove any previous entry for same i18nPath, then unshift new one
-              map(select(.i18nPath != $path)) as $rest
-              | ([{"date": $date, "slug": $slug, "i18nPath": $path}] + $rest)
-            ' "$IDX" > "$TMP"
+          if echo "$T" | grep -Eiq '^[[:space:]]*SV:[[:space:]]*'; then
+            LANG_CODE=sv
+            CLEAN_TITLE="$(printf '%s' "$T" | sed -E 's/^[[:space:]]*SV:[[:space:]]*//I')"
+          elif echo "$T" | grep -Eiq '^[[:space:]]*SR:[[:space:]]*'; then
+            LANG_CODE=sr
+            CLEAN_TITLE="$(printf '%s' "$T" | sed -E 's/^[[:space:]]*SR:[[:space:]]*//I')"
           else
-            printf '[{"date":"%s","slug":"%s","i18nPath":"%s"}]\n' "$DATE_STR" "$SLUG" "$I18N_BASE" > "$TMP"
+            LANG_CODE=en
+            CLEAN_TITLE="$T"
           fi
 
-          mv "$TMP" "$IDX"
-          jq . "$IDX"
+          SLUG_SRC="$CLEAN_TITLE"
+          SLUG="$(printf '%s' "$SLUG_SRC" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || printf '%s' "$SLUG_SRC")"
+          SLUG="$(printf '%s' "$SLUG" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/-+/-/g; s/^-|-$//g')"
+          if [ -z "$SLUG" ]; then SLUG="post"; fi
 
-      # 6) Drop a .gitkeep in image dir so folder lands in PR even if empty
-      - name: Ensure image dir
-        shell: bash
+          YEAR="$(date -u +%Y)"
+          MONTH="$(date -u +%m)"
+          DAY="$(date -u +%d)"
+          ISO_DATE="$(date -u +%Y-%m-%d)"
+
+          BODY_RAW='${{ github.event.issue.body }}'
+          BODY_JSON="$(printf '%s' "$BODY_RAW" | jq -Rs .)"
+          TITLE_JSON="$(printf '%s' "$CLEAN_TITLE" | jq -Rs .)"
+
+          BASE_DIR="i18n/news/${YEAR}/${MONTH}"
+          FILE_BASENAME="${DAY}-${SLUG}"
+          LANG_FILE="${BASE_DIR}/${FILE_BASENAME}.${LANG_CODE}.json"
+
+          {
+            echo "lang=$LANG_CODE"
+            echo "title=$CLEAN_TITLE"
+            echo "slug=$SLUG"
+            echo "year=$YEAR"
+            echo "month=$MONTH"
+            echo "day=$DAY"
+            echo "isodate=$ISO_DATE"
+            echo "base_dir=$BASE_DIR"
+            echo "file_basename=$FILE_BASENAME"
+            echo "lang_file=$LANG_FILE"
+            echo "body_json=$BODY_JSON"
+            echo "title_json=$TITLE_JSON"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Write ONLY the language JSON
+        env:
+          LANG_FILE: ${{ steps.meta.outputs.lang_file }}
+          BASE_DIR: ${{ steps.meta.outputs.base_dir }}
+          TITLE_JSON: ${{ steps.meta.outputs.title_json }}
+          BODY_JSON: ${{ steps.meta.outputs.body_json }}
+          ISO_DATE: ${{ steps.meta.outputs.isodate }}
         run: |
           set -euo pipefail
-          IMG_DIR="${{ steps.paths.outputs.IMG_DIR }}"
-          mkdir -p "$IMG_DIR"
-          [ -f "$IMG_DIR/.gitkeep" ] || : > "$IMG_DIR/.gitkeep"
+          mkdir -p "$BASE_DIR"
+          jq -n \
+            --argjson title "$TITLE_JSON" \
+            --argjson body "$BODY_JSON" \
+            --arg date "$ISO_DATE" \
+            '{ "title": $title, "date": $date, "body": $body } | .title |= fromjson | .body |= fromjson' \
+            > "$LANG_FILE"
+          echo "Wrote $LANG_FILE"
 
-      # 7) Stage changes
-      - name: Stage files
-        shell: bash
+      - name: Ensure index.json updated (newest-first)
+        env:
+          YEAR: ${{ steps.meta.outputs.year }}
+          MONTH: ${{ steps.meta.outputs.month }}
+          DAY: ${{ steps.meta.outputs.day }}
+          SLUG: ${{ steps.meta.outputs.slug }}
         run: |
           set -euo pipefail
-          git add i18n/news data/news assets/img/news
-          git status --porcelain
+          INDEX="data/news/index.json"
+          mkdir -p "data/news"
+          [ -s "$INDEX" ] || echo "[]" > "$INDEX"
+          NEW_ENTRY=$(jq -n \
+            --arg y "$YEAR" --arg m "$MONTH" --arg d "$DAY" --arg s "$SLUG" \
+            '{year: ($y|tonumber), month: ($m|tonumber), day: ($d|tonumber), slug: $s}')
+          TMP="$(mktemp)"
+          jq --argjson e "$NEW_ENTRY" '
+            map(select(.year != $e.year or .month != $e.month or .day != $e.day or .slug != $e.slug))
+          ' "$INDEX" > "$TMP" && mv "$TMP" "$INDEX"
+          jq --argjson e "$NEW_ENTRY" '[ $e ] + .' "$INDEX" > "$TMP" && mv "$TMP" "$INDEX"
+          echo "Updated $INDEX"
 
-      # 8) Create PR
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: feat/news-${{ github.run_id }}-${{ github.run_attempt }}
-          title: "news: ${{ steps.issue.outputs.title }}"
-          commit-message: "news: add ${{ steps.issue.outputs.title }}"
-          add-paths: |
-            i18n/news/**
-            data/news/**
-            assets/img/news/**
-          body: |
-            - English JSON written from issue
-            - Auto-created Swedish and Serbian stubs (not overwriting existing)
-            - Updated data/news/index.json (newest first)
-          base: main
-          draft: false
+      - name: Create branch, commit, push
+        id: git
+        env:
+          YEAR: ${{ steps.meta.outputs.year }}
+          MONTH: ${{ steps.meta.outputs.month }}
+          DAY: ${{ steps.meta.outputs.day }}
+          SLUG: ${{ steps.meta.outputs.slug }}
+          LANG: ${{ steps.meta.outputs.lang }}
+        run: |
+          set -euo pipefail
+          BR="news/${YEAR}-${MONTH}-${DAY}-${SLUG}-${LANG}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BR"
+          git add -A
+          git commit -m "news: ${YEAR}-${MONTH}-${DAY} ${SLUG} [${LANG}]"
+          git push -u origin "$BR"
+          echo "branch=$BR" >> "$GITHUB_OUTPUT"
+
+      - name: Open PR
+        env:
+          BRANCH: ${{ steps.git.outputs.branch }}
+        run: |
+          set -euo pipefail
+          PR_TITLE="News: ${BRANCH}"
+          gh pr create --head "$BRANCH" --base "main" --title "$PR_TITLE" --body "Automated news update from issue."
