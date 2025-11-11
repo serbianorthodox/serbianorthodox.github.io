@@ -136,3 +136,4 @@ jobs:
           PR_TITLE="News: ${BRANCH}"
           gh pr create --head "$BRANCH" --base "main" --title "$PR_TITLE" --body "Automated news update from issue."
 YAML
+
