@@ -13,6 +13,7 @@ permissions:
 jobs:
   build-news:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,7 +26,7 @@ jobs:
       - name: Derive language, clean title, slug
         id: meta
         env:
-          RAW_TITLE: ${{ github.event.issue.title }}
+          RAW_TITLE: ${{ github.event.issue.title || '' }}
         run: |
           set -euo pipefail
           T="$RAW_TITLE"
@@ -41,19 +42,16 @@ jobs:
             CLEAN_TITLE="$T"
           fi
 
-          # slug
           SLUG_SRC="$CLEAN_TITLE"
           SLUG="$(printf '%s' "$SLUG_SRC" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || printf '%s' "$SLUG_SRC")"
           SLUG="$(printf '%s' "$SLUG" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/-+/-/g; s/^-|-$//g')"
           [ -n "$SLUG" ] || SLUG="post"
 
-          # date parts (UTC)
           YEAR="$(date -u +%Y)"
           MONTH="$(date -u +%m)"
           DAY="$(date -u +%d)"
           ISO_DATE="$(date -u +%Y-%m-%d)"
 
-          # paths
           BASE_DIR="i18n/news/${YEAR}/${MONTH}"
           FILE_BASENAME="${DAY}-${SLUG}"
           LANG_FILE="${BASE_DIR}/${FILE_BASENAME}.${LANG_CODE}.json"
@@ -76,7 +74,7 @@ jobs:
           LANG_FILE: ${{ steps.meta.outputs.lang_file }}
           BASE_DIR: ${{ steps.meta.outputs.base_dir }}
           TITLE: ${{ steps.meta.outputs.title }}
-          BODY: ${{ github.event.issue.body }}
+          BODY: ${{ github.event.issue.body || '' }}
           ISO_DATE: ${{ steps.meta.outputs.isodate }}
         run: |
           set -euo pipefail
@@ -89,7 +87,7 @@ jobs:
             > "$LANG_FILE"
           echo "Wrote $LANG_FILE"
 
-      - name: Ensure index.json updated (newest-first)
+      - name: Ensure index.json updated
         env:
           YEAR: ${{ steps.meta.outputs.year }}
           MONTH: ${{ steps.meta.outputs.month }}
@@ -100,14 +98,25 @@ jobs:
           INDEX="data/news/index.json"
           mkdir -p "data/news"
           [ -s "$INDEX" ] || echo "[]" > "$INDEX"
+
           NEW_ENTRY=$(jq -n \
-            --arg y "$YEAR" --arg m "$MONTH" --arg d "$DAY" --arg s "$SLUG" \
+            --arg y "$YEAR" \
+            --arg m "$MONTH" \
+            --arg d "$DAY" \
+            --arg s "$SLUG" \
             '{year: ($y|tonumber), month: ($m|tonumber), day: ($d|tonumber), slug: $s}')
+
           TMP="$(mktemp)"
-          jq --argjson e "$NEW_ENTRY" '
-            map(select(.year != $e.year or .month != $e.month or .day != $e.day or .slug != $e.slug))
-          ' "$INDEX" > "$TMP" && mv "$TMP" "$INDEX"
-          jq --argjson e "$NEW_ENTRY" '[ $e ] + .' "$INDEX" > "$TMP" && mv "$TMP" "$INDEX"
+          jq --argjson e "$NEW_ENTRY" \
+            'map(select(.year != $e.year or .month != $e.month or .day != $e.day or .slug != $e.slug))' \
+            "$INDEX" > "$TMP"
+          mv "$TMP" "$INDEX"
+
+          jq --argjson e "$NEW_ENTRY" \
+            '[ $e ] + .' \
+            "$INDEX" > "$TMP"
+          mv "$TMP" "$INDEX"
+
           echo "Updated $INDEX"
 
       - name: Create branch, commit, push
@@ -136,5 +145,3 @@ jobs:
           set -euo pipefail
           PR_TITLE="News: ${BRANCH}"
           gh pr create --head "$BRANCH" --base "main" --title "$PR_TITLE" --body "Automated news update from issue."
-YAML
-
