@@ -1,5 +1,10 @@
 [
   {
+    "date": "11-11-2025",
+    "slug": "sv-test-do-not-merge",
+    "i18nPath": "i18n/news/2025/11/11-2025-11-11-sv-test-do-not-merge"
+  },
+  {
     "date": "09-11-2025",
     "slug": "the-beheading-of-saint-john-the-baptist",
     "i18nPath": "i18n/news/2025/11/09-2025-11-09-the-beheading-of-saint-john-the-baptist"
