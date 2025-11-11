@@ -40,20 +40,19 @@ jobs:
             CLEAN_TITLE="$T"
           fi
 
+          # slug
           SLUG_SRC="$CLEAN_TITLE"
           SLUG="$(printf '%s' "$SLUG_SRC" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || printf '%s' "$SLUG_SRC")"
           SLUG="$(printf '%s' "$SLUG" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/-+/-/g; s/^-|-$//g')"
-          if [ -z "$SLUG" ]; then SLUG="post"; fi
+          [ -n "$SLUG" ] || SLUG="post"
 
+          # date parts (UTC)
           YEAR="$(date -u +%Y)"
           MONTH="$(date -u +%m)"
           DAY="$(date -u +%d)"
           ISO_DATE="$(date -u +%Y-%m-%d)"
 
-          BODY_RAW='${{ github.event.issue.body }}'
-          BODY_JSON="$(printf '%s' "$BODY_RAW" | jq -Rs .)"
-          TITLE_JSON="$(printf '%s' "$CLEAN_TITLE" | jq -Rs .)"
-
+          # paths
           BASE_DIR="i18n/news/${YEAR}/${MONTH}"
           FILE_BASENAME="${DAY}-${SLUG}"
           LANG_FILE="${BASE_DIR}/${FILE_BASENAME}.${LANG_CODE}.json"
@@ -69,8 +68,6 @@ jobs:
             echo "base_dir=$BASE_DIR"
             echo "file_basename=$FILE_BASENAME"
             echo "lang_file=$LANG_FILE"
-            echo "body_json=$BODY_JSON"
-            echo "title_json=$TITLE_JSON"
           } >> "$GITHUB_OUTPUT"
 
       - name: Write ONLY the language JSON
@@ -138,3 +135,4 @@ jobs:
           set -euo pipefail
           PR_TITLE="News: ${BRANCH}"
           gh pr create --head "$BRANCH" --base "main" --title "$PR_TITLE" --body "Automated news update from issue."
+YAML
