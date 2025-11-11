@@ -1,4 +1,4 @@
-name: News from Issue (revived)
+name: News Processor
 
 on:
   workflow_dispatch:
