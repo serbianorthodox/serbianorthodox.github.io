@@ -1,5 +1,10 @@
 [
   {
+    "date": "09-11-2025",
+    "slug": "the-beheading-of-saint-john-the-baptist",
+    "i18nPath": "i18n/news/2025/11/09-2025-11-09-the-beheading-of-saint-john-the-baptist"
+  },
+  {
     "date": "08-11-2025",
     "slug": "2025-11-08-final-yaml-fix-trigger-test",
     "i18nPath": "i18n/news/2025/11/08-2025-11-08-final-yaml-fix-trigger-test"
