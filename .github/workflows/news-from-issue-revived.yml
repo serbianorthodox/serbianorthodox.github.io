@@ -1,4 +1,4 @@
-name: news-from-issue-revived
+name: News from Issue (revived)
 
 on:
   issues:
@@ -10,7 +10,7 @@ permissions:
   issues: read
 
 jobs:
-  build:
+  build-news:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +21,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y jq
 
-      - name: Derive language and clean title
+      - name: Derive language, clean title, slug
         id: meta
         env:
           RAW_TITLE: ${{ github.event.issue.title }}
@@ -29,63 +29,51 @@ jobs:
           set -euo pipefail
           T="$RAW_TITLE"
 
-          # Detect prefix for language
-          if echo "$T" | grep -Eiq '^\s*SV:\s*'; then
+          if echo "$T" | grep -Eiq '^[[:space:]]*SV:[[:space:]]*'; then
             LANG_CODE=sv
-            CLEAN_TITLE="$(echo "$T" | sed -E 's/^[[:space:]]*SV:[[:space:]]*//I')"
-          elif echo "$T" | grep -Eiq '^\s*SR:\s*'; then
+            CLEAN_TITLE="$(printf '%s' "$T" | sed -E 's/^[[:space:]]*SV:[[:space:]]*//I')"
+          elif echo "$T" | grep -Eiq '^[[:space:]]*SR:[[:space:]]*'; then
             LANG_CODE=sr
-            CLEAN_TITLE="$(echo "$T" | sed -E 's/^[[:space:]]*SR:[[:space:]]*//I')"
+            CLEAN_TITLE="$(printf '%s' "$T" | sed -E 's/^[[:space:]]*SR:[[:space:]]*//I')"
           else
             LANG_CODE=en
             CLEAN_TITLE="$T"
           fi
 
-          # Slugify ASCII-safe (åäö, ćčž, Cyrillic → stripped)
-          # 1) normalize to ASCII where possible
           SLUG_SRC="$CLEAN_TITLE"
-          SLUG="$(printf '%s' "$SLUG_SRC" \
-            | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || printf '%s' "$SLUG_SRC")"
-          # 2) lowercase, non-alnum to hyphen, collapse, trim
-          SLUG="$(printf '%s' "$SLUG" \
-            | tr '[:upper:]' '[:lower:]' \
-            | sed -E 's/[^a-z0-9]+/-/g; s/-+/-/g; s/^-|-$//g')"
-          # Fallback if empty
-          if [ -z "$SLUG" ]; then
-            SLUG="post"
-          fi
+          SLUG="$(printf '%s' "$SLUG_SRC" | iconv -f UTF-8 -t ASCII//TRANSLIT 2>/dev/null || printf '%s' "$SLUG_SRC")"
+          SLUG="$(printf '%s' "$SLUG" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/-+/-/g; s/^-|-$//g')"
+          if [ -z "$SLUG" ]; then SLUG="post"; fi
 
-          # Date parts (UTC)
           YEAR="$(date -u +%Y)"
           MONTH="$(date -u +%m)"
           DAY="$(date -u +%d)"
           ISO_DATE="$(date -u +%Y-%m-%d)"
 
-          # Body (raw markdown allowed; we store as-is in JSON "body")
-          BODY_RAW="${{ github.event.issue.body }}"
-          # Escape for JSON safely via jq -Rs
+          BODY_RAW='${{ github.event.issue.body }}'
           BODY_JSON="$(printf '%s' "$BODY_RAW" | jq -Rs .)"
           TITLE_JSON="$(printf '%s' "$CLEAN_TITLE" | jq -Rs .)"
 
-          # Paths
           BASE_DIR="i18n/news/${YEAR}/${MONTH}"
           FILE_BASENAME="${DAY}-${SLUG}"
           LANG_FILE="${BASE_DIR}/${FILE_BASENAME}.${LANG_CODE}.json"
 
-          echo "lang=$LANG_CODE" >> $GITHUB_OUTPUT
-          echo "title=$CLEAN_TITLE" >> $GITHUB_OUTPUT
-          echo "slug=$SLUG" >> $GITHUB_OUTPUT
-          echo "year=$YEAR" >> $GITHUB_OUTPUT
-          echo "month=$MONTH" >> $GITHUB_OUTPUT
-          echo "day=$DAY" >> $GITHUB_OUTPUT
-          echo "isodate=$ISO_DATE" >> $GITHUB_OUTPUT
-          echo "base_dir=$BASE_DIR" >> $GITHUB_OUTPUT
-          echo "file_basename=$FILE_BASENAME" >> $GITHUB_OUTPUT
-          echo "lang_file=$LANG_FILE" >> $GITHUB_OUTPUT
-          echo "body_json=$BODY_JSON" >> $GITHUB_OUTPUT
-          echo "title_json=$TITLE_JSON" >> $GITHUB_OUTPUT
+          {
+            echo "lang=$LANG_CODE"
+            echo "title=$CLEAN_TITLE"
+            echo "slug=$SLUG"
+            echo "year=$YEAR"
+            echo "month=$MONTH"
+            echo "day=$DAY"
+            echo "isodate=$ISO_DATE"
+            echo "base_dir=$BASE_DIR"
+            echo "file_basename=$FILE_BASENAME"
+            echo "lang_file=$LANG_FILE"
+            echo "body_json=$BODY_JSON"
+            echo "title_json=$TITLE_JSON"
+          } >> "$GITHUB_OUTPUT"
 
-      - name: Create language JSON only
+      - name: Write ONLY the language JSON
         env:
           LANG_FILE: ${{ steps.meta.outputs.lang_file }}
           BASE_DIR: ${{ steps.meta.outputs.base_dir }}
@@ -103,7 +91,7 @@ jobs:
             > "$LANG_FILE"
           echo "Wrote $LANG_FILE"
 
-      - name: Ensure index entry (newest-first)
+      - name: Ensure index.json updated (newest-first)
         env:
           YEAR: ${{ steps.meta.outputs.year }}
           MONTH: ${{ steps.meta.outputs.month }}
@@ -113,23 +101,18 @@ jobs:
           set -euo pipefail
           INDEX="data/news/index.json"
           mkdir -p "data/news"
-          if [ ! -s "$INDEX" ]; then
-            echo "[]" > "$INDEX"
-          fi
+          [ -s "$INDEX" ] || echo "[]" > "$INDEX"
           NEW_ENTRY=$(jq -n \
             --arg y "$YEAR" --arg m "$MONTH" --arg d "$DAY" --arg s "$SLUG" \
             '{year: ($y|tonumber), month: ($m|tonumber), day: ($d|tonumber), slug: $s}')
-          # Remove any duplicate (same Y/M/D/slug), then prepend
           TMP="$(mktemp)"
           jq --argjson e "$NEW_ENTRY" '
             map(select(.year != $e.year or .month != $e.month or .day != $e.day or .slug != $e.slug))
-          ' "$INDEX" > "$TMP"
-          mv "$TMP" "$INDEX"
-          jq --argjson e "$NEW_ENTRY" '[ $e ] + .' "$INDEX" > "$TMP"
-          mv "$TMP" "$INDEX"
+          ' "$INDEX" > "$TMP" && mv "$TMP" "$INDEX"
+          jq --argjson e "$NEW_ENTRY" '[ $e ] + .' "$INDEX" > "$TMP" && mv "$TMP" "$INDEX"
           echo "Updated $INDEX"
 
-      - name: Create branch, commit, and push
+      - name: Create branch, commit, push
         id: git
         env:
           YEAR: ${{ steps.meta.outputs.year }}
@@ -146,7 +129,7 @@ jobs:
           git add -A
           git commit -m "news: ${YEAR}-${MONTH}-${DAY} ${SLUG} [${LANG}]"
           git push -u origin "$BR"
-          echo "branch=$BR" >> $GITHUB_OUTPUT
+          echo "branch=$BR" >> "$GITHUB_OUTPUT"
 
       - name: Open PR
         env:
