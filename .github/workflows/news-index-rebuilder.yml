@@ -1,0 +1,40 @@
+name: News Index Rebuilder
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild index.json from all news files
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp=$(mktemp)
+          mkdir -p data/news
+
+          jq -s '
+            flatten
+            | sort_by(.date) | reverse
+          ' $(find i18n/news -type f -name "*.json" | sort) > "$tmp"
+
+          mv "$tmp" data/news/index.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet data/news/index.json; then
+            git add data/news/index.json
+            git commit -m "ci(news): rebuild index.json on main push"
+            git push
+          else
+            echo "index.json already up to date."
+          fi
