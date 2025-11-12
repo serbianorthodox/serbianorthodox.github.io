@@ -1,4 +1,8 @@
 {
   "title": "2025-11-08 — ✅ Final YAML fix trigger test",
-  "body": "Date: 2025-11-08\nLang: en\n\nBody:\nFinal trigger test after conflict-free YAML fix."
+  "body": "Date: 2025-11-08\nLang: en\n\nBody:\nFinal trigger test after conflict-free YAML fix.",
+  "lang": "en",
+  "date": "2025-11-08",
+  "slug": "final-yaml-fix-trigger-test",
+  "i18nPath": "i18n/news/2025/11/08-2025-11-08-final-yaml-fix-trigger-test.en.json"
 }
