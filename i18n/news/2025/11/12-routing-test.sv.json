@@ -1,5 +1,8 @@
 {
   "title": "ROUTING TEST",
   "date": "2025-11-12",
-  "body": "Detta är ett test av News Processor. Inget innehåll."
+  "body": "Detta är ett test av News Processor. Inget innehåll.",
+  "lang": "sv",
+  "slug": "routing-test",
+  "i18nPath": "i18n/news/2025/11/12-routing-test.sv.json"
 }
