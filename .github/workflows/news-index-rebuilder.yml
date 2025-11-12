@@ -2,39 +2,53 @@ name: News Index Rebuilder
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   rebuild-index:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Rebuild index.json from all news files
+      - name: Build fresh index.json from all posts
+        id: build
         shell: bash
         run: |
           set -euo pipefail
-          tmp=$(mktemp)
           mkdir -p data/news
+          tmp="$(mktemp)"
+          files=$(find i18n/news -type f -name "*.json" | sort || true)
+          if [[ -z "${files}" ]]; then
+            echo "[]" > "$tmp"
+          else
+            jq -s 'flatten | sort_by(.date) | reverse' ${files} > "$tmp"
+          fi
+          if ! cmp -s "$tmp" data/news/index.json 2>/dev/null; then
+            mv "$tmp" data/news/index.json
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
 
-          jq -s '
-            flatten
-            | sort_by(.date) | reverse
-          ' $(find i18n/news -type f -name "*.json" | sort) > "$tmp"
-
-          mv "$tmp" data/news/index.json
-
-      - name: Commit and push if changed
+      - name: Commit to a branch and open PR
+        if: steps.build.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
+          set -euo pipefail
+          BR="ci/index-rebuild-${GITHUB_RUN_ID}"
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet data/news/index.json; then
-            git add data/news/index.json
-            git commit -m "ci(news): rebuild index.json on main push"
-            git push
-          else
-            echo "index.json already up to date."
-          fi
+          git switch -c "$BR"
+          git add data/news/index.json
+          git commit -m "ci(news): rebuild index.json"
+          git push -u origin "$BR"
+          gh pr create --base main --head "$BR" --title "ci(news): rebuild index.json" --body "Automated rebuild from all i18n/news/*.json"
