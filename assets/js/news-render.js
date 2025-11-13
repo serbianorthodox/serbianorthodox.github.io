@@ -1,49 +1,51 @@
- (async function () {
+(async function () {
   try {
     const qs = new URLSearchParams(location.search);
-    const activeLang = (qs.get('lang') || (document.documentElement.lang || 'sv')).toLowerCase();
+    const activeLang = (qs.get("lang") || (document.documentElement.lang || "sv")).toLowerCase();
     const bust = Date.now();
 
     // 0) Layout prep: keep the first <h1> in <main>, remove other children (stubs)
-    const main = document.querySelector('main') || document.body;
-    const h1 = main.querySelector('h1');
-    Array.from(main.children).forEach(el => {
+    const main = document.querySelector("main") || document.body;
+    const h1 = main.querySelector("h1");
+    Array.from(main.children).forEach((el) => {
       if (el !== h1) el.remove();
     });
 
     // Create/ensure render root right after H1
-    let root = document.querySelector('#news-list');
+    let root = document.querySelector("#news-list");
     if (!root) {
-      root = document.createElement('div');
-      root.id = 'news-list';
+      root = document.createElement("div");
+      root.id = "news-list";
       if (h1 && h1.parentNode === main) {
-        h1.insertAdjacentElement('afterend', root);
+        h1.insertAdjacentElement("afterend", root);
       } else {
         main.prepend(root);
       }
     } else {
-      root.innerHTML = '';
+      root.innerHTML = "";
     }
 
     // 1) load index (cache-busted)
-    const idxRes = await fetch(`data/news/index.json?v=${bust}`, { cache: 'no-store' });
-    if (!idxRes.ok) throw new Error('index.json load failed');
+    const idxRes = await fetch(`data/news/index.json?v=${bust}`, { cache: "no-store" });
+    if (!idxRes.ok) throw new Error("index.json load failed");
     const index = await idxRes.json();
     if (!Array.isArray(index) || index.length === 0) return;
 
-    const latest = index[0];
-    const i18nPath = latest.i18nPath;
+    // pick latest in activeLang, fallback to en, then any
+    const byLang = index.filter((item) => item.lang === activeLang);
+    let latest = byLang[0];
 
-    // 2) load post JSON with fallback to en
-    async function loadPost(i18nPath, lang) {
-      const tryUrl = (lng) => `${i18nPath}.${lng}.json?v=${bust}`;
-      let r = await fetch(tryUrl(lang), { cache: 'no-store' });
-      if (r.ok) return r.json();
-      r = await fetch(tryUrl('en'), { cache: 'no-store' });
-      if (r.ok) return r.json();
-      throw new Error('missing i18n json for ' + i18nPath);
+    if (!latest) {
+      const enFallback = index.filter((item) => item.lang === "en");
+      latest = enFallback[0] || index[0];
     }
-    const post = await loadPost(i18nPath, activeLang);
+
+    if (!latest || !latest.i18nPath) return;
+
+    // 2) load post JSON directly from i18nPath (it already includes .lang.json)
+    const postRes = await fetch(`${latest.i18nPath}?v=${bust}`, { cache: "no-store" });
+    if (!postRes.ok) throw new Error("post json load failed: " + latest.i18nPath);
+    const post = await postRes.json();
 
     // 3) render latest
     root.innerHTML = `
@@ -56,6 +58,6 @@
       </article>
     `;
   } catch (e) {
-    console.error('news-render failed:', e);
+    console.error("news-render failed:", e);
   }
 })();
