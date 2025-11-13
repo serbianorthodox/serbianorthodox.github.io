@@ -47,6 +47,21 @@ jobs:
           elif [[ "$TITLE_TRIMMED" =~ ^SR:[[:space:]]*(.*)$ ]]; then
             LANG="sr"; TITLE_NO_PREFIX="${BASH_REMATCH[1]}"
           fi
+
+          # Try to read language from issue body "### Language" section (en/sv/sr)
+          BODY_LANG="$(printf '%s\n' "$RAW_BODY" | awk '
+            BEGIN { seen=0 }
+            tolower($0) ~ /^###[[:space:]]*language[[:space:]]*$/ { seen=1; next }
+            seen==1 {
+              gsub(/^[[:space:]]+|[[:space:]]+$/,"",$0);
+              print tolower($0);
+              exit
+            }
+          ')"
+          if [[ "$BODY_LANG" == "en" || "$BODY_LANG" == "sv" || "$BODY_LANG" == "sr" ]]; then
+            LANG="$BODY_LANG"
+          fi
+
           TITLE_NO_PREFIX="$(printf '%s' "$TITLE_NO_PREFIX" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
           [[ -z "$TITLE_NO_PREFIX" ]] && { echo "Empty title after prefix strip" >&2; exit 1; }
 
@@ -54,7 +69,6 @@ jobs:
           YEAR="${DATE%%-*}"
           MONTH="$(printf '%s' "$DATE" | cut -d- -f2)"
 
-          # slugify: lowercase, transliterate common sv/sr letters, keep a-z0-9-
           SLUG="$(printf '%s' "$TITLE_NO_PREFIX" \
             | tr '[:upper:]' '[:lower:]' \
             | sed -E 's/[åä]/a/g;s/ö/o/g;s/č/c/g;s/ć/c/g;s/š/s/g;s/ž/z/g' \
@@ -63,7 +77,12 @@ jobs:
 
           FILE_DIR="i18n/news/$YEAR/$MONTH"
           FILE_PATH="$FILE_DIR/$DATE-$SLUG.$LANG.json"
-          BRANCH="news/$DATE-$SLUG-$LANG"
+
+          if [[ "${{ github.event_name }}" == "issues" ]]; then
+            BRANCH="news/$DATE-$SLUG-$LANG-issue-$ISSUE_NUMBER"
+          else
+            BRANCH="news/$DATE-$SLUG-$LANG-run-$GITHUB_RUN_ID"
+          fi
 
           {
             echo "TITLE<<EOF"; echo "$TITLE_NO_PREFIX"; echo "EOF"
