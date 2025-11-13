@@ -3,9 +3,8 @@
     const qs = new URLSearchParams(location.search);
     const path = location.pathname || "";
 
-    // --- Language detection (correct + stable) ---
+    // --- Language detection from URL path + query ---
     let defaultLang = "en";
-
     if (path.includes("/sv/")) {
       defaultLang = "sv";
     } else if (path.includes("/sr/") || path.includes("/rs/")) {
@@ -27,7 +26,7 @@
     const main = document.querySelector("main") || document.body;
     const h1 = main.querySelector("h1");
 
-    Array.from(main.children).forEach(el => {
+    Array.from(main.children).forEach((el) => {
       if (el !== h1) el.remove();
     });
 
@@ -51,23 +50,21 @@
     const index = await idxRes.json();
     if (!Array.isArray(index) || index.length === 0) return;
 
-    const latest = index[0];
-    const i18nPath = latest.i18nPath;
+    // pick latest entry for activeLang, else EN, else first
+    const langMatches = index.filter((item) => item.lang === activeLang);
+    let latest = langMatches[0];
 
-    // --- Load correct language version, fallback to EN ---
-    async function loadPost(basePath, lang) {
-      const tryUrl = lng => `${basePath}.${lng}.json?v=${bust}`;
-
-      let r = await fetch(tryUrl(lang), { cache: "no-store" });
-      if (r.ok) return r.json();
-
-      r = await fetch(tryUrl("en"), { cache: "no-store" });
-      if (r.ok) return r.json();
-
-      throw new Error("missing i18n json for " + basePath);
+    if (!latest) {
+      const enMatches = index.filter((item) => item.lang === "en");
+      latest = enMatches[0] || index[0];
     }
 
-    const post = await loadPost(i18nPath, activeLang);
+    if (!latest || !latest.i18nPath) return;
+
+    // --- Load post JSON directly from i18nPath (already includes .lang.json) ---
+    const postRes = await fetch(`${latest.i18nPath}?v=${bust}`, { cache: "no-store" });
+    if (!postRes.ok) throw new Error("post json load failed: " + latest.i18nPath);
+    const post = await postRes.json();
 
     // --- Render ---
     root.innerHTML = `
