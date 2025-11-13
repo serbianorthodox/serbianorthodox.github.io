@@ -8,3 +8,4 @@ Desktop.ini
 .venv/
 *.bak
 .DS_Store
+scripts/fix-news-metadata.sh
