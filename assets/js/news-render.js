@@ -3,23 +3,18 @@
     const qs = new URLSearchParams(location.search);
     const path = location.pathname || "";
 
-    // --- Language detection from URL path + query ---
-    let defaultLang = "en";
-    if (path.includes("/sv/")) {
-      defaultLang = "sv";
-    } else if (path.includes("/sr/") || path.includes("/rs/")) {
-      defaultLang = "sr";
-    }
-
+    // --- Language detection: query > <html lang> > path > default(en) ---
+    const queryLang = (qs.get("lang") || "").toLowerCase();
     const attrLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
 
-    const activeLang = (
-      qs.get("lang") ||
-      defaultLang ||
-      attrLang ||
-      "en"
-    ).toLowerCase();
+    let pathLang = "";
+    if (path.includes("/sv/")) {
+      pathLang = "sv";
+    } else if (path.includes("/sr/") || path.includes("/rs/")) {
+      pathLang = "sr";
+    }
 
+    const activeLang = (queryLang || attrLang || pathLang || "en").toLowerCase();
     const bust = Date.now();
 
     // --- Prepare layout ---
