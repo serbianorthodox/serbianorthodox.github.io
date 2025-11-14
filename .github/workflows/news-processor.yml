@@ -42,24 +42,55 @@ jobs:
           TITLE_TRIMMED="$(printf '%s' "$RAW_TITLE" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
           LANG="en"
           TITLE_NO_PREFIX="$TITLE_TRIMMED"
+
+          # Legacy title prefixes: SV: / SR:
           if [[ "$TITLE_TRIMMED" =~ ^SV:[[:space:]]*(.*)$ ]]; then
             LANG="sv"; TITLE_NO_PREFIX="${BASH_REMATCH[1]}"
           elif [[ "$TITLE_TRIMMED" =~ ^SR:[[:space:]]*(.*)$ ]]; then
             LANG="sr"; TITLE_NO_PREFIX="${BASH_REMATCH[1]}"
           fi
 
-          # Try to read language from issue body "### Language" section (en/sv/sr)
+          # Try to read language from issue body "### Language" section (en/sv/sr),
+          # tolerate lines like "sv", "Language: sv", "Språk: sv", "- sv"
           BODY_LANG="$(printf '%s\n' "$RAW_BODY" | awk '
             BEGIN { seen=0 }
-            tolower($0) ~ /^###[[:space:]]*language[[:space:]]*$/ { seen=1; next }
+            tolower($0) ~ /^###[[:space:]]*language[[:space:]]*$/ {
+              seen=1
+              next
+            }
             seen==1 {
-              gsub(/^[[:space:]]+|[[:space:]]+$/,"",$0);
-              print tolower($0);
-              exit
+              # stop if we hit the next heading without finding anything
+              if ($0 ~ /^###[[:space:]]*/) exit
+              line=$0
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", line)
+              low=tolower(line)
+              if (match(low, /\b(en|sv|sr)\b/, m)) {
+                print m[1]
+                exit
+              }
             }
           ')"
+
           if [[ "$BODY_LANG" == "en" || "$BODY_LANG" == "sv" || "$BODY_LANG" == "sr" ]]; then
             LANG="$BODY_LANG"
+          fi
+
+          # Extract only the "### Body" section as the news body
+          CLEAN_BODY="$(printf '%s\n' "$RAW_BODY" | awk '
+            BEGIN { in_section=0 }
+            tolower($0) ~ /^###[[:space:]]*body[[:space:]]*$/ {
+              in_section=1
+              next
+            }
+            /^###[[:space:]]*/ {
+              if (in_section==1) exit
+            }
+            in_section==1 { print }
+          ')"
+
+          # Fallback if no dedicated body section was found
+          if [[ -z "$CLEAN_BODY" ]]; then
+            CLEAN_BODY="$RAW_BODY"
           fi
 
           TITLE_NO_PREFIX="$(printf '%s' "$TITLE_NO_PREFIX" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
@@ -86,7 +117,7 @@ jobs:
 
           {
             echo "TITLE<<EOF"; echo "$TITLE_NO_PREFIX"; echo "EOF"
-            echo "BODY<<EOF"; echo "$RAW_BODY"; echo "EOF"
+            echo "BODY<<EOF"; echo "$CLEAN_BODY"; echo "EOF"
             echo "LANG=$LANG"
             echo "DATE=$DATE"
             echo "SLUG=$SLUG"
