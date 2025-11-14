@@ -45,16 +45,38 @@
     const index = await idxRes.json();
     if (!Array.isArray(index) || index.length === 0) return;
 
-    // pick latest entry for activeLang, else EN, else first
+    // pick latest entry for activeLang; if none, show a simple "missing" message, no fallback
     const langMatches = index.filter((item) => item.lang === activeLang);
-    let latest = langMatches[0];
+    const latest = langMatches[0];
 
-    if (!latest) {
-      const enMatches = index.filter((item) => item.lang === "en");
-      latest = enMatches[0] || index[0];
+    if (!latest || !latest.i18nPath) {
+      const messages = {
+        sv: {
+          title: "Artikel saknas på svenska",
+          body: "Denna artikel är ännu inte tillgänglig på svenska. Vänligen titta in igen senare."
+        },
+        en: {
+          title: "Article not yet available in English",
+          body: "This article is not yet available in English. Please check back later."
+        },
+        sr: {
+          title: "Текст још није доступан",
+          body: "Овај текст још није доступан на изабраном језику. Молимо свратите поново касније."
+        }
+      };
+
+      const msg = messages[activeLang] || messages.en;
+
+      root.innerHTML = `
+        <article class="card my-3">
+          <div class="card-body">
+            <h2 class="h5 my-2">${msg.title}</h2>
+            <p>${msg.body}</p>
+          </div>
+        </article>
+      `;
+      return;
     }
-
-    if (!latest || !latest.i18nPath) return;
 
     // --- Load post JSON directly from i18nPath (already includes .lang.json) ---
     const postRes = await fetch(`${latest.i18nPath}?v=${bust}`, { cache: "no-store" });
