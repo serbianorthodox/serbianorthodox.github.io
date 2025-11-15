@@ -1,0 +1,8 @@
+{
+  "title": "Testing image replacement",
+  "body": "This is the body of the article....   ![Image](https://github.com/user-attachments/assets/ce033993-df61-4edb-9150-2e653997d469)\n\nLine 2: blah blah blah\nLine 3 : more blah blah blah,,,\nLook where the picture is on the right side of the text? ",
+  "date": "2025-11-15",
+  "lang": "en",
+  "slug": "testing-image-replacement",
+  "i18nPath": "i18n/news/2025/11/2025-11-15-testing-image-replacement.en.json"
+}
