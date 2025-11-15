@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
   issues: read
 
 env:
@@ -138,12 +137,6 @@ jobs:
           FILE_DIR="i18n/news/$YEAR/$MONTH"
           FILE_PATH="$FILE_DIR/$DATE-$SLUG.$LANG.json"
 
-          if [[ "${{ github.event_name }}" == "issues" ]]; then
-            BRANCH="news/$DATE-$SLUG-$LANG-issue-$ISSUE_NUMBER"
-          else
-            BRANCH="news/$DATE-$SLUG-$LANG-run-$GITHUB_RUN_ID"
-          fi
-
           {
             echo "TITLE<<EOF"; echo "$TITLE_TRIMMED"; echo "EOF"
             echo "BODY<<EOF"; echo "$CLEAN_BODY"; echo "EOF"
@@ -152,7 +145,6 @@ jobs:
             echo "SLUG=$SLUG"
             echo "FILE_DIR=$FILE_DIR"
             echo "FILE_PATH=$FILE_PATH"
-            echo "BRANCH=$BRANCH"
             echo "ISSUE_NUMBER=$ISSUE_NUMBER"
           } >> "$GITHUB_OUTPUT"
 
@@ -176,24 +168,16 @@ jobs:
             '{title:$title, body:$body, date:$date, lang:$lang, slug:$slug, i18nPath:$i18nPath}' \
             > "${{ steps.vars.outputs.FILE_PATH }}"
 
-      - name: Commit branch
+      - name: Commit and push directly to main
         shell: bash
         run: |
           set -euo pipefail
-          git checkout -b "${{ steps.vars.outputs.BRANCH }}" || git switch "${{ steps.vars.outputs.BRANCH }}"
+
+          git status
+
           git add "${{ steps.vars.outputs.FILE_PATH }}"
-          git commit -m "news(${{ steps.vars.outputs.LANG }}): ${{ steps.vars.outputs.DATE }} ${{ steps.vars.outputs.SLUG }}" -m "${{ steps.vars.outputs.TITLE }}"
 
-      - name: Push
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: git push -u origin "${{ steps.vars.outputs.BRANCH }}"
+          git commit -m "news(${{ steps.vars.outputs.LANG }}): ${{ steps.vars.outputs.DATE }} ${{ steps.vars.outputs.SLUG }}" \
+                      -m "${{ steps.vars.outputs.TITLE }}"
 
-      - name: Open PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          PR_TITLE="[news:${{ steps.vars.outputs.LANG }}] ${{ steps.vars.outputs.DATE }} ${{ steps.vars.outputs.TITLE }}"
-          PR_BODY="Auto-generated from issue #${{ steps.vars.outputs.ISSUE_NUMBER }}.\n\n- lang: \`${{ steps.vars.outputs.LANG }}\`\n- date: \`${{ steps.vars.outputs.DATE }}\`\n- slug: \`${{ steps.vars.outputs.SLUG }}\`\n- file: \`${{ steps.vars.outputs.FILE_PATH }}\`"
-          gh pr create --base main --head "${{ steps.vars.outputs.BRANCH }}" --title "$PR_TITLE" --body "$PR_BODY"
+          git push origin HEAD:main
