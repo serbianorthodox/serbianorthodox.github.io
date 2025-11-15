@@ -1,0 +1,8 @@
+{
+  "title": "Testing re-Indexing",
+  "body": "testing ./scripts/rebuild-news-index.sh works fine\n\n![Image](https://github.com/user-attachments/assets/c1274c75-e1dd-4ee9-a535-30f71bc1d4f2)",
+  "date": "2024-11-01",
+  "lang": "sv",
+  "slug": "testing-re-indexing",
+  "i18nPath": "i18n/news/2024/11/2024-11-01-testing-re-indexing.sv.json"
+}
