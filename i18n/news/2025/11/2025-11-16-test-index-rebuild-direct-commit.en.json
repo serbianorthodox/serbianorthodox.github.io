@@ -1,0 +1,8 @@
+{
+  "title": "Test: index rebuild direct commit",
+  "body": "This is a test post to verify that the index is rebuilt with a direct commit and no extra PRs are created.",
+  "date": "2025-11-16",
+  "lang": "en",
+  "slug": "test-index-rebuild-direct-commit",
+  "i18nPath": "i18n/news/2025/11/2025-11-16-test-index-rebuild-direct-commit.en.json"
+}
