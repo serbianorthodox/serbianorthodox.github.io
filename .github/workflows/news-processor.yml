@@ -39,13 +39,16 @@ jobs:
             ISSUE_NUMBER="${{ github.run_id }}"
           fi
 
-          # --- Title (no prefixes, just trimmed) ---
+          # --- Title (trimmed, no prefixes) ---
           TITLE_TRIMMED="$(printf '%s' "$RAW_TITLE" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
-          [[ -z "$TITLE_TRIMMED" ]] && { echo "ERROR: Empty title." >&2; exit 1; }
+          if [[ -z "$TITLE_TRIMMED" ]]; then
+            echo "ERROR: Empty title." >&2
+            exit 1
+          fi
 
-          # --- Language: must come from issue form field id: language ---
-          # Contract: the form body contains a block like:
-          #   <!-- language -->
+          # --- Language: must come from '### Language' section ---
+          # Contract: issue body contains:
+          #   ### Language
           #   sv
           # or en/sr on the next non-empty line.
           BODY_LANG="$(printf '%s\n' "$RAW_BODY" | awk '
@@ -54,23 +57,21 @@ jobs:
               line = $0
               low  = tolower(line)
 
-              if (mode == 0 && low ~ /<!--[[:space:]]*language[[:space:]]*-->/) {
+              if (mode == 0 && low ~ /^###[[:space:]]*language[[:space:]]*$/) {
                 mode = 1
                 next
               }
 
               if (mode == 1) {
-                # next non-empty line after the marker is the value
                 gsub(/^[[:space:]]+|[[:space:]]+$/, "", line)
                 if (line == "") next
                 ll = tolower(line)
                 if (ll == "en" || ll == "sv" || ll == "sr") {
                   print ll
-                  exit
                 } else {
                   print "INVALID:" ll
-                  exit
                 }
+                exit
               }
             }
           ')"
@@ -80,22 +81,22 @@ jobs:
               LANG="$BODY_LANG"
               ;;
             INVALID:*)
-              echo "ERROR: Invalid language value in issue form: '$BODY_LANG'." >&2
+              echo "ERROR: Invalid language value from '### Language' section: '$BODY_LANG'." >&2
               exit 1
               ;;
             *)
-              echo "ERROR: Could not detect language from issue body (no <!-- language --> marker or no en/sv/sr value after it)." >&2
+              echo "ERROR: Could not detect language from issue body. Expected a '### Language' heading and a value en/sv/sr on the next non-empty line." >&2
               exit 1
               ;;
           esac
 
           # --- Body: must come from the '### Body' section ---
-          # Contract: issue template defines a section:
+          # Contract: issue template defines:
           #   ### Body
           #   <article text...>
-          # until the next ### heading or end of body.
+          # until next ### heading or end.
           CLEAN_BODY="$(printf '%s\n' "$RAW_BODY" | awk '
-            BEGIN { in_section=0; found_any=0 }
+            BEGIN { in_section=0 }
             {
               line = $0
               low  = tolower(line)
@@ -106,17 +107,10 @@ jobs:
               }
 
               if (in_section == 1) {
-                # stop at the next heading starting with ###
                 if (low ~ /^###[[:space:]]*/) {
                   exit
                 }
-                found_any=1
                 print line
-              }
-            }
-            END {
-              if (in_section == 0) {
-                # no Body heading at all; CLEAN_BODY will be empty -> we handle in shell
               }
             }
           ')"
@@ -125,16 +119,16 @@ jobs:
           CLEAN_BODY="$(printf '%s\n' "$CLEAN_BODY" | sed -E ':a;/^[[:space:]]*$/{$d;N;ba;}' | sed -E '1{/^[[:space:]]*$/d;}')"
 
           if [[ -z "$CLEAN_BODY" ]]; then
-            echo "ERROR: Could not extract news body from issue (no '### Body' section or it is empty)." >&2
+            echo "ERROR: Could not extract news body from issue. Expected a non-empty '### Body' section." >&2
             exit 1
           fi
 
-          # --- Date: use server date in Europe/Stockholm ---
+          # --- Date: server date in Europe/Stockholm ---
           DATE="$(TZ="${TZ:-Europe/Stockholm}" date +%F)"
           YEAR="${DATE%%-*}"
           MONTH="$(printf '%s' "$DATE" | cut -d- -f2)"
 
-          # --- Slug: derived mechanically from title, ASCII only ---
+          # --- Slug: mechanical ASCII slug from title ---
           SLUG="$(printf '%s' "$TITLE_TRIMMED" \
             | tr '[:upper:]' '[:lower:]' \
             | sed -E 's/[åä]/a/g;s/ö/o/g;s/č/c/g;s/ć/c/g;s/š/s/g;s/ž/z/g' \
