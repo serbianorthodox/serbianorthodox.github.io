@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
   issues: read
 
 env:
@@ -46,10 +47,6 @@ jobs:
           fi
 
           # --- Language: must come from '### Language' section ---
-          # Contract: issue body contains:
-          #   ### Language
-          #   sv
-          # or en/sr on the next non-empty line.
           BODY_LANG="$(printf '%s\n' "$RAW_BODY" | awk '
             BEGIN { mode=0 }
             {
@@ -89,11 +86,7 @@ jobs:
               ;;
           esac
 
-          # --- Body: must come from the '### Body' section ---
-          # Contract: issue template defines:
-          #   ### Body
-          #   <article text...>
-          # until next ### heading or end.
+          # --- Body: from '### Body' section ---
           CLEAN_BODY="$(printf '%s\n' "$RAW_BODY" | awk '
             BEGIN { in_section=0 }
             {
@@ -114,7 +107,6 @@ jobs:
             }
           ')"
 
-          # Trim leading/trailing empty lines in CLEAN_BODY
           CLEAN_BODY="$(printf '%s\n' "$CLEAN_BODY" | sed -E ':a;/^[[:space:]]*$/{$d;N;ba;}' | sed -E '1{/^[[:space:]]*$/d;}')"
 
           if [[ -z "$CLEAN_BODY" ]]; then
@@ -122,12 +114,12 @@ jobs:
             exit 1
           fi
 
-          # --- Date: server date in Europe/Stockholm ---
+          # --- Date ---
           DATE="$(TZ="${TZ:-Europe/Stockholm}" date +%F)"
           YEAR="${DATE%%-*}"
           MONTH="$(printf '%s' "$DATE" | cut -d- -f2)"
 
-          # --- Slug: mechanical ASCII slug from title ---
+          # --- Slug ---
           SLUG="$(printf '%s' "$TITLE_TRIMMED" \
             | tr '[:upper:]' '[:lower:]' \
             | sed -E 's/[åä]/a/g;s/ö/o/g;s/č/c/g;s/ć/c/g;s/š/s/g;s/ž/z/g' \
@@ -137,6 +129,12 @@ jobs:
           FILE_DIR="i18n/news/$YEAR/$MONTH"
           FILE_PATH="$FILE_DIR/$DATE-$SLUG.$LANG.json"
 
+          if [[ "${{ github.event_name }}" == "issues" ]]; then
+            BRANCH="news/$DATE-$SLUG-$LANG-issue-$ISSUE_NUMBER"
+          else
+            BRANCH="news/$DATE-$SLUG-$LANG-run-$GITHUB_RUN_ID"
+          fi
+
           {
             echo "TITLE<<EOF"; echo "$TITLE_TRIMMED"; echo "EOF"
             echo "BODY<<EOF"; echo "$CLEAN_BODY"; echo "EOF"
@@ -145,6 +143,7 @@ jobs:
             echo "SLUG=$SLUG"
             echo "FILE_DIR=$FILE_DIR"
             echo "FILE_PATH=$FILE_PATH"
+            echo "BRANCH=$BRANCH"
             echo "ISSUE_NUMBER=$ISSUE_NUMBER"
           } >> "$GITHUB_OUTPUT"
 
@@ -168,16 +167,27 @@ jobs:
             '{title:$title, body:$body, date:$date, lang:$lang, slug:$slug, i18nPath:$i18nPath}' \
             > "${{ steps.vars.outputs.FILE_PATH }}"
 
-      - name: Commit and push directly to main
+      - name: Commit branch
         shell: bash
         run: |
           set -euo pipefail
-
-          git status
-
+          git checkout -b "${{ steps.vars.outputs.BRANCH }}" || git switch "${{ steps.vars.outputs.BRANCH }}"
           git add "${{ steps.vars.outputs.FILE_PATH }}"
-
           git commit -m "news(${{ steps.vars.outputs.LANG }}): ${{ steps.vars.outputs.DATE }} ${{ steps.vars.outputs.SLUG }}" \
                       -m "${{ steps.vars.outputs.TITLE }}"
 
-          git push origin HEAD:main
+      - name: Push branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git push -u origin "${{ steps.vars.outputs.BRANCH }}"
+
+      - name: Open PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          PR_TITLE="[news:${{ steps.vars.outputs.LANG }}] ${{ steps.vars.outputs.DATE }} ${{ steps.vars.outputs.TITLE }}"
+          PR_BODY="Auto-generated from issue #${{ steps.vars.outputs.ISSUE_NUMBER }}.\n\n- lang: \`${{ steps.vars.outputs.LANG }}\`\n- date: \`${{ steps.vars.outputs.DATE }}\`\n- slug: \`${{ steps.vars.outputs.SLUG }}\`\n- file: \`${{ steps.vars.outputs.FILE_PATH }}\`"
+          gh pr create --base main --head "${{ steps.vars.outputs.BRANCH }}" --title "$PR_TITLE" --body "$PR_BODY"
