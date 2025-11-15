@@ -23,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Derive inputs
+      - name: Derive inputs from issue
         id: vars
         shell: bash
         run: |
@@ -39,59 +39,103 @@ jobs:
             ISSUE_NUMBER="${{ github.run_id }}"
           fi
 
-          # Trim title
+          # --- Title (no prefixes, just trimmed) ---
           TITLE_TRIMMED="$(printf '%s' "$RAW_TITLE" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
+          [[ -z "$TITLE_TRIMMED" ]] && { echo "ERROR: Empty title." >&2; exit 1; }
 
-          # Default language if we somehow can't detect it
-          LANG="en"
-
-          # Read language from issue form: look for the field id "language"
-          # GitHub renders it as:
+          # --- Language: must come from issue form field id: language ---
+          # Contract: the form body contains a block like:
           #   <!-- language -->
           #   sv
+          # or en/sr on the next non-empty line.
           BODY_LANG="$(printf '%s\n' "$RAW_BODY" | awk '
-            /<!--[[:space:]]*language[[:space:]]*-->/ {
-              if (getline line) {
-                gsub(/^[[:space:]]+|[[:space:]]+$/,"",line);
-                print tolower(line);
+            BEGIN { mode=0 }
+            {
+              line = $0
+              low  = tolower(line)
+
+              if (mode == 0 && low ~ /<!--[[:space:]]*language[[:space:]]*-->/) {
+                mode = 1
+                next
               }
-              exit;
+
+              if (mode == 1) {
+                # next non-empty line after the marker is the value
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", line)
+                if (line == "") next
+                ll = tolower(line)
+                if (ll == "en" || ll == "sv" || ll == "sr") {
+                  print ll
+                  exit
+                } else {
+                  print "INVALID:" ll
+                  exit
+                }
+              }
             }
           ')"
 
-          if [[ "$BODY_LANG" == "en" || "$BODY_LANG" == "sv" || "$BODY_LANG" == "sr" ]]; then
-            LANG="$BODY_LANG"
-          fi
+          case "$BODY_LANG" in
+            en|sv|sr)
+              LANG="$BODY_LANG"
+              ;;
+            INVALID:*)
+              echo "ERROR: Invalid language value in issue form: '$BODY_LANG'." >&2
+              exit 1
+              ;;
+            *)
+              echo "ERROR: Could not detect language from issue body (no <!-- language --> marker or no en/sv/sr value after it)." >&2
+              exit 1
+              ;;
+          esac
 
-          # Extract only the "### Body" section as the news body
+          # --- Body: must come from the '### Body' section ---
+          # Contract: issue template defines a section:
+          #   ### Body
+          #   <article text...>
+          # until the next ### heading or end of body.
           CLEAN_BODY="$(printf '%s\n' "$RAW_BODY" | awk '
-            BEGIN { in_section=0 }
-            tolower($0) ~ /^###[[:space:]]*body[[:space:]]*$/ {
-              in_section=1
-              next
+            BEGIN { in_section=0; found_any=0 }
+            {
+              line = $0
+              low  = tolower(line)
+
+              if (in_section == 0 && low ~ /^###[[:space:]]*body[[:space:]]*$/) {
+                in_section = 1
+                next
+              }
+
+              if (in_section == 1) {
+                # stop at the next heading starting with ###
+                if (low ~ /^###[[:space:]]*/) {
+                  exit
+                }
+                found_any=1
+                print line
+              }
             }
-            /^###[[:space:]]*/ {
-              if (in_section==1) exit
+            END {
+              if (in_section == 0) {
+                # no Body heading at all; CLEAN_BODY will be empty -> we handle in shell
+              }
             }
-            in_section==1 { print }
           ')"
 
           # Trim leading/trailing empty lines in CLEAN_BODY
           CLEAN_BODY="$(printf '%s\n' "$CLEAN_BODY" | sed -E ':a;/^[[:space:]]*$/{$d;N;ba;}' | sed -E '1{/^[[:space:]]*$/d;}')"
 
-          # Fallback if no dedicated body section was found
           if [[ -z "$CLEAN_BODY" ]]; then
-            CLEAN_BODY="$RAW_BODY"
+            echo "ERROR: Could not extract news body from issue (no '### Body' section or it is empty)." >&2
+            exit 1
           fi
 
-          TITLE_NO_PREFIX="$TITLE_TRIMMED"
-          [[ -z "$TITLE_NO_PREFIX" ]] && { echo "Empty title" >&2; exit 1; }
-
+          # --- Date: use server date in Europe/Stockholm ---
           DATE="$(TZ="${TZ:-Europe/Stockholm}" date +%F)"
           YEAR="${DATE%%-*}"
           MONTH="$(printf '%s' "$DATE" | cut -d- -f2)"
 
-          SLUG="$(printf '%s' "$TITLE_NO_PREFIX" \
+          # --- Slug: derived mechanically from title, ASCII only ---
+          SLUG="$(printf '%s' "$TITLE_TRIMMED" \
             | tr '[:upper:]' '[:lower:]' \
             | sed -E 's/[åä]/a/g;s/ö/o/g;s/č/c/g;s/ć/c/g;s/š/s/g;s/ž/z/g' \
             | sed -E 's/[^a-z0-9]+/-/g;s/-+/-/g;s/^-|-$//g')"
@@ -107,7 +151,7 @@ jobs:
           fi
 
           {
-            echo "TITLE<<EOF"; echo "$TITLE_NO_PREFIX"; echo "EOF"
+            echo "TITLE<<EOF"; echo "$TITLE_TRIMMED"; echo "EOF"
             echo "BODY<<EOF"; echo "$CLEAN_BODY"; echo "EOF"
             echo "LANG=$LANG"
             echo "DATE=$DATE"
