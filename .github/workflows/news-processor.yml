@@ -34,40 +34,28 @@ jobs:
             RAW_BODY="${{ github.event.issue.body }}"
             ISSUE_NUMBER="${{ github.event.issue.number }}"
           else
-            RAW_TITLE="EN: Manual test"
+            RAW_TITLE="Manual test"
             RAW_BODY="Body entered via workflow_dispatch."
             ISSUE_NUMBER="${{ github.run_id }}"
           fi
 
+          # Trim title
           TITLE_TRIMMED="$(printf '%s' "$RAW_TITLE" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
+
+          # Default language if we somehow can't detect it
           LANG="en"
-          TITLE_NO_PREFIX="$TITLE_TRIMMED"
 
-          # Legacy title prefixes: SV: / SR:
-          if [[ "$TITLE_TRIMMED" =~ ^SV:[[:space:]]*(.*)$ ]]; then
-            LANG="sv"; TITLE_NO_PREFIX="${BASH_REMATCH[1]}"
-          elif [[ "$TITLE_TRIMMED" =~ ^SR:[[:space:]]*(.*)$ ]]; then
-            LANG="sr"; TITLE_NO_PREFIX="${BASH_REMATCH[1]}"
-          fi
-
-          # Try to read language from issue body "### Language" section (en/sv/sr),
-          # tolerate lines like "sv", "Language: sv", "Språk: sv", "- sv"
+          # Read language from issue form: look for the field id "language"
+          # GitHub renders it as:
+          #   <!-- language -->
+          #   sv
           BODY_LANG="$(printf '%s\n' "$RAW_BODY" | awk '
-            BEGIN { seen=0 }
-            tolower($0) ~ /^###[[:space:]]*language[[:space:]]*$/ {
-              seen=1
-              next
-            }
-            seen==1 {
-              # stop if we hit the next heading without finding anything
-              if ($0 ~ /^###[[:space:]]*/) exit
-              line=$0
-              gsub(/^[[:space:]]+|[[:space:]]+$/, "", line)
-              low=tolower(line)
-              if (match(low, /\b(en|sv|sr)\b/, m)) {
-                print m[1]
-                exit
+            /<!--[[:space:]]*language[[:space:]]*-->/ {
+              if (getline line) {
+                gsub(/^[[:space:]]+|[[:space:]]+$/,"",line);
+                print tolower(line);
               }
+              exit;
             }
           ')"
 
@@ -88,13 +76,16 @@ jobs:
             in_section==1 { print }
           ')"
 
+          # Trim leading/trailing empty lines in CLEAN_BODY
+          CLEAN_BODY="$(printf '%s\n' "$CLEAN_BODY" | sed -E ':a;/^[[:space:]]*$/{$d;N;ba;}' | sed -E '1{/^[[:space:]]*$/d;}')"
+
           # Fallback if no dedicated body section was found
           if [[ -z "$CLEAN_BODY" ]]; then
             CLEAN_BODY="$RAW_BODY"
           fi
 
-          TITLE_NO_PREFIX="$(printf '%s' "$TITLE_NO_PREFIX" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
-          [[ -z "$TITLE_NO_PREFIX" ]] && { echo "Empty title after prefix strip" >&2; exit 1; }
+          TITLE_NO_PREFIX="$TITLE_TRIMMED"
+          [[ -z "$TITLE_NO_PREFIX" ]] && { echo "Empty title" >&2; exit 1; }
 
           DATE="$(TZ="${TZ:-Europe/Stockholm}" date +%F)"
           YEAR="${DATE%%-*}"
