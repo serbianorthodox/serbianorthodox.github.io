@@ -216,12 +216,3 @@ jobs:
         run: |
           set -euo pipefail
           git push -u origin "${{ steps.vars.outputs.BRANCH }}"
-
-      - name: Open PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          PR_TITLE="[news:${{ steps.vars.outputs.LANG }}] ${{ steps.vars.outputs.DATE }} ${{ steps.vars.outputs.TITLE }}"
-          PR_BODY="Auto-generated from issue #${{ steps.vars.outputs.ISSUE_NUMBER }}.\n\n- lang: \`${{ steps.vars.outputs.LANG }}\`\n- date: \`${{ steps.vars.outputs.DATE }}\`\n- slug: \`${{ steps.vars.outputs.SLUG }}\`\n- file: \`${{ steps.vars.outputs.FILE_PATH }}\`"
-          gh pr create --base main --head "${{ steps.vars.outputs.BRANCH }}" --title "$PR_TITLE" --body "$PR_BODY"
