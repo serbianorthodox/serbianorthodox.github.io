@@ -2,15 +2,16 @@ name: News Index Rebuilder
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   rebuild-index:
+    # Avoid infinite loops: skip runs triggered by the bot itself
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,13 +24,16 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p data/news
+
           tmp="$(mktemp)"
           files=$(find i18n/news -type f -name "*.json" | sort || true)
+
           if [[ -z "${files}" ]]; then
             echo "[]" > "$tmp"
           else
             jq -s 'flatten | sort_by(.date) | reverse' ${files} > "$tmp"
           fi
+
           if ! cmp -s "$tmp" data/news/index.json 2>/dev/null; then
             mv "$tmp" data/news/index.json
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -37,18 +41,19 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Commit to a branch and open PR
+      - name: Configure git
         if: steps.build.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
-          BR="ci/index-rebuild-${GITHUB_RUN_ID}"
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "$BR"
+
+      - name: Commit and push updated index.json
+        if: steps.build.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
           git add data/news/index.json
-          git commit -m "ci(news): rebuild index.json"
-          git push -u origin "$BR"
-          gh pr create --base main --head "$BR" --title "ci(news): rebuild index.json" --body "Automated rebuild from all i18n/news/*.json"
+          git commit -m "ci(news): rebuild index.json" || exit 0
+          git push origin HEAD:${GITHUB_REF_NAME}
