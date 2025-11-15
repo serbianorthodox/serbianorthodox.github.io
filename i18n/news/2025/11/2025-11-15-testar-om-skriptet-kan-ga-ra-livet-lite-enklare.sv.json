@@ -1,0 +1,8 @@
+{
+  "title": "Testar om skriptet kan göra livet lite enklare",
+  "body": "Kolla om något händer in repo, typ en ny ändring som skulle behöva git add/commit/....\nKör skriptet och se om den fixa automagisk\n\n![Image](https://github.com/user-attachments/assets/f2a1e642-a9eb-4072-a7db-3fea9e02e5bd)",
+  "date": "2025-11-15",
+  "lang": "sv",
+  "slug": "testar-om-skriptet-kan-ga-ra-livet-lite-enklare",
+  "i18nPath": "i18n/news/2025/11/2025-11-15-testar-om-skriptet-kan-ga-ra-livet-lite-enklare.sv.json"
+}
