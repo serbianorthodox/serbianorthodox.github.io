@@ -46,6 +46,45 @@ jobs:
             exit 1
           fi
 
+          # --- Date: from '### Date' section (dd-mm-yyyy) or fallback to today ---
+          DATE_RAW="$(printf '%s\n' "$RAW_BODY" | awk '
+            BEGIN { mode=0 }
+            {
+              line = $0
+              low  = tolower(line)
+
+              if (mode == 0 && low ~ /^###[[:space:]]*date[[:space:]]*$/) {
+                mode = 1
+                next
+              }
+
+              if (mode == 1) {
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "", line)
+                if (line == "") next
+                print line
+                exit
+              }
+            }
+          ')"
+
+          if [[ -n "$DATE_RAW" ]]; then
+            # Expect dd-mm-yyyy from the editor
+            if [[ "$DATE_RAW" =~ ^([0-3][0-9])-([0-1][0-9])-([0-9]{4})$ ]]; then
+              DAY="${BASH_REMATCH[1]}"
+              MONTH="${BASH_REMATCH[2]}"
+              YEAR="${BASH_REMATCH[3]}"
+              DATE="${YEAR}-${MONTH}-${DAY}"
+            else
+              echo "WARNING: Invalid date '$DATE_RAW', falling back to today." >&2
+              DATE="$(TZ="${TZ:-Europe/Stockholm}" date +%F)"
+            fi
+          else
+            DATE="$(TZ="${TZ:-Europe/Stockholm}" date +%F)"
+          fi
+
+          YEAR="${DATE%%-*}"
+          MONTH="$(printf '%s' "$DATE" | cut -d- -f2)"
+
           # --- Language: must come from '### Language' section ---
           BODY_LANG="$(printf '%s\n' "$RAW_BODY" | awk '
             BEGIN { mode=0 }
@@ -114,11 +153,6 @@ jobs:
             exit 1
           fi
 
-          # --- Date ---
-          DATE="$(TZ="${TZ:-Europe/Stockholm}" date +%F)"
-          YEAR="${DATE%%-*}"
-          MONTH="$(printf '%s' "$DATE" | cut -d- -f2)"
-
           # --- Slug ---
           SLUG="$(printf '%s' "$TITLE_TRIMMED" \
             | tr '[:upper:]' '[:lower:]' \
@@ -182,12 +216,3 @@ jobs:
         run: |
           set -euo pipefail
           git push -u origin "${{ steps.vars.outputs.BRANCH }}"
-
-      - name: Open PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          PR_TITLE="[news:${{ steps.vars.outputs.LANG }}] ${{ steps.vars.outputs.DATE }} ${{ steps.vars.outputs.TITLE }}"
-          PR_BODY="Auto-generated from issue #${{ steps.vars.outputs.ISSUE_NUMBER }}.\n\n- lang: \`${{ steps.vars.outputs.LANG }}\`\n- date: \`${{ steps.vars.outputs.DATE }}\`\n- slug: \`${{ steps.vars.outputs.SLUG }}\`\n- file: \`${{ steps.vars.outputs.FILE_PATH }}\`"
-          gh pr create --base main --head "${{ steps.vars.outputs.BRANCH }}" --title "$PR_TITLE" --body "$PR_BODY"
