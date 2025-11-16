@@ -7,8 +7,8 @@ body:
     id: date
     attributes:
       label: "Date"
-      description: "Optional. dd-mm-yyyy (leave empty to use today)."
-      placeholder: "08-11-2025"
+      description: "Format: dd-mm-yyyy (e.g. 29-08-2025)"
+      placeholder: "dd-mm-yyyy"
   - type: dropdown
     id: language
     attributes:
