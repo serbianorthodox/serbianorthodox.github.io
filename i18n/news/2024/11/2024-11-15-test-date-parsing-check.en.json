@@ -1,8 +1,0 @@
-{
-  "title": "Test: Date Parsing Check",
-  "body": "This is a test post to verify that the system uses the manually entered date instead of today's date.",
-  "date": "2024-11-15",
-  "lang": "en",
-  "slug": "test-date-parsing-check",
-  "i18nPath": "i18n/news/2024/11/2024-11-15-test-date-parsing-check.en.json"
-}
